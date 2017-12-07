@@ -7,6 +7,7 @@
 //
 
 #import "LobbyTableViewController.h"
+#import "TournamentViewController.h"
 
 @interface LobbyTableViewController ()
 
@@ -17,11 +18,40 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+//    UIBarButtonItem *flipButton = [[UIBarButtonItem alloc]
+//                                   initWithTitle:@"Exit"
+//                                   style:UIBarButtonItemStyleBordered
+//                                   target:self
+//                                   action:@selector(flipView:)];
+//    self.navigationItem.rightBarButtonItem = flipButton;
+    
+//    [self.view setBackgroundColor:[UIColor greenColor]];
+    
+    
+    self.title = [MCLocalization stringForKey:@"Trade"];
+    
+
+    
+//    UIBarButtonItem *rightRevealButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"reveal-icon.png"]
+//                                                                              style:UIBarButtonItemStylePlain target:revealController action:@selector(rightRevealToggle:)];
+//
+//    self.navigationItem.rightBarButtonItem = rightRevealButtonItem;
+    
+    
+    
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+-(void)flipView:(id)sender
+{
+    NSLog(@"flip");
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,23 +63,36 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Incomplete implementation, return the number of sections
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete implementation, return the number of rows
-    return 0;
+    return 5;
 }
 
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *Cell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:nil];
+    if (Cell ==nil) {
+        Cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+    }
     
-    // Configure the cell...
+    [Cell.textLabel setText:@"tournament 1x1"];
     
-    return cell;
+    
+    
+    return Cell;
 }
-*/
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    TournamentViewController* controller= [[TournamentViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
+//    [self.navigationController popToViewController:controller animated:YES];
+//    [self.navigationController presentViewController:controller animated:YES completion:nil];
+}
+
 
 /*
 // Override to support conditional editing of the table view.

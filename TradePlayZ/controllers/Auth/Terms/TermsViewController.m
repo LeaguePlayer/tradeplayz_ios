@@ -17,6 +17,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.title = [MCLocalization stringForKey:@"terms"];
+    
+    UIBarButtonItem *revealButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Close"
+                                                                         style:UIBarButtonItemStylePlain target:self action:@selector(closeTerms:)];
+    //        self.navigationItem.leftBarButtonItem = revealButtonItem;
+    self.navigationController.navigationBar.topItem.leftBarButtonItem = revealButtonItem;
+}
+
+-(void)closeTerms:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {

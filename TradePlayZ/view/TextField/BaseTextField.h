@@ -10,4 +10,7 @@
 
 @interface BaseTextField : UITextField
 
+
+-(void)setPlaceHolderText:(NSString*)placeHolder;
+
 @end

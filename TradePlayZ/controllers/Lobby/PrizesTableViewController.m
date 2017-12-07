@@ -7,21 +7,77 @@
 //
 
 #import "PrizesTableViewController.h"
+#import "PrizeTableViewCell.h"
+#import "headerView.h"
 
 @interface PrizesTableViewController ()
-
+@property (strong, nonatomic) NSArray* prizesTableData;
 @end
+
+
+
+//cells
+static NSString* prizeCellIdentifier = @"prizeCell";
 
 @implementation PrizesTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    self.title = [MCLocalization stringForKey:@"table_prizes"];
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.separatorColor = [UIColor clearColor];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
+     [[[UIApplication sharedApplication] keyWindow] setBackgroundColor:[UIColor whiteColor]];
+    self.tableView.contentInset = UIEdgeInsetsMake(0, 40.f, 0, 0);
+   
+    
+    
+    headerView *tableHeaderView = [[headerView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-(40*2), 30)];
+    [tableHeaderView setColumns:@[
+                                  @{@"width":@80,
+                                    @"name":[MCLocalization stringForKey:@"place"]},
+
+                                  @{@"width":@20,
+                                    @"name":[MCLocalization stringForKey:@"prize_tpz"]},
+
+                                  ]];
+    
+    self.tableView.tableHeaderView = tableHeaderView;
+    
+    //set content
+    [self initData];
+    
+    // registerCell
+    [self registerCell];
+}
+
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    float width_table = SCREEN_WIDTH -  (40*2);
+     [self.tableView setContentSize:CGSizeMake(width_table, self.tableView.contentSize.height)];
+}
+
+
+-(void)initData
+{
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    for(int i = 1; i <= 100; i++)
+    {
+        int result = 15000-i;
+        [array addObject:@{@"place":[NSString stringWithFormat:@"%i",i],
+                           @"prize":[NSString stringWithFormat:@"%i",result]}];
+    }
+    self.prizesTableData = [array copy];
+}
+
+
+- (void)registerCell
+{
+    
+    [self.tableView registerClass:[PrizeTableViewCell class] forCellReuseIdentifier:prizeCellIdentifier];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,12 +89,40 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Incomplete implementation, return the number of sections
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete implementation, return the number of rows
-    return 0;
+    return [self.prizesTableData count];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 28.f;
+
+}
+
+
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    NSDictionary* dictionaryCell;
+    UITableViewCell* cellDef;
+    
+
+        dictionaryCell = [self.prizesTableData objectAtIndex:indexPath.row];
+        
+        PrizeTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:prizeCellIdentifier];
+        cell.placeLabel.text = [dictionaryCell objectForKey:@"place"];
+        cell.prizeLabel.text = [dictionaryCell objectForKey:@"prize"];
+        
+        cellDef = cell;
+    
+    
+    
+    
+    return cellDef;
 }
 
 /*

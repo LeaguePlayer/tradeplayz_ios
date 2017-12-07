@@ -6,8 +6,13 @@
 //  Copyright © 2017 Leonid Minderov. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "LobbyBaseTableViewController.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <Google/SignIn.h>
 
-@interface MenuTableViewController : UITableViewController
-
+@interface MenuTableViewController : LobbyBaseTableViewController
+{
+    BOOL builded_content;
+}
 @end

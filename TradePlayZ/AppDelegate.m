@@ -7,6 +7,9 @@
 //
 
 #import "AppDelegate.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <TwitterKit/TwitterKit.h>
+#import <GooglePlus/GooglePlus.h>
 
 @interface AppDelegate ()
 
@@ -14,9 +17,69 @@
 
 @implementation AppDelegate
 
+- (void)signIn:(GIDSignIn *)signIn
+didDisconnectWithUser:(GIDGoogleUser *)user
+     withError:(NSError *)error {
+    // Perform any operations when the user disconnects from app here.
+    // ...
+}
+
+
+
+
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+            options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    
+    
+    NSLog(@"%@",url);
+//    return [[GIDSignIn sharedInstance] handleURL:url
+//                               sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
+//                                      annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
+    
+     return [[Twitter sharedInstance] application:application openURL:url options:options];
+    
+    
+    
+//    BOOL handled = [[FBSDKApplicationDelegate sharedInstance] application:application
+//                                                                  openURL:url
+//                                                        sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
+//                                                               annotation:options[UIApplicationOpenURLOptionsAnnotationKey]
+//                    ];
+//    // Add any custom logic here.
+//    return handled;
+
+
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    _tpzUser = [[TPZUser alloc] init];
+    
+    NSError* configureError;
+    [[GGLContext sharedInstance] configureWithError: &configureError];
+    NSAssert(!configureError, @"Error configuring Google services: %@", configureError);
+    
+    
+    
+    
+     [[Twitter sharedInstance] startWithConsumerKey:@"3Myzp3iMvYM8HwiQOGKzQfDkx" consumerSecret:@"hg246cX16C6Ecsg3UI7JYqe0zAYxo0Ex9ZcbtCXj9U7nxIQBZK"];
+    
+    [[FBSDKApplicationDelegate sharedInstance] application:application
+                             didFinishLaunchingWithOptions:launchOptions];
+    
+    NSDictionary * languageURLPairs = @{
+                                        @"en":[[NSBundle mainBundle] URLForResource:@"en.json" withExtension:nil],
+                                        @"ru":[[NSBundle mainBundle] URLForResource:@"ru.json" withExtension:nil],
+                                        };
+    [MCLocalization loadFromLanguageURLPairs:languageURLPairs defaultLanguage:@"en"];
+    
+    [MCLocalization sharedInstance].noKeyPlaceholder = @"[No '{key}' in '{language}']";
+    
+     [MCLocalization sharedInstance].language = @"en";
+    
+    [self.window makeKeyAndVisible];
     return YES;
 }
 

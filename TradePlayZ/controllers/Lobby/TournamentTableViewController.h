@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LobbyBaseTableViewController.h"
 
-@interface TournamentTableViewController : UITableViewController
+
+@interface TournamentTableViewController : LobbyBaseTableViewController
 
 @end

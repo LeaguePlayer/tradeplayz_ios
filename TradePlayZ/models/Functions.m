@@ -41,6 +41,19 @@
 }
 
 
++(CGSize)getHeightLabelWithFont:(UILabel*)gotLabel andWidth:(float)gotWidth
+{
+    UIFont *cellFont = gotLabel.font;
+    CGSize constraintSize = CGSizeMake( gotWidth , MAXFLOAT);
+    
+    CGSize labelSize = [ gotLabel.text sizeWithFont:cellFont
+                                  constrainedToSize:constraintSize
+                                      lineBreakMode:UILineBreakModeWordWrap];
+    
+    return labelSize;
+}
+
+
 +(CGSize)getHeightTextWithoutLabel:(UIFont*)gotFont andWidthWillLabel:(float)widthFrame andString:(NSString*)gotText
 {
     UIFont *cellFont = gotFont;

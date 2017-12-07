@@ -6,8 +6,14 @@
 //  Copyright © 2017 Leonid Minderov. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "AuthBaseViewController.h"
+#import "BaseTextField.h"
+#import <Google/SignIn.h>
 
-@interface LoginViewController : UIViewController
+
+@interface LoginViewController : AuthBaseViewController <GIDSignInUIDelegate>
+
+@property(nonatomic,retain) BaseTextField* emailField;
+@property(nonatomic,retain) BaseTextField* passwordField;
 
 @end

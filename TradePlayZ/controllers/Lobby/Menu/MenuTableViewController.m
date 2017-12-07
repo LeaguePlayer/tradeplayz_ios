@@ -7,22 +7,55 @@
 //
 
 #import "MenuTableViewController.h"
+#import "ImageTitleMenuTableViewCell.h"
+#import "WelcomeMenuTableViewCell.h"
+#import "MailTableViewCell.h"
+#import "HistoryTradeTableViewController.h"
+#import "LobbyBaseNavigationController.h"
 
 @interface MenuTableViewController ()
-
+@property (strong, nonatomic) NSArray* tableData;
 @end
+
+//cells
+static NSString* welcomeAccountCellIdentifier = @"welcomeAccountCell";
+static NSString* imageWithTitleForMenuCellIdentifier = @"imageWithTitleForMenuCell";
+static NSString* mailCellIdentifier = @"mailCell";
+
+// actions
+static NSString* actionTrade = @"actionTrade";
+static NSString* actionTradeHistory = @"actionTradeHistory";
+static NSString* actionWithdraw = @"actionWithdraw";
+static NSString* actionLiveChat = @"actionLiveChat";
+static NSString* actionFAQ = @"actionFAQ";
+static NSString* actionTutorial = @"actionTutorial";
+static NSString* actionSettings = @"actionSettings";
+static NSString* actionLogout = @"actionLogout";
+
 
 @implementation MenuTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+     [self setNeedsStatusBarAppearanceUpdate];
+    self.tableView.separatorColor = [UIColor clearColor];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    builded_content = NO;
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.tableView.backgroundView = [[UIImageView alloc] initWithImage:
+                                     [UIImage imageNamed:@"bgmenu"]];
+   
+    
+    [self registerCell];
 }
+
+- (void)registerCell
+{
+    [self.tableView registerClass:[WelcomeMenuTableViewCell class] forCellReuseIdentifier:welcomeAccountCellIdentifier];
+    [self.tableView registerClass:[ImageTitleMenuTableViewCell class] forCellReuseIdentifier:imageWithTitleForMenuCellIdentifier];
+     [self.tableView registerClass:[MailTableViewCell class] forCellReuseIdentifier:mailCellIdentifier];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -33,23 +66,245 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Incomplete implementation, return the number of sections
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete implementation, return the number of rows
-    return 0;
+    return [self.tableData count];
 }
 
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+- (void)viewDidAppear:(BOOL)animated
+{
+   
+    [super viewDidAppear:animated];
     
-    // Configure the cell...
+    if(builded_content)
+        [self.authUser actualizeProfileOnSuccess:^(NSDictionary *data) {
+            [self initTableData];
+            [self.tableView reloadData];
+        } onFailure:^(NSString *error) {
+        }];
+    else
+    {
+        [self initTableData];
+        [self.tableView reloadData];
+        builded_content = YES;
+    }
     
-    return cell;
+    
+   
+    
+
 }
-*/
+
+
+
+- (void)initTableData
+{
+    self.tableData = @[@{@"type":welcomeAccountCellIdentifier,
+                         @"title":[self.authUser getFullName],
+                         @"country":@"Russia",
+                         @"balance":self.authUser.balance,
+                         @"rating":self.authUser.rating,
+                         @"avatar":self.authUser.img_avatar},
+                       
+                       @{@"type":imageWithTitleForMenuCellIdentifier,
+                         @"title":[MCLocalization stringForKey:@"Trade"],
+                         @"action":actionTrade,
+                         @"iconName":@"i_trade"},
+                       
+                       
+                       @{@"type":imageWithTitleForMenuCellIdentifier,
+                         @"title":[MCLocalization stringForKey:@"TradeHistory"],
+                         @"action":actionTradeHistory,
+                         @"iconName":@"i_history"},
+                       
+                       @{@"type":imageWithTitleForMenuCellIdentifier,
+                         @"title":[MCLocalization stringForKey:@"Withdraw"],
+                         @"action":actionWithdraw,
+                         @"iconName":@"i_withdraw"},
+                       
+                       
+                       @{@"type":imageWithTitleForMenuCellIdentifier,
+                         @"title":[MCLocalization stringForKey:@"Live chat"],
+                         @"action":actionLiveChat,
+                         @"iconName":@"i_chat"},
+                       
+                       @{@"type":imageWithTitleForMenuCellIdentifier,
+                         @"title":[MCLocalization stringForKey:@"FAQ"],
+                         @"action":actionFAQ,
+                         @"iconName":@"i_faq"},
+                       
+                       @{@"type":imageWithTitleForMenuCellIdentifier,
+                         @"title":[MCLocalization stringForKey:@"Tutorial"],
+                         @"action":actionTutorial,
+                         @"iconName":@"i_tutorial"},
+                       
+                       @{@"type":imageWithTitleForMenuCellIdentifier,
+                         @"title":[MCLocalization stringForKey:@"Settings"],
+                         @"action":actionSettings,
+                         @"iconName":@"i_settings"},
+                       
+                       @{@"type":imageWithTitleForMenuCellIdentifier,
+                         @"title":[MCLocalization stringForKey:@"log out"],
+                         @"action":actionLogout,
+                         @"iconName":@"i_logout"},
+                       
+                       @{@"type":mailCellIdentifier,
+                         @"title":[MCLocalization stringForKey:@"help mail"]},
+                       
+                    
+                       ];
+    
+    
+    
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSDictionary* dictionaryCell = [self.tableData objectAtIndex:indexPath.row];
+    if ([[dictionaryCell objectForKey:@"type"] isEqualToString:welcomeAccountCellIdentifier]) {
+        WelcomeMenuTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:welcomeAccountCellIdentifier];
+
+        CGSize added_size = [Functions getHeightTextWithoutLabel:cell.nameLabel.font andWidthWillLabel:cell.nameLabel.frame.size.width andString:[dictionaryCell objectForKey:@"title"]];
+        return 189.f + (added_size.height - 25.f);
+    } else if ([[dictionaryCell objectForKey:@"type"] isEqualToString:mailCellIdentifier]) {
+        return 60.f;
+    }
+    return 46.f;
+}
+
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+     NSDictionary* dictionaryCell = [self.tableData objectAtIndex:indexPath.row];
+    
+    UITableViewCell* cellDef;
+    
+
+    
+    
+    if ([[dictionaryCell objectForKey:@"type"] isEqualToString:welcomeAccountCellIdentifier]) {
+        WelcomeMenuTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:welcomeAccountCellIdentifier];
+        
+
+        NSLog(@"%@",[dictionaryCell objectForKey:@"avatar"]);
+        
+        if([[dictionaryCell objectForKey:@"avatar"] isKindOfClass:[NSNull class]])
+            [cell.avatarImageView setImage:[UIImage imageNamed:@"avatar"]];
+        else
+            [cell.avatarImageView setImageWithURL:[NSURL URLWithString:[dictionaryCell objectForKey:@"avatar"]] placeholderImage:[UIImage imageNamed:@"avatar"]];
+
+        
+        
+                [cell setName: [dictionaryCell objectForKey:@"title"] ];
+                [cell.countryLabel setText: [dictionaryCell objectForKey:@"country"] ];
+                [cell setBalance: [dictionaryCell objectForKey:@"balance"] ];
+                [cell.ratingPlace setText: [[dictionaryCell objectForKey:@"rating"] stringValue] ];
+        
+        
+        cellDef = cell;
+    }
+    else if ([[dictionaryCell objectForKey:@"type"] isEqualToString:imageWithTitleForMenuCellIdentifier]) {
+        
+        ImageTitleMenuTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:imageWithTitleForMenuCellIdentifier];
+
+         cell.textLabel.text = [dictionaryCell objectForKey:@"title"];
+        UIImage* iconMenu = [UIImage imageNamed: [dictionaryCell objectForKey:@"iconName"] ];
+        [cell.imageView setImage:iconMenu];
+        cellDef = cell;
+    }else if ([[dictionaryCell objectForKey:@"type"] isEqualToString:mailCellIdentifier]) {
+        MailTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:mailCellIdentifier];
+
+        cell.textLabel.text = [dictionaryCell objectForKey:@"title"];
+        cellDef = cell;
+    }
+    
+
+    
+    
+    return cellDef;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (!(indexPath.row == 0)) { // запретил реагирование на аватарку на левом меню
+//        UIWindow *window = UIApplication.sharedApplication.delegate.window;
+        NSDictionary* dictionaryCell = [self.tableData objectAtIndex:indexPath.row];
+         UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        
+        if([[dictionaryCell objectForKey:@"action"] isEqualToString:actionLogout])
+        {
+            // выход
+            // refresh data
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults removeObjectForKey:@"token"];
+            self.authUser = [[TPZUser alloc] init];
+            [[FBSDKLoginManager new] logOut];
+//            [signIn signOut];
+//             [[GIDSignIn sharedInstance] signOut];
+            
+            
+            //show login controller
+            UIViewController *vc =[sb instantiateInitialViewController];
+            
+            UIWindow *window = UIApplication.sharedApplication.delegate.window;
+            window.rootViewController = vc;
+            
+            
+            
+            [UIView transitionWithView:window
+                              duration:0.3
+                               options: UIViewAnimationOptionTransitionCrossDissolve //UIViewAnimationOptionTransitionCrossDissolve
+                            animations:nil
+                            completion:nil];
+        }else if([[dictionaryCell objectForKey:@"type"] isEqualToString:mailCellIdentifier])
+        {
+            // отправляем емейл
+            NSString *recipients = [NSString stringWithFormat:@"mailto:%@&subject=Hello from California!",[dictionaryCell objectForKey:@"title"]];
+            
+            NSString *body = @"&body=It is raining in sunny California!";
+            
+            NSString *email = [NSString stringWithFormat:@"%@%@", recipients, body];
+            
+            email = [email stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:email]];
+        }else
+        {
+            // переходим на другое представление
+            SWRevealViewController *revealController = self.revealViewController;
+           
+            
+            NSString* identifier = [dictionaryCell objectForKey:@"action"];
+            LobbyBaseNavigationController *navController = [sb instantiateViewControllerWithIdentifier: identifier ];
+            NSLog(@"%@",sb);
+            NSLog(@"%@",navController);
+            [revealController pushFrontViewController:navController animated:YES];
+        }
+        
+        
+       
+
+        
+    }
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    
+   
+
+//    UIViewController* newFrontController = [[UIViewController alloc] init];
+//    [newFrontController.view setBackgroundColor:[UIColor blackColor]];
+//    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:newFrontController];
+
+   
+}
 
 /*
 // Override to support conditional editing of the table view.

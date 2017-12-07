@@ -7,6 +7,7 @@
 //
 
 #import "LobbyBaseTableViewController.h"
+#import "AppDelegate.h"
 
 @interface LobbyBaseTableViewController ()
 
@@ -17,11 +18,43 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    self.authUser = appDelegate.tpzUser;
+    
+    SWRevealViewController *revealController = [self revealViewController];
+    
+    
+    [revealController panGestureRecognizer];
+    [revealController tapGestureRecognizer];
+    
+    if([[self.navigationController viewControllers] count] == 1){
+        UIBarButtonItem *revealButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu"
+                                                                             style:UIBarButtonItemStylePlain target:revealController action:@selector(revealToggle:)];
+//        self.navigationItem.leftBarButtonItem = revealButtonItem;
+    self.navigationController.navigationBar.topItem.leftBarButtonItem = revealButtonItem;
+    }
+    
+    
+    
+    self.tableView.separatorColor = [UIColor clearColor];
+
+    
+  
+    
+    
+    self.tableView.backgroundView = [[UIImageView alloc] initWithImage:
+                                     [UIImage imageNamed:@"bg"]];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+-(void)goBack:(id)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

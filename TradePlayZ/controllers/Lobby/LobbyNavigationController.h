@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LobbyBaseNavigationController.h"
 
-@interface LobbyNavigationController : UINavigationController
+@interface LobbyNavigationController : LobbyBaseNavigationController
 
 @end

@@ -6,9 +6,15 @@
 //  Copyright © 2017 Leonid Minderov. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "AuthBaseViewController.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <TwitterKit/TwitterKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <Google/SignIn.h>
 
-@interface ViewController : UIViewController
+
+@interface ViewController : AuthBaseViewController
+
 
 
 

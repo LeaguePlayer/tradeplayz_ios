@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LobbyBaseTableViewController.h"
 
-@interface PrizesTableViewController : UITableViewController
+@interface PrizesTableViewController : LobbyBaseTableViewController
 
 @end

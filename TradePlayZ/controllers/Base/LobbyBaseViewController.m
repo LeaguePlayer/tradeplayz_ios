@@ -7,6 +7,7 @@
 //
 
 #import "LobbyBaseViewController.h"
+#import "AppDelegate.h"
 
 @interface LobbyBaseViewController ()
 
@@ -14,9 +15,67 @@
 
 @implementation LobbyBaseViewController
 
+ 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+  
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    self.authUser = appDelegate.tpzUser;
+    
+    
+    SWRevealViewController *revealController = [self revealViewController];
+    
+    
+    [revealController panGestureRecognizer];
+    [revealController tapGestureRecognizer];
+    
+    if([[self.navigationController viewControllers] count] == 1)
+    {
+        UIBarButtonItem *revealButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu"
+                                                                             style:UIBarButtonItemStylePlain target:revealController action:@selector(revealToggle:)];
+        
+        self.navigationItem.leftBarButtonItem = revealButtonItem;
+    }
+    
+    
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+//    [self.scrollView setContentSize:CGSizeMake(CGRectGetWidth(self.scrollView.frame), 1000)];
+    
+
+    
+    UIGraphicsBeginImageContext(self.view.frame.size);
+    [[UIImage imageNamed:@"bg"] drawInRect:self.view.bounds];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    self.view.backgroundColor = [UIColor colorWithPatternImage:image];
+    
+    
+    
+    [self.view addSubview:self.scrollView];
+    
+}
+
+//Method
+
+-(void)showMessage:(NSString*)message withTitle:(NSString *)title
+{
+    
+    UIAlertController * alert=   [UIAlertController
+                                  alertControllerWithTitle:title
+                                  message:message
+                                  preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+        
+        //do something when click button
+    }];
+    [alert addAction:okAction];
+    UIViewController *vc = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+    [vc presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {

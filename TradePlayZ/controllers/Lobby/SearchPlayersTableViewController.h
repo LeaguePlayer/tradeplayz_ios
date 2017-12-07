@@ -6,8 +6,10 @@
 //  Copyright © 2017 Leonid Minderov. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "LobbyBaseTableViewController.h"
 
-@interface SearchPlayersTableViewController : UITableViewController
+@interface SearchPlayersTableViewController : LobbyBaseTableViewController
+
+@property (nonatomic, strong) NSArray *filteredData;
 
 @end

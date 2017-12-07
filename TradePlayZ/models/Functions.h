@@ -15,5 +15,6 @@
 
 +(CGSize)getHeightLabelWithFont:(UILabel*)gotLabel;
 +(CGSize)getHeightTextWithoutLabel:(UIFont*)gotFont andWidthWillLabel:(float)widthFrame andString:(NSString*)gotText;
++(CGSize)getHeightLabelWithFont:(UILabel*)gotLabel andWidth:(float)gotWidth;
 
 @end

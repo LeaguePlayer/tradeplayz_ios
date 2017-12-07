@@ -10,4 +10,13 @@
 
 @interface PlayersTableViewCell : UITableViewCell
 
+@property (strong, nonatomic) UILabel* placeLabel;
+@property (strong, nonatomic) UILabel* playerLabel;
+@property (strong, nonatomic) UILabel* statusLabel;
+
+@property (nonatomic) BOOL showMe;
+@property (nonatomic) NSInteger status;
+
+-(void)changeStatus;
+
 @end

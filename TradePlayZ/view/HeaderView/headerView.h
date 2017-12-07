@@ -10,4 +10,6 @@
 
 @interface headerView : UIView
 
+-(void)setColumns:(NSArray*)columns;
+
 @end

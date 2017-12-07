@@ -10,4 +10,11 @@
 
 @interface HistoryTableViewCell : UITableViewCell
 
+@property (strong, nonatomic) UILabel* dateTimePlace;
+@property (strong, nonatomic) UILabel* resultPlace;
+
+
+-(void)setDate:(NSString *)date andTime:(NSString*)time;
+-(void)setResult:(NSString *)newValue;
+
 @end

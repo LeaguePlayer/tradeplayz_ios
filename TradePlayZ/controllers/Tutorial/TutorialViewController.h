@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LobbyBaseViewController.h"
 
-@interface TutorialViewController : UIViewController
+
+@interface TutorialViewController : LobbyBaseViewController
 
 @end

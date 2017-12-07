@@ -6,8 +6,21 @@
 //  Copyright © 2017 Leonid Minderov. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "AuthBaseViewController.h"
 
-@interface RegistrationViewController : UIViewController
+
+@interface RegistrationViewController : AuthBaseViewController
+{
+    BOOL agree_terms_and_conditions;
+    NSString *selectedCurrency;
+    
+}
+
+
+
+@property(nonatomic,retain) BaseTextField* emailField;
+@property(nonatomic,retain) BaseTextField* passwordField;
+@property(nonatomic,retain) UIButton* currencyField;
+@property(nonatomic,retain) UIButton* policyField;
 
 @end

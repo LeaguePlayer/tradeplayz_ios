@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LobbyBaseTableViewController.h"
 
-@interface HistoryTradeTableViewController : UITableViewController
+@interface HistoryTradeTableViewController : LobbyBaseTableViewController
 
 @end

@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LobbyBaseTableViewController.h"
 
-@interface FAQTableViewController : UITableViewController
+@interface FAQTableViewController : LobbyBaseTableViewController
 
 @end

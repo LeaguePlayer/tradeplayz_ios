@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LobbyBaseViewController.h"
 
-@interface WithdrawViewController : UIViewController
+@interface WithdrawViewController : LobbyBaseViewController
 
 @end

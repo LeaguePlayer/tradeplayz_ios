@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TPZUser.h"
 
 @interface LobbyBaseTableViewController : UITableViewController
+
+@property(nonatomic,retain) TPZUser* authUser;
+
 
 @end

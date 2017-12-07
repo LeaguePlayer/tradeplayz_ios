@@ -10,4 +10,7 @@
 
 @interface PrizeTableViewCell : UITableViewCell
 
+@property (strong, nonatomic) UILabel* placeLabel;
+@property (strong, nonatomic) UILabel* prizeLabel;
+
 @end

@@ -10,4 +10,9 @@
 
 @interface ImageTitleMenuTableViewCell : UITableViewCell
 
+@property (strong, nonatomic) UIImageView* iconImageView;
+
+
+-(void)setImageIcon:(UIImage*)iconImage;
+
 @end

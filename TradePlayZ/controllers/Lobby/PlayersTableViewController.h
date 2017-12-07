@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LobbyBaseTableViewController.h"
 
-@interface PlayersTableViewController : UITableViewController
+@interface PlayersTableViewController : LobbyBaseTableViewController 
+
+@property (nonatomic, strong) NSArray *filteredData;
+
+
 
 @end

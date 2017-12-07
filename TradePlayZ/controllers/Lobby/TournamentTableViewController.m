@@ -17,6 +17,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.title = [MCLocalization stringForKey:@"lobby_tournament"];
+    
+//     self.navigationController.navigationItem.leftBarButtonItem = barButtonMenu;
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     

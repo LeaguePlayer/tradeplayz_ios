@@ -5,11 +5,21 @@
 //  Created by Leonid Minderov on 11.11.17.
 //  Copyright © 2017 Leonid Minderov. All rights reserved.
 //
+#import "SWRevealViewController.h"
+#import "MCLocalization.h"
+#import "Functions.h"
+#import "CZPickerView.h"
+#import "APIModel.h"
+#import "MBProgressHUD.h"
+
 
 #ifndef PrefixHeader_pch
 #define PrefixHeader_pch
 
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
+#define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
 
 #endif /* PrefixHeader_pch */

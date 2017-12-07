@@ -7,22 +7,101 @@
 //
 
 #import "HistoryTradeTableViewController.h"
+#import "HistoryTableViewCell.h"
 
 @interface HistoryTradeTableViewController ()
-
+@property (strong, nonatomic) NSArray* tableData;
 @end
+
+
+//cells
+static NSString* historyCellIdentifier = @"historyCell";
 
 @implementation HistoryTradeTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    self.title = [MCLocalization stringForKey:@"TradeHistory"];
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 100)];
+    [headerView setBackgroundColor:[UIColor clearColor]];
+
+    self.tableView.tableHeaderView = headerView;
+    
+    
+   
+   
+    
+    
+    [self registerCell];
 }
+
+
+- (void)registerCell
+{
+    [self.tableView registerClass:[HistoryTableViewCell class] forCellReuseIdentifier:historyCellIdentifier];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self initTableData];
+    [self.tableView reloadData];
+}
+
+
+- (void)initTableData
+{
+    self.tableData = @[
+                       
+                       
+                       @{@"type":historyCellIdentifier,
+                         @"date_begin":@"12.08.17",
+                         @"time_begin":@"9:30",
+                         @"result":@"10 000",
+                         @"prize_pool":@"4 000 000",
+                         @"buy_in":@"FREE ROLL"},
+                       
+                       @{@"type":historyCellIdentifier,
+                         @"date_begin":@"13.08.17",
+                         @"time_begin":@"9:30",
+                         @"result":@"10 000",
+                         @"prize_pool":@"4 000 000",
+                         @"buy_in":@"FREE ROLL"},
+                       
+                       
+                       @{@"type":historyCellIdentifier,
+                         @"date_begin":@"14.08.17",
+                         @"time_begin":@"9:30",
+                         @"result":@"10 000",
+                         @"prize_pool":@"4 000 000",
+                         @"buy_in":@"FREE ROLL"},
+                       
+                       
+                       @{@"type":historyCellIdentifier,
+                         @"date_begin":@"15.08.17",
+                         @"time_begin":@"9:30",
+                         @"result":@"10 000",
+                         @"prize_pool":@"4 000 000",
+                         @"buy_in":@"FREE ROLL"},
+                       
+                       
+                       ];
+    
+    
+    
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 50.f;
+}
+
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -33,66 +112,37 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Incomplete implementation, return the number of sections
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete implementation, return the number of rows
-    return 0;
+    return [self.tableData count];
 }
 
-/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    NSDictionary* dictionaryCell = [self.tableData objectAtIndex:indexPath.row];
     
-    // Configure the cell...
+    UITableViewCell* cellDef;
     
-    return cell;
+    
+    
+    
+    if ([[dictionaryCell objectForKey:@"type"] isEqualToString:historyCellIdentifier]) {
+        HistoryTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:historyCellIdentifier];
+    
+        
+        [cell setResult:[dictionaryCell objectForKey:@"result"]];
+        [cell setDate:[dictionaryCell objectForKey:@"date_begin"] andTime:[dictionaryCell objectForKey:@"time_begin"]];
+        
+        cellDef = cell;
+    }
+   
+    
+    
+    
+    
+    return cellDef;
 }
-*/
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

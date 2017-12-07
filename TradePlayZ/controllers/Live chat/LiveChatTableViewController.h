@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LobbyBaseTableViewController.h"
 
-@interface LiveChatTableViewController : UITableViewController
+@interface LiveChatTableViewController : LobbyBaseTableViewController
 
 @end
