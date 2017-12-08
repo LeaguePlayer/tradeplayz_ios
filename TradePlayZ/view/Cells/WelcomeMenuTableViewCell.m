@@ -123,9 +123,9 @@
     
     CGSize nameLabelSize = [Functions getHeightLabelWithFont:self.nameLabel];
     
-//    float adding = (nameLabelSize.height + paddingTop + 15+25) - self.avatarImageView.frame.size.height + 15.f;
-////    if( adding < 0 )
-//        adding = 0;
+    float adding = (nameLabelSize.height + paddingTop + 15+25) - self.avatarImageView.frame.size.height + 15.f;
+//    if( adding < 0 )
+        adding = 0;
     
     CGRect frame = self.countryLabel.frame;
 //    frame.origin.y += (nameLabelSize.height - paddingTop);
