@@ -11,6 +11,7 @@
 		CF5379361FB7592E006990F9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF5379351FB7592E006990F9 /* ViewController.m */; };
 		CF53793B1FB7592E006990F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF53793A1FB7592E006990F9 /* Assets.xcassets */; };
 		CF5379411FB7592E006990F9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CF5379401FB7592E006990F9 /* main.m */; };
+		CFBC55BF1FDFB06600A0A285 /* TournamentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CFBC55BE1FDFB06600A0A285 /* TournamentTableViewCell.m */; };
 		CFEC7D521FD034990045768A /* PlayersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFEC7D511FD034980045768A /* PlayersTableViewController.m */; };
 		CFEC7D551FD03C410045768A /* SearchPlayersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFEC7D541FD03C410045768A /* SearchPlayersTableViewController.m */; };
 		CFEC7D571FD119950045768A /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CFEC7D561FD119950045768A /* Lato-Light.ttf */; };
@@ -84,6 +85,8 @@
 		CF53793F1FB7592E006990F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CF5379401FB7592E006990F9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CF5379471FB75B8C006990F9 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		CFBC55BD1FDFB06600A0A285 /* TournamentTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TournamentTableViewCell.h; sourceTree = "<group>"; };
+		CFBC55BE1FDFB06600A0A285 /* TournamentTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TournamentTableViewCell.m; sourceTree = "<group>"; };
 		CFEC7D501FD034980045768A /* PlayersTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayersTableViewController.h; sourceTree = "<group>"; };
 		CFEC7D511FD034980045768A /* PlayersTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayersTableViewController.m; sourceTree = "<group>"; };
 		CFEC7D531FD03C410045768A /* SearchPlayersTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchPlayersTableViewController.h; sourceTree = "<group>"; };
@@ -420,6 +423,8 @@
 				CFFDA1C81FCE939C000F43E2 /* PrizeTableViewCell.m */,
 				CFFDA1CA1FCEC0C3000F43E2 /* PlayersTableViewCell.h */,
 				CFFDA1CB1FCEC0C3000F43E2 /* PlayersTableViewCell.m */,
+				CFBC55BD1FDFB06600A0A285 /* TournamentTableViewCell.h */,
+				CFBC55BE1FDFB06600A0A285 /* TournamentTableViewCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -685,6 +690,7 @@
 				CF5379361FB7592E006990F9 /* ViewController.m in Sources */,
 				CFEC7D661FD18F9F0045768A /* TermsViewController.m in Sources */,
 				CFFDA1CC1FCEC0C3000F43E2 /* PlayersTableViewCell.m in Sources */,
+				CFBC55BF1FDFB06600A0A285 /* TournamentTableViewCell.m in Sources */,
 				CFFDA1461FCAC6D1000F43E2 /* LobbyBaseNavigationController.m in Sources */,
 				CFFDA1421FCAC63B000F43E2 /* LobbyTableViewController.m in Sources */,
 				CFFDA18A1FCBFF54000F43E2 /* MCLocalization.m in Sources */,

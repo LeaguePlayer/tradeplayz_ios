@@ -11,7 +11,7 @@
 
 
 
-#define DOMAIN_API @"http://tpz.server.loc.192.168.88.23.xip.io:8888/api/"
+#define DOMAIN_API @"http://dev.tradeplayz.com/api/"
 
 
 @implementation APIModel
@@ -36,7 +36,7 @@
         else
             success(responseObject);
     } failure:^(NSURLSessionTask *operation, NSError *error) {
-            failure(error.description);
+            failure([error.userInfo objectForKey:@"NSLocalizedDescription"]);
     }];
 }
 
@@ -60,7 +60,8 @@ andWithUserDevice:(NSDictionary *)userDevice
         else
             success(responseObject);
     } failure:^(NSURLSessionTask *operation, NSError *error) {
-        failure(error.description);
+//        NSLog(@"%@",[error.userInfo objectForKey:@"NSLocalizedDescription"]);
+        failure([error.userInfo objectForKey:@"NSLocalizedDescription"]);
     }];
 }
 
@@ -89,7 +90,7 @@ andWithUserDevice:(NSDictionary *)userDevice
         else
             success(responseObject);
     } failure:^(NSURLSessionTask *operation, NSError *error) {
-        failure(error.description);
+        failure([error.userInfo objectForKey:@"NSLocalizedDescription"]);
     }];
 }
 
@@ -113,7 +114,7 @@ andWithUserDevice:(NSDictionary *)userDevice
         else
             success(responseObject);
     } failure:^(NSURLSessionTask *operation, NSError *error) {
-        failure(error.description);
+        failure([error.userInfo objectForKey:@"NSLocalizedDescription"]);
     }];
 }
 
@@ -136,7 +137,7 @@ andWithUserDevice:(NSDictionary *)userDevice
         else
             success(responseObject);
     } failure:^(NSURLSessionTask *operation, NSError *error) {
-        failure(error.description);
+        failure([error.userInfo objectForKey:@"NSLocalizedDescription"]);
     }];
 }
 

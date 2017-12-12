@@ -45,5 +45,8 @@
     "confirm":"Confirm",
     "error":"Error",
     "error_18_age":"You must confirm that you are 18 years old!",
+    "prize_pool":"Prize pool",
+    "tournament_time_begin":"Time begin",
+    "tournaments":"Tournaments",
 
 }

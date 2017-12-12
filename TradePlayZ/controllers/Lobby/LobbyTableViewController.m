@@ -8,50 +8,72 @@
 
 #import "LobbyTableViewController.h"
 #import "TournamentViewController.h"
+#import "TournamentTableViewCell.h"
 
 @interface LobbyTableViewController ()
-
+@property (strong, nonatomic) NSArray* tableData;
 @end
+
+//cells
+static NSString* tournamentCellIdentifier = @"tournamentCell";
 
 @implementation LobbyTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    UIBarButtonItem *flipButton = [[UIBarButtonItem alloc]
-//                                   initWithTitle:@"Exit"
-//                                   style:UIBarButtonItemStyleBordered
-//                                   target:self
-//                                   action:@selector(flipView:)];
-//    self.navigationItem.rightBarButtonItem = flipButton;
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 35.f)];
+    [headerView setBackgroundColor:[UIColor clearColor]];
     
-//    [self.view setBackgroundColor:[UIColor greenColor]];
+    self.tableView.tableHeaderView = headerView;
+    
+    [self registerCell];
     
     
-    self.title = [MCLocalization stringForKey:@"Trade"];
-    
-
-    
-//    UIBarButtonItem *rightRevealButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"reveal-icon.png"]
-//                                                                              style:UIBarButtonItemStylePlain target:revealController action:@selector(rightRevealToggle:)];
-//
-//    self.navigationItem.rightBarButtonItem = rightRevealButtonItem;
-    
-    
-    
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.title = [MCLocalization stringForKey:@"tournaments"];
 }
 
--(void)flipView:(id)sender
+- (void)registerCell
 {
-    NSLog(@"flip");
+    [self.tableView registerClass:[TournamentTableViewCell class] forCellReuseIdentifier:tournamentCellIdentifier];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self initTableData];
+    [self.tableView reloadData];
+}
+
+- (void)initTableData
+{
+    self.tableData = @[
+                       
+                       
+                       @{@"type":tournamentCellIdentifier,
+                         @"id":@"4",
+                         @"date_begin":@"9:30",
+                         @"prize_pool":@"4 000 000 TPZ",
+                         @"registred_participants":@"12 833"},
+                       @{@"type":tournamentCellIdentifier,
+                         @"id":@"4",
+                         @"date_begin":@"9:31",
+                         @"prize_pool":@"4 000 000 TPZ",
+                         @"registred_participants":@"12 833"},
+                       @{@"type":tournamentCellIdentifier,
+                         @"id":@"4",
+                         @"date_begin":@"9:32",
+                         @"prize_pool":@"4 000 000 TPZ",
+                         @"registred_participants":@"12 833"},
+                       ];
     
     
+    
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 50.f;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -68,74 +90,35 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete implementation, return the number of rows
-    return 5;
+    return [self.tableData count];
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *Cell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:nil];
-    if (Cell ==nil) {
-        Cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSDictionary* dictionaryCell = [self.tableData objectAtIndex:indexPath.row];
+    
+    UITableViewCell* cellDef;
+    
+    
+    
+    
+    if ([[dictionaryCell objectForKey:@"type"] isEqualToString:tournamentCellIdentifier]) {
+        TournamentTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:tournamentCellIdentifier];
+        
+        
+        [cell setPrizePoolText:[dictionaryCell objectForKey:@"prize_pool"]];
+        [cell setTime:[dictionaryCell objectForKey:@"date_begin"]];
+        
+        cellDef = cell;
     }
     
-    [Cell.textLabel setText:@"tournament 1x1"];
     
     
     
-    return Cell;
+    
+    return cellDef;
 }
-
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    TournamentViewController* controller= [[TournamentViewController alloc] init];
-    [self.navigationController pushViewController:controller animated:YES];
-//    [self.navigationController popToViewController:controller animated:YES];
-//    [self.navigationController presentViewController:controller animated:YES completion:nil];
-}
-
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

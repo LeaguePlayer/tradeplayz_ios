@@ -297,17 +297,19 @@ dismissViewController:(UIViewController *)viewController {
 
 -(void)facebookLoginAction:(id)sender
 {
+   
     NSLog(@"facebookLoginAction");
      [self.loginButton sendActionsForControlEvents: UIControlEventTouchUpInside];
 }
+
 - (void)  loginButton:(FBSDKLoginButton *)loginButton
 didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
                 error:(NSError *)error{
     //use your custom code here
     //redirect after successful login
     NSLog(@"facebook logined!!");
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
+//    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     
     
@@ -345,6 +347,8 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
             }
         }];
     }
+    else
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
     
     
 }
@@ -432,6 +436,8 @@ didSignInForUser:(GIDGoogleUser *)user
 
 -(void)authTwitter:(NSString *)userID
 {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
 //    NSString *userID = [Twitter sharedInstance].sessionStore.session.userID;
     TWTRAPIClient *client = [[TWTRAPIClient alloc] initWithUserID:userID];
     [client loadUserWithID:userID completion:^(TWTRUser *user, NSError *error) {
