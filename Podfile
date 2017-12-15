@@ -14,5 +14,6 @@ target 'TradePlayZ' do
   pod 'AFNetworking', '~> 3.0'
   pod 'Reachability', '~> 3.2'
   pod 'MBProgressHUD', '~> 1.0.0'
+  #pod "NMPopUpViewSwift"
 end
 

@@ -83,7 +83,26 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wVP-ye-1Et" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="565" y="21"/>
+            <point key="canvasLocation" x="565" y="-95"/>
+        </scene>
+        <!--Trade View Controller-->
+        <scene sceneID="r7u-EK-tcJ">
+            <objects>
+                <viewController storyboardIdentifier="tradeController" id="y2F-ZF-rPo" customClass="TradeViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Mcj-99-CXe"/>
+                        <viewControllerLayoutGuide type="bottom" id="z0G-y2-EVG"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="xOf-O2-8Xu">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="xSe-X0-r3U"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uWu-aT-a2m" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1237" y="-61"/>
         </scene>
         <!--Registration View Controller-->
         <scene sceneID="dR5-Ra-xfY">
@@ -165,6 +184,7 @@
                     <navigationItem key="navigationItem" title="Root View Controller" id="Def-YJ-vpH"/>
                     <connections>
                         <segue destination="gEf-h1-V6P" kind="push" id="kBe-mn-NyZ"/>
+                        <segue destination="y2F-ZF-rPo" kind="push" id="97J-u9-q5E"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ih3-kb-PyJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -174,7 +194,7 @@
         <!--Tournament View Controller-->
         <scene sceneID="TGi-oi-t98">
             <objects>
-                <viewController id="gEf-h1-V6P" customClass="TournamentViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="tournamentView" id="gEf-h1-V6P" customClass="TournamentViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vDj-Ah-ZWZ"/>
                         <viewControllerLayoutGuide type="bottom" id="otn-Ro-xZ4"/>

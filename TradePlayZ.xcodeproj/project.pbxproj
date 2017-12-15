@@ -12,6 +12,14 @@
 		CF53793B1FB7592E006990F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF53793A1FB7592E006990F9 /* Assets.xcassets */; };
 		CF5379411FB7592E006990F9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CF5379401FB7592E006990F9 /* main.m */; };
 		CFBC55BF1FDFB06600A0A285 /* TournamentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CFBC55BE1FDFB06600A0A285 /* TournamentTableViewCell.m */; };
+		CFBC55C31FDFB72200A0A285 /* KLCPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = CFBC55C21FDFB72200A0A285 /* KLCPopup.m */; };
+		CFBC55C71FDFE5AE00A0A285 /* TournamentModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFBC55C61FDFE5AE00A0A285 /* TournamentModalView.m */; };
+		CFBC55CB1FE3AFF300A0A285 /* TradeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFBC55CA1FE3AFF300A0A285 /* TradeViewController.m */; };
+		CFBC55CE1FE3BF8900A0A285 /* FAQTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CFBC55CD1FE3BF8900A0A285 /* FAQTableViewCell.m */; };
+		CFBC55D11FE3C98B00A0A285 /* FAQModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFBC55D01FE3C98B00A0A285 /* FAQModalView.m */; };
+		CFBC55D91FE3CF3B00A0A285 /* RTLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = CFBC55D71FE3CF3A00A0A285 /* RTLabel.m */; };
+		CFBC55DC1FE3D40E00A0A285 /* BaseFieldTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFBC55DB1FE3D40E00A0A285 /* BaseFieldTableViewController.m */; };
+		CFBC55DF1FE3D7B300A0A285 /* SmallBaseTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = CFBC55DE1FE3D7B300A0A285 /* SmallBaseTextField.m */; };
 		CFEC7D521FD034990045768A /* PlayersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFEC7D511FD034980045768A /* PlayersTableViewController.m */; };
 		CFEC7D551FD03C410045768A /* SearchPlayersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFEC7D541FD03C410045768A /* SearchPlayersTableViewController.m */; };
 		CFEC7D571FD119950045768A /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CFEC7D561FD119950045768A /* Lato-Light.ttf */; };
@@ -87,6 +95,22 @@
 		CF5379471FB75B8C006990F9 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		CFBC55BD1FDFB06600A0A285 /* TournamentTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TournamentTableViewCell.h; sourceTree = "<group>"; };
 		CFBC55BE1FDFB06600A0A285 /* TournamentTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TournamentTableViewCell.m; sourceTree = "<group>"; };
+		CFBC55C11FDFB72200A0A285 /* KLCPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLCPopup.h; sourceTree = "<group>"; };
+		CFBC55C21FDFB72200A0A285 /* KLCPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLCPopup.m; sourceTree = "<group>"; };
+		CFBC55C51FDFE5AE00A0A285 /* TournamentModalView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TournamentModalView.h; sourceTree = "<group>"; };
+		CFBC55C61FDFE5AE00A0A285 /* TournamentModalView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TournamentModalView.m; sourceTree = "<group>"; };
+		CFBC55C91FE3AFF300A0A285 /* TradeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TradeViewController.h; sourceTree = "<group>"; };
+		CFBC55CA1FE3AFF300A0A285 /* TradeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TradeViewController.m; sourceTree = "<group>"; };
+		CFBC55CC1FE3BF8900A0A285 /* FAQTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FAQTableViewCell.h; sourceTree = "<group>"; };
+		CFBC55CD1FE3BF8900A0A285 /* FAQTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FAQTableViewCell.m; sourceTree = "<group>"; };
+		CFBC55CF1FE3C98B00A0A285 /* FAQModalView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FAQModalView.h; sourceTree = "<group>"; };
+		CFBC55D01FE3C98B00A0A285 /* FAQModalView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FAQModalView.m; sourceTree = "<group>"; };
+		CFBC55D71FE3CF3A00A0A285 /* RTLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTLabel.m; sourceTree = "<group>"; };
+		CFBC55D81FE3CF3B00A0A285 /* RTLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTLabel.h; sourceTree = "<group>"; };
+		CFBC55DA1FE3D40E00A0A285 /* BaseFieldTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseFieldTableViewController.h; sourceTree = "<group>"; };
+		CFBC55DB1FE3D40E00A0A285 /* BaseFieldTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseFieldTableViewController.m; sourceTree = "<group>"; };
+		CFBC55DD1FE3D7B300A0A285 /* SmallBaseTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SmallBaseTextField.h; sourceTree = "<group>"; };
+		CFBC55DE1FE3D7B300A0A285 /* SmallBaseTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SmallBaseTextField.m; sourceTree = "<group>"; };
 		CFEC7D501FD034980045768A /* PlayersTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayersTableViewController.h; sourceTree = "<group>"; };
 		CFEC7D511FD034980045768A /* PlayersTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayersTableViewController.m; sourceTree = "<group>"; };
 		CFEC7D531FD03C410045768A /* SearchPlayersTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchPlayersTableViewController.h; sourceTree = "<group>"; };
@@ -274,11 +298,51 @@
 			path = TradePlayZ;
 			sourceTree = "<group>";
 		};
+		CFBC55C01FDFB72200A0A285 /* KLCPopup */ = {
+			isa = PBXGroup;
+			children = (
+				CFBC55C11FDFB72200A0A285 /* KLCPopup.h */,
+				CFBC55C21FDFB72200A0A285 /* KLCPopup.m */,
+			);
+			path = KLCPopup;
+			sourceTree = "<group>";
+		};
+		CFBC55C41FDFE54E00A0A285 /* UIView */ = {
+			isa = PBXGroup;
+			children = (
+				CFBC55C51FDFE5AE00A0A285 /* TournamentModalView.h */,
+				CFBC55C61FDFE5AE00A0A285 /* TournamentModalView.m */,
+				CFBC55CF1FE3C98B00A0A285 /* FAQModalView.h */,
+				CFBC55D01FE3C98B00A0A285 /* FAQModalView.m */,
+			);
+			path = UIView;
+			sourceTree = "<group>";
+		};
+		CFBC55C81FE3AFE100A0A285 /* Trade */ = {
+			isa = PBXGroup;
+			children = (
+				CFBC55C91FE3AFF300A0A285 /* TradeViewController.h */,
+				CFBC55CA1FE3AFF300A0A285 /* TradeViewController.m */,
+			);
+			path = Trade;
+			sourceTree = "<group>";
+		};
+		CFBC55D61FE3CF2F00A0A285 /* RTLabel */ = {
+			isa = PBXGroup;
+			children = (
+				CFBC55D81FE3CF3B00A0A285 /* RTLabel.h */,
+				CFBC55D71FE3CF3A00A0A285 /* RTLabel.m */,
+			);
+			path = RTLabel;
+			sourceTree = "<group>";
+		};
 		CFEC7D5B1FD12ECF0045768A /* TextField */ = {
 			isa = PBXGroup;
 			children = (
 				CFEC7D5C1FD12F150045768A /* BaseTextField.h */,
 				CFEC7D5D1FD12F150045768A /* BaseTextField.m */,
+				CFBC55DD1FE3D7B300A0A285 /* SmallBaseTextField.h */,
+				CFBC55DE1FE3D7B300A0A285 /* SmallBaseTextField.m */,
 			);
 			path = TextField;
 			sourceTree = "<group>";
@@ -304,6 +368,8 @@
 		CFFDA13A1FCAAE67000F43E2 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				CFBC55D61FE3CF2F00A0A285 /* RTLabel */,
+				CFBC55C81FE3AFE100A0A285 /* Trade */,
 				CFFDA1AA1FCD5391000F43E2 /* Settings */,
 				CFFDA1A61FCD52EF000F43E2 /* Tutorial */,
 				CFFDA1A21FCD5271000F43E2 /* FAQ */,
@@ -366,6 +432,8 @@
 				CFFDA1A01FCD519F000F43E2 /* LobbyBaseViewController.m */,
 				CFF331661FD7D23E00DDD93E /* BaseTextFieldsViewController.h */,
 				CFF331671FD7D23E00DDD93E /* BaseTextFieldsViewController.m */,
+				CFBC55DA1FE3D40E00A0A285 /* BaseFieldTableViewController.h */,
+				CFBC55DB1FE3D40E00A0A285 /* BaseFieldTableViewController.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -373,6 +441,7 @@
 		CFFDA14E1FCACBD0000F43E2 /* library */ = {
 			isa = PBXGroup;
 			children = (
+				CFBC55C01FDFB72200A0A285 /* KLCPopup */,
 				CFFDA17D1FCBFF3A000F43E2 /* Localize */,
 				CFFDA14F1FCACBDA000F43E2 /* SWReveal */,
 			);
@@ -400,6 +469,7 @@
 		CFFDA15D1FCBF4A2000F43E2 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				CFBC55C41FDFE54E00A0A285 /* UIView */,
 				CFEC7D5F1FD133EE0045768A /* UIButton */,
 				CFEC7D5B1FD12ECF0045768A /* TextField */,
 				CFFDA1C31FCE8B59000F43E2 /* HeaderView */,
@@ -425,6 +495,8 @@
 				CFFDA1CB1FCEC0C3000F43E2 /* PlayersTableViewCell.m */,
 				CFBC55BD1FDFB06600A0A285 /* TournamentTableViewCell.h */,
 				CFBC55BE1FDFB06600A0A285 /* TournamentTableViewCell.m */,
+				CFBC55CC1FE3BF8900A0A285 /* FAQTableViewCell.h */,
+				CFBC55CD1FE3BF8900A0A285 /* FAQTableViewCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -680,9 +752,13 @@
 			files = (
 				CFFDA1C61FCE8B89000F43E2 /* headerView.m in Sources */,
 				CFF331771FD7F1CB00DDD93E /* AuthBaseViewController.m in Sources */,
+				CFBC55C71FDFE5AE00A0A285 /* TournamentModalView.m in Sources */,
 				CFFDA1AD1FCD53A7000F43E2 /* SettingsTableViewController.m in Sources */,
+				CFBC55C31FDFB72200A0A285 /* KLCPopup.m in Sources */,
 				CFFDA1C21FCE7382000F43E2 /* TournamentViewController.m in Sources */,
+				CFBC55DF1FE3D7B300A0A285 /* SmallBaseTextField.m in Sources */,
 				CFEC7D521FD034990045768A /* PlayersTableViewController.m in Sources */,
+				CFBC55CE1FE3BF8900A0A285 /* FAQTableViewCell.m in Sources */,
 				CFEC7D5A1FD1222A0045768A /* LoginViewController.m in Sources */,
 				CFFDA1BF1FCE6E7D000F43E2 /* TournamentTableViewController.m in Sources */,
 				CFFDA1871FCBFF54000F43E2 /* MCLocalizationOneJSONFilePerLanguageDataSource.m in Sources */,
@@ -697,6 +773,7 @@
 				CFFDA1921FCC029F000F43E2 /* MailTableViewCell.m in Sources */,
 				CFFDA1521FCACBF0000F43E2 /* SWRevealViewController.m in Sources */,
 				CFFDA15C1FCAD22C000F43E2 /* MenuTableViewController.m in Sources */,
+				CFBC55CB1FE3AFF300A0A285 /* TradeViewController.m in Sources */,
 				CFF331711FD7E39400DDD93E /* APIModel.m in Sources */,
 				CFF331651FD7CF6C00DDD93E /* TPZAuth.m in Sources */,
 				CFEC7D551FD03C410045768A /* SearchPlayersTableViewController.m in Sources */,
@@ -713,16 +790,19 @@
 				CFFDA19E1FCD5136000F43E2 /* WithdrawViewController.m in Sources */,
 				CF5379411FB7592E006990F9 /* main.m in Sources */,
 				CFFDA1C91FCE939C000F43E2 /* PrizeTableViewCell.m in Sources */,
+				CFBC55DC1FE3D40E00A0A285 /* BaseFieldTableViewController.m in Sources */,
 				CFF3317A1FD80B6100DDD93E /* TPZUserProvider.m in Sources */,
 				CF5379331FB7592E006990F9 /* AppDelegate.m in Sources */,
 				CFEC7D5E1FD12F150045768A /* BaseTextField.m in Sources */,
 				CFFDA1A91FCD5303000F43E2 /* TutorialViewController.m in Sources */,
 				CFFDA1641FCBF4D7000F43E2 /* WelcomeMenuTableViewCell.m in Sources */,
 				CFFDA1891FCBFF54000F43E2 /* MCLocalizationSingleJSONFileDataSource.m in Sources */,
+				CFBC55D91FE3CF3B00A0A285 /* RTLabel.m in Sources */,
 				CFFDA1CF1FCECE45000F43E2 /* PrizesTableViewController.m in Sources */,
 				CFFDA1491FCAC743000F43E2 /* LobbyNavigationController.m in Sources */,
 				CFFDA1B71FCD84C9000F43E2 /* Functions.m in Sources */,
 				CFFDA19A1FCD4F72000F43E2 /* LiveChatTableViewController.m in Sources */,
+				CFBC55D11FE3C98B00A0A285 /* FAQModalView.m in Sources */,
 				CFFDA1BC1FCDA2B9000F43E2 /* HistoryTableViewCell.m in Sources */,
 				CFFDA1611FCBF4C6000F43E2 /* ImageTitleMenuTableViewCell.m in Sources */,
 			);

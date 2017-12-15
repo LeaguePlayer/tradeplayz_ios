@@ -10,8 +10,8 @@
 
 @implementation PlayersTableViewCell
 
-const int stillPlayStatus = 1;
-const int finishedStatus = 2;
+const int stillPlayStatus = 0;
+const int finishedStatus = 1;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

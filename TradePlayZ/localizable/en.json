@@ -48,5 +48,16 @@
     "prize_pool":"Prize pool",
     "tournament_time_begin":"Time begin",
     "tournaments":"Tournaments",
-
+    "time_to_start":"Time\nto start",
+    "person_participating":"Person is\nparticipating",
+    "registration":"Registration",
+    "lobby_space_tour":"Lobby\ntournament",
+    "continue":"continue",
+    "money_will_charged":"With your account will be charged",
+    "alert":"Alert",
+    "done":"Congratulations!",
+    "you_registred":"You are registered in the tournament. Good luck!",
+    "unregistration":"Unregistration",
+    "you_unregistred":"You are unregistered in the tournament",
+    
 }

@@ -9,9 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "LobbyBaseViewController.h"
 #import "headerView.h"
+#import "BaseButton.h"
 
 
 @interface TournamentViewController : LobbyBaseViewController
+{
+    BOOL you_registred;
+}
 
 @property(nonatomic,retain) UILabel* tournamentNameLabel;
 @property(nonatomic,retain) UILabel* beginTournamentLabel;
@@ -22,6 +26,8 @@
 
 @property(nonatomic,retain) UITableView* prizesGrid;
 @property(nonatomic,retain) UITableView* playersGrid;
+
+@property(nonatomic, retain) NSString* selectedTourId;
 
 
 

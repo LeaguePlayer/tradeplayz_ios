@@ -29,6 +29,34 @@
                onSuccess:(void(^)(NSDictionary *data))success
         onFailure:(void(^)(NSString *error))failure;
 
+// tours
+- (void)getTournamentsWithToken:(NSString*)token
+        onSuccess:(void(^)(NSDictionary *data))success
+        onFailure:(void(^)(NSString *error))failure;
+
+- (void)getTournamentInfoWithToken:(NSString*)token
+                         andTourId:(NSString *)tourId
+                         onSuccess:(void(^)(NSDictionary *data))success
+                         onFailure:(void(^)(NSString *error))failure;
+
+//regist / unregist to tour
+- (void)registerToTournamentWithToken:(NSString*)token
+                            andIdTour:(NSString*)tourID
+                      onSuccess:(void(^)(NSDictionary *data))success
+                      onFailure:(void(^)(NSString *error))failure;
+
+- (void)unregisterToTournamentWithToken:(NSString*)token
+                            andIdTour:(NSString*)tourID
+                            onSuccess:(void(^)(NSDictionary *data))success
+                            onFailure:(void(^)(NSString *error))failure;
+
+
+//faq
+- (void)getFAQ:(NSString*)token
+                              andQuery:(NSString*)query
+                              onSuccess:(void(^)(NSDictionary *data))success
+                              onFailure:(void(^)(NSString *error))failure;
+
 
 - (void)loginWithNetworkProvider:(TPZUserProvider *)provider
                             andTPZUser:(NSDictionary *)user

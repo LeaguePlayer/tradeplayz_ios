@@ -7,8 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LobbyBaseTableViewController.h"
+#import "BaseFieldTableViewController.h"
+#import "KLCPopup.h"
 
-@interface FAQTableViewController : LobbyBaseTableViewController
+
+@interface FAQTableViewController : BaseFieldTableViewController <UITextFieldDelegate>
+{
+    NSString* query_string;
+}
+@property(nonatomic,retain) KLCPopup* popup;
+@property(nonatomic,retain) SmallBaseTextField* searchField;
+@property(nonatomic,retain) UIActivityIndicatorView *activityView;
 
 @end

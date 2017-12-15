@@ -50,8 +50,8 @@ static NSString* playersCellIdentifier = @"playersCell";
     // registerCell
     [self registerCell];
     
-    // buildContent
-    [self buildContent];
+//    // buildContent
+//    [self buildContent];
 }
 
 - (void)registerCell
@@ -63,57 +63,55 @@ static NSString* playersCellIdentifier = @"playersCell";
 
 -(void)initData
 {
-    self.tournamentNameLabel.text = @"100$ BTC/ETH 3-max";
-    self.beginTournamentLabel.text = @"12:40";
-    self.statusTournamentLabel.text = @"ОКОНЧЕН";
-    self.participantsTournamentLabel.text = @"128 (20239)";
-    self.prizePlacesLabel.text = @"50";
-    self.rulesTournamentLabel.text = @"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.";
+
+   
+    [[[APIModel alloc] init] getTournamentInfoWithToken:self.authUser.token andTourId:self.selectedTourId onSuccess:^(NSDictionary *data) {
+        NSDictionary *obj = [[data objectForKey:@"response"] objectForKey:@"tournament"];
+        NSLog(@"%@",obj);
+         NSLog(@"%@",[obj objectForKey:@"name"]);
+        self.tournamentNameLabel.text = [obj objectForKey:@"name"];
+        self.beginTournamentLabel.text = [obj objectForKey:@"date_begin"];
+        self.statusTournamentLabel.text = [obj objectForKey:@"status"];
+        you_registred = [[obj objectForKey:@"you_registred"] boolValue];
+        self.participantsTournamentLabel.text = [NSString stringWithFormat:@"%@ (%@)",[[obj objectForKey:@"count_participants"] objectForKey:@"still_play"], [[obj objectForKey:@"count_participants"] objectForKey:@"all"]];
+        self.prizePlacesLabel.text = [obj objectForKey:@"prize_places"];
+        self.rulesTournamentLabel.text = [obj objectForKey:@"rules"];
+        
+        NSMutableArray* tmpPrizes = [[NSMutableArray alloc] init];
+        for(NSDictionary* pr in [obj objectForKey:@"prizes"])
+            [tmpPrizes addObject:@{@"place":[pr objectForKey:@"row_number"],
+                                   @"prize":[pr objectForKey:@"prize"]}];
+        
+        
+        
+        NSMutableArray* tmpPlayers = [[NSMutableArray alloc] init];
+        for(NSDictionary* pl in [obj objectForKey:@"participants"])
+        {
+            bool me = [[pl objectForKey:@"me"] boolValue];
+//            NSLog(@"%@",[NSNumber numberWithBool:me]);
+            [tmpPlayers addObject:@{@"place":[pl objectForKey:@"row_number"],
+                                     @"player":[pl objectForKey:@"fullname"],
+                                     @"status":[pl objectForKey:@"status"], // 0 - still play, 1 - finished
+                                     @"me":[NSNumber numberWithBool:me]}];
+            
+        }
+        
+    
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.prizesTableData = tmpPrizes;
+            self.playersTableData = tmpPlayers;
+            // buildContent
+            [self buildContent];
+        });
+    } onFailure:^(NSString *error) {
+        [self showMessage:error withTitle:[MCLocalization stringForKey:@"error"]];
+    }];
+    
+
     
     
-    self.prizesTableData = @[
-                       @{@"place":@"1",
-                         @"prize":@"15 000"},
-                       
-                       @{@"place":@"2",
-                         @"prize":@"12 000"},
-                       
-                       @{@"place":@"3",
-                         @"prize":@"10 000"},
-                       
-                       @{@"place":@"4",
-                         @"prize":@"500"},
-        ];
-    
-    self.playersTableData = @[
-                             @{@"place":@"1",
-                               @"player":@"Artem Mikhailov",
-                               @"status":@"1", // 1 - still play, 2 - finished
-                               @"me":@NO},
-                             
-                             @{@"place":@"2",
-                               @"player":@"Ilshat",
-                               @"status":@"1",
-                               @"me":@NO},
-                             
-                             @{@"place":@"3",
-                               @"player":@"Inna Olegovna",
-                               @"status":@"2",
-                               @"me":@NO},
-                             
-                             @{@"place":@"4",
-                               @"player":@"Leonid",
-                               @"status":@"1",
-                               @"me":@YES},
-                             
-                             @{@"place":@"5",
-                               @"player":@"Alex",
-                               @"status":@"2",
-                               @"me":@NO},
-                             
-                            
-                             
-                             ];
 }
 
 
@@ -357,6 +355,29 @@ static NSString* playersCellIdentifier = @"playersCell";
     top += CGRectGetHeight(morePlayersButton.frame) + padding_top + padding_top;
     
     
+    //row
+    width_button = 226.5f;
+    height_button = 55.f;
+    BaseButton *unregistredButton = [BaseButton buttonWithType:UIButtonTypeCustom];
+    
+    if(you_registred)
+    {
+        [unregistredButton addTarget:self
+                              action:@selector(unregistredAction:)
+                    forControlEvents:UIControlEventTouchUpInside];
+        [unregistredButton setTitle:[MCLocalization stringForKey:@"unregistration"] forState:UIControlStateNormal];
+    }
+    else{
+        [unregistredButton addTarget:self
+                              action:@selector(registredAction:)
+                    forControlEvents:UIControlEventTouchUpInside];
+        [unregistredButton setTitle:[MCLocalization stringForKey:@"registration"] forState:UIControlStateNormal];
+    }
+    
+    unregistredButton.frame = CGRectMake((SCREEN_WIDTH - width_button)/2 , top, width_button, height_button);
+    top += CGRectGetHeight(unregistredButton.frame) + padding_top + padding_top;
+    
+    
     [self.scrollView setContentSize:CGSizeMake(CGRectGetWidth(self.scrollView.frame), top)];
     
 //    //test place
@@ -379,6 +400,7 @@ static NSString* playersCellIdentifier = @"playersCell";
     [self.scrollView addSubview:self.prizesGrid];
     [self.scrollView addSubview:self.playersGrid];
     
+    [self.scrollView addSubview:unregistredButton];
     [self.scrollView addSubview:beginLabel];
     [self.scrollView addSubview:statusLabel];
     [self.scrollView addSubview:participantsLabel];
@@ -389,6 +411,73 @@ static NSString* playersCellIdentifier = @"playersCell";
     [self.scrollView addSubview:playersLabel];
     [self.scrollView addSubview:searchPlayers];
     [self.scrollView addSubview:morePlayersButton];
+}
+
+-(void)unregistredAction:(id)sender
+{
+    // unregister him
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [[[APIModel alloc] init] unregisterToTournamentWithToken:self.authUser.token andIdTour:self.selectedTourId onSuccess:^(NSDictionary *data) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+
+        // go to trade controller
+        
+        UIAlertController * alert=   [UIAlertController
+                                      alertControllerWithTitle:[MCLocalization stringForKey:@"alert"]
+                                      message:[MCLocalization stringForKey:@"you_unregistred"]
+                                      preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+             [self goToTournamentsList];
+            //do something when click button
+        }];
+        [alert addAction:okAction];
+        UIViewController *vc = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+        [vc presentViewController:alert animated:YES completion:nil];
+        
+        
+       
+    } onFailure:^(NSString *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self showMessage:error withTitle:[MCLocalization stringForKey:@"error"]];
+    }];
+}
+
+
+-(void)registredAction:(id)sender
+{
+    // unregister him
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [[[APIModel alloc] init] registerToTournamentWithToken:self.authUser.token andIdTour:self.selectedTourId onSuccess:^(NSDictionary *data) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        
+        // go to trade controller
+        
+        UIAlertController * alert=   [UIAlertController
+                                      alertControllerWithTitle:[MCLocalization stringForKey:@"done"]
+                                      message:[MCLocalization stringForKey:@"you_registred"]
+                                      preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+            [self goToTournamentsList];
+            //do something when click button
+        }];
+        [alert addAction:okAction];
+        UIViewController *vc = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+        [vc presentViewController:alert animated:YES completion:nil];
+        
+        
+        
+    } onFailure:^(NSString *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self showMessage:error withTitle:[MCLocalization stringForKey:@"error"]];
+    }];
+}
+
+
+-(void)goToTournamentsList
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 -(void)showMorePrizes:(id)sender
@@ -467,9 +556,9 @@ static NSString* playersCellIdentifier = @"playersCell";
     }else if([tableView isEqual:self.playersGrid])
     {
         dictionaryCell = [self.playersTableData objectAtIndex:indexPath.row];
-        
+        NSLog(@"%@",dictionaryCell);
         PlayersTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:playersCellIdentifier];
-        cell.placeLabel.text = [dictionaryCell objectForKey:@"place"];
+        cell.placeLabel.text = [[dictionaryCell objectForKey:@"place"] stringValue];
         cell.playerLabel.text = [dictionaryCell objectForKey:@"player"];
         cell.showMe = [[dictionaryCell objectForKey:@"me"] boolValue];
         cell.status = [[dictionaryCell objectForKey:@"status"] integerValue];

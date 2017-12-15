@@ -15,6 +15,26 @@
 
 @implementation LobbyBaseTableViewController
 
+
+//Method
+
+-(void)showMessage:(NSString*)message withTitle:(NSString *)title
+{
+    
+    UIAlertController * alert=   [UIAlertController
+                                  alertControllerWithTitle:title
+                                  message:message
+                                  preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+        
+        //do something when click button
+    }];
+    [alert addAction:okAction];
+    UIViewController *vc = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+    [vc presentViewController:alert animated:YES completion:nil];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -28,10 +48,15 @@
     [revealController tapGestureRecognizer];
     
     if([[self.navigationController viewControllers] count] == 1){
-        UIBarButtonItem *revealButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu"
-                                                                             style:UIBarButtonItemStylePlain target:revealController action:@selector(revealToggle:)];
+//        UIBarButtonItem *revealButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu"
+//                                                                             style:UIBarButtonItemStylePlain target:revealController action:@selector(revealToggle:)];
+        
+//        UIImageView* rightIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"menu"]];
+        
+        UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"leftmenu"] style:UIBarButtonItemStylePlain target:revealController action:@selector(revealToggle:)];
+   
 //        self.navigationItem.leftBarButtonItem = revealButtonItem;
-    self.navigationController.navigationBar.topItem.leftBarButtonItem = revealButtonItem;
+    self.navigationController.navigationBar.topItem.leftBarButtonItem = item;
     }
     
     

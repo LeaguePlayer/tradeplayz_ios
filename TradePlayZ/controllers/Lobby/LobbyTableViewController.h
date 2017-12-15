@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "LobbyBaseTableViewController.h"
+#import "KLCPopup.h"
 
 @interface LobbyTableViewController : LobbyBaseTableViewController
-
+{
+    int selected_id_tournament;
+}
+@property(nonatomic,retain) KLCPopup* popup;
 @end

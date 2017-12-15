@@ -7,21 +7,59 @@
 //
 
 #import "FAQTableViewController.h"
+#import "FAQTableViewCell.h"
+#import "FAQModalView.h"
 
 @interface FAQTableViewController ()
-
+@property (strong, nonatomic) NSArray* tableData;
 @end
+
+//cells
+static NSString* faqCellIdentifier = @"faqCell";
 
 @implementation FAQTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = [MCLocalization stringForKey:@"FAQ"];
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    query_string = @"";
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 100)];
+    [headerView setBackgroundColor:[UIColor clearColor]];
+    float widthField = 227.f;
+    float heightField = 34;
+    _searchField = [[SmallBaseTextField alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-widthField)/2, (CGRectGetHeight(headerView.frame)-heightField)/2, widthField, heightField)];
+    _searchField.delegate = self;
+    _searchField.tag = 0;
+    [_searchField setPlaceHolderText:[MCLocalization stringForKey:@"search"]];
+    [headerView addSubview:_searchField];
+    
+    _activityView = [[UIActivityIndicatorView alloc]
+                     initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    
+    _activityView.frame = CGRectMake((SCREEN_WIDTH-widthField)/2-heightField-8.f, (CGRectGetHeight(headerView.frame)-heightField)/2, heightField, heightField);
+    [_activityView startAnimating];
+    _activityView.alpha = 0.f;
+    [headerView addSubview:_activityView];
+    
+    self.tableView.tableHeaderView = headerView;
+    
+    [self registerCell];
+}
+
+
+- (void)registerCell
+{
+    [self.tableView registerClass:[FAQTableViewCell class] forCellReuseIdentifier:faqCellIdentifier];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self initTableData];
+//    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -29,70 +67,123 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)initTableData
+{
+    _activityView.alpha = 1.f;
+    NSMutableArray* tmpData = [[NSMutableArray alloc] init];
+    [[[APIModel alloc] init] getFAQ:self.authUser.token andQuery:query_string onSuccess:^(NSDictionary *data) {
+        NSDictionary *obj = [[data objectForKey:@"response"] objectForKey:@"faq"];
+        
+        for(NSDictionary* faq in obj)
+            [tmpData addObject:@{@"type":faqCellIdentifier,
+                                 @"title":[faq objectForKey:@"title"],
+                                 @"description":[faq objectForKey:@"description"]}];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.tableData = tmpData;
+            // buildContent
+            [self.tableView reloadData];
+            _activityView.alpha = 0.f;
+        });
+        
+        
+    } onFailure:^(NSString *error) {
+        [self showMessage:error withTitle:[MCLocalization stringForKey:@"error"]];
+        _activityView.alpha = 0.f;
+    }];
+    
+
+    
+    
+    
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Incomplete implementation, return the number of sections
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete implementation, return the number of rows
-    return 0;
+    return [self.tableData count];
 }
 
-/*
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSDictionary* dictionaryCell = [self.tableData objectAtIndex:indexPath.row];
+    FAQTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:faqCellIdentifier];
+    NSString *titleFAQ = [dictionaryCell objectForKey:@"title"];
+    
+    CGSize added_size = [Functions getHeightTextWithoutLabel:cell.titleFAQLabel.font andWidthWillLabel:cell.titleFAQLabel.frame.size.width andString:titleFAQ];
+//    return 50.f;
+    return 38.f  + (added_size.height - 18.f);
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    NSDictionary* dictionaryCell = [self.tableData objectAtIndex:indexPath.row];
     
-    // Configure the cell...
+    UITableViewCell* cellDef;
     
-    return cell;
-}
-*/
+    
+    
+    
+    if ([[dictionaryCell objectForKey:@"type"] isEqualToString:faqCellIdentifier]) {
+        FAQTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:faqCellIdentifier];
+        
+        
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+        [cell setFaqTitle:[dictionaryCell objectForKey:@"title"]];
+        
+        cellDef = cell;
+    }
+    
+    
+    
+    
+    
+    return cellDef;
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+-(BOOL)textFieldShouldReturn:(UITextField*)textField
+{
+    NSInteger nextTag = textField.tag + 1;
+    // Try to find next responder
+    UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [nextResponder becomeFirstResponder];
+    } else {
+        // Not found, so remove keyboard.
+        query_string = textField.text;
+        [textField resignFirstResponder];
+        
+        [self initTableData];
+    }
+    return NO; // We do not want UITextField to insert line-breaks.
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSDictionary* dictionaryCell = [self.tableData objectAtIndex:indexPath.row];
+    FAQTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:faqCellIdentifier];
+    [cell setFaqTitle:[dictionaryCell objectForKey:@"title"]];
+    
+    FAQModalView* contentView = [[FAQModalView alloc] init];
+    
+    contentView.titlePlace = cell.titleFAQLabel;
+    [contentView setDescriptionText:[dictionaryCell objectForKey:@"description"]];
+    contentView.frame = CGRectMake(0.0, 0.0, SCREEN_WIDTH, [contentView getHeightModal]);
+    
+    contentView.backgroundColor =[UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_modal"]];
+    
+    
+    
+    self.popup = [KLCPopup popupWithContentView:contentView];
+    [_popup show];
+    
+    
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

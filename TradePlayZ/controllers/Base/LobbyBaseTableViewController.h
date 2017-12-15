@@ -13,5 +13,6 @@
 
 @property(nonatomic,retain) TPZUser* authUser;
 
+-(void)showMessage:(NSString*)message withTitle:(NSString *)title;
 
 @end
