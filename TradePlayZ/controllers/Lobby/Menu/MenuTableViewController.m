@@ -276,7 +276,17 @@ static NSString* actionLogout = @"actionLogout";
             email = [email stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:email]];
-        }else
+        }else if([[dictionaryCell objectForKey:@"action"] isEqualToString:actionSettings])
+        {
+            // переходим на другое представление
+        
+            
+            SettingsViewController *settingController = [[SettingsViewController alloc] init];
+            
+            [self.navigationController pushViewController:settingController animated:YES];
+            //            [revealController pushFrontViewController:navController animated:YES];
+        }
+        else
         {
             // переходим на другое представление
             SWRevealViewController *revealController = self.revealViewController;
@@ -284,8 +294,12 @@ static NSString* actionLogout = @"actionLogout";
             
             NSString* identifier = [dictionaryCell objectForKey:@"action"];
             LobbyBaseNavigationController *navController = [sb instantiateViewControllerWithIdentifier: identifier ];
-            NSLog(@"%@",sb);
-            NSLog(@"%@",navController);
+//            NSLog(@"%@",sb);
+//            NSLog(@"%@",self.navigationController);
+            
+//            UIViewController *a = [[UIViewController alloc] init];
+            
+//            [self.navigationController pushViewController:a animated:YES];
             [revealController pushFrontViewController:navController animated:YES];
         }
         

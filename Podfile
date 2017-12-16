@@ -6,7 +6,8 @@ target 'TradePlayZ' do
   # use_frameworks!
 
   use_frameworks!
-  	pod 'TwitterKit'
+  	pod 'TwitterKit', '~>3.2.2'
+	pod 'TwitterCore', '~> 3.0.3'
 
   # Pods for TradePlayZ
   pod "CZPicker"
@@ -15,5 +16,6 @@ target 'TradePlayZ' do
   pod 'Reachability', '~> 3.2'
   pod 'MBProgressHUD', '~> 1.0.0'
   #pod "NMPopUpViewSwift"
+  pod "SlackTextViewController"
 end
 

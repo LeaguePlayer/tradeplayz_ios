@@ -36,6 +36,19 @@
     [[[APIModel alloc] init] getUserProfileWithToken:self.token OnSuccess:^(NSDictionary *data) {
         NSDictionary* jsonData = [[data objectForKey:@"response"] objectForKey:@"user"];
         
+        // form data
+        NSString *address = ([[jsonData objectForKey:@"address"] isKindOfClass:[NSNull class]]) ? [MCLocalization stringForKey:@"not_specified"] : [jsonData objectForKey:@"address"];
+        address = ([address isEqualToString:@""]) ? [MCLocalization stringForKey:@"not_specified"] : address;
+        
+        NSString *zipCodeString = ([[jsonData objectForKey:@"zipcode"] isKindOfClass:[NSNull class]]) ? [MCLocalization stringForKey:@"not_specified"] : [jsonData objectForKey:@"zipcode"];
+        zipCodeString = ([zipCodeString isEqualToString:@""]) ? [MCLocalization stringForKey:@"not_specified"] : zipCodeString;
+        
+        NSString *emailString = ([[jsonData objectForKey:@"email"] isKindOfClass:[NSNull class]]) ? [MCLocalization stringForKey:@"not_specified"] : [jsonData objectForKey:@"email"];
+        emailString = ([emailString isEqualToString:@""]) ? [MCLocalization stringForKey:@"not_specified"] : emailString;
+        
+        NSString *phoneString = ([[jsonData objectForKey:@"phone"] isKindOfClass:[NSNull class]]) ? [MCLocalization stringForKey:@"not_specified"] : [jsonData objectForKey:@"phone"];
+        phoneString = ([phoneString isEqualToString:@""]) ? [MCLocalization stringForKey:@"not_specified"] : phoneString;
+
         self.id_user = [jsonData objectForKey:@"id"];
         self.firstname = [jsonData objectForKey:@"firstname"];
         self.lastname = [jsonData objectForKey:@"lastname"];
@@ -43,12 +56,30 @@
         self.balance = [jsonData objectForKey:@"balance"];
         self.login = [jsonData objectForKey:@"login"];
         self.rating = [jsonData objectForKey:@"rating"];
-        self.address = [jsonData objectForKey:@"address"];
-        self.zipcode = [jsonData objectForKey:@"zipcode"];
-        self.email = [jsonData objectForKey:@"email"];
+        self.address = address;
+        self.zipcode = zipCodeString;
+        self.email = emailString;
+        self.phone = phoneString;
         self.currency = [jsonData objectForKey:@"currency"];
         
         success(jsonData);
+    } onFailure:^(NSString *error) {
+        failure(error);
+    }];
+}
+
+-(void)editProfileWithParams:(NSDictionary*)profileParams
+                   OnSuccess:(void(^)(NSDictionary *data))success
+                   onFailure:(void(^)(NSString *error))failure
+{
+    [[[APIModel alloc] init] editUserProfileWithToken:self.token andParams:profileParams OnSuccess:^(NSDictionary *data) {
+        
+        [self actualizeProfileOnSuccess:^(NSDictionary *data) {
+            success(data);
+        } onFailure:^(NSString *error) {
+            failure(error);
+        }];
+        
     } onFailure:^(NSString *error) {
         failure(error);
     }];

@@ -9,7 +9,7 @@
 #import "APIModel.h"
 #import "AFNetworking.h"
 
-
+//#define DOMAIN_API @"http://dev.tradeplayz.com/api/"
 
 #define DOMAIN_API @"http://tpz.server.loc.192.168.88.23.xip.io:8888/api/"
 
@@ -95,6 +95,29 @@ andWithUserDevice:(NSDictionary *)userDevice
 }
 
 
+- (void)getChatListWithToken:(NSString*)token
+                   onSuccess:(void(^)(NSDictionary *data))success
+                   onFailure:(void(^)(NSString *error))failure
+{
+    NSString* apiName = @"chat/getChat";
+    NSString* urlAPI = [NSString stringWithFormat:@"%@%@", DOMAIN_API, apiName];
+    
+    
+    NSDictionary *parameters = @{@"token": token, @"language":[MCLocalization sharedInstance].language};
+    
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager GET:urlAPI parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+        if([[responseObject objectForKey:@"result"] integerValue] == 0)//error
+            failure([responseObject objectForKey:@"error_text"]);
+        else
+            success(responseObject);
+    } failure:^(NSURLSessionTask *operation, NSError *error) {
+        failure([error.userInfo objectForKey:@"NSLocalizedDescription"]);
+    }];
+}
+
 - (void)getUserProfileWithToken:(NSString*)token
                       OnSuccess:(void(^)(NSDictionary *data))success
                       onFailure:(void(^)(NSString *error))failure
@@ -104,6 +127,30 @@ andWithUserDevice:(NSDictionary *)userDevice
     
     
     NSDictionary *parameters = @{@"token": token, @"language":[MCLocalization sharedInstance].language};
+    
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager GET:urlAPI parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+        if([[responseObject objectForKey:@"result"] integerValue] == 0)//error
+            failure([responseObject objectForKey:@"error_text"]);
+        else
+            success(responseObject);
+    } failure:^(NSURLSessionTask *operation, NSError *error) {
+        failure([error.userInfo objectForKey:@"NSLocalizedDescription"]);
+    }];
+}
+
+- (void)editUserProfileWithToken:(NSString*)token
+                       andParams:(NSDictionary*)profileParams
+                       OnSuccess:(void(^)(NSDictionary *data))success
+                       onFailure:(void(^)(NSString *error))failure
+{
+    NSString* apiName = @"users/editProfile";
+    NSString* urlAPI = [NSString stringWithFormat:@"%@%@", DOMAIN_API, apiName];
+    
+    
+    NSDictionary *parameters = @{@"token": token, @"user": profileParams, @"language":[MCLocalization sharedInstance].language};
     
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];

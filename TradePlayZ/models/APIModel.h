@@ -16,9 +16,15 @@
                onSuccess:(void(^)(NSDictionary *data))success
                onFailure:(void(^)(NSString *error))failure;
 
+//profile
 - (void)getUserProfileWithToken:(NSString*)token
                 OnSuccess:(void(^)(NSDictionary *data))success
                onFailure:(void(^)(NSString *error))failure;
+
+- (void)editUserProfileWithToken:(NSString*)token
+                       andParams:(NSDictionary*)profileParams
+                      OnSuccess:(void(^)(NSDictionary *data))success
+                      onFailure:(void(^)(NSString *error))failure;
 
 -(void)checkExistToken:(NSString*)token
              OnSuccess:(void(^)(NSDictionary *data))success
@@ -56,6 +62,12 @@
                               andQuery:(NSString*)query
                               onSuccess:(void(^)(NSDictionary *data))success
                               onFailure:(void(^)(NSString *error))failure;
+
+
+//chat
+- (void)getChatListWithToken:(NSString*)token
+                      onSuccess:(void(^)(NSDictionary *data))success
+                      onFailure:(void(^)(NSString *error))failure;
 
 
 - (void)loginWithNetworkProvider:(TPZUserProvider *)provider

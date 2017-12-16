@@ -28,7 +28,7 @@
 {
     NSDictionary* userParams = @{
                                  @"login":self.user.login,
-                                 @"password":[self.password MD5],
+                                 @"password": ([self.password isEqualToString:@""]) ? @"" : [self.password MD5],
                                  @"currency":self.user.currency,
                                  };
     

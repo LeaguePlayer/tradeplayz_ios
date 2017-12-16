@@ -23,7 +23,7 @@
         self.clearButtonMode = UITextFieldViewModeWhileEditing;
         
         
-        self.textColor = [UIColor colorWithRed:0.33 green:0.50 blue:0.69 alpha:1.0];
+        self.textColor = [UIColor whiteColor];
         self.layer.borderColor=[UIColor colorWithRed:0.33 green:0.50 blue:0.69 alpha:1.0].CGColor;
         self.layer.borderWidth= 2.0f;
         

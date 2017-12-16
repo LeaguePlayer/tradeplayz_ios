@@ -23,8 +23,8 @@
     LobbyBaseNavigationController *frontNavigationController = [storyboard instantiateViewControllerWithIdentifier:@"actionTrade"];
     
     
-    MenuTableViewController *rearViewController = [[MenuTableViewController alloc] init];
-    
+    MenuTableViewController *b = [[MenuTableViewController alloc] init];
+    LobbyBaseNavigationController* rearViewController = [[LobbyBaseNavigationController alloc] initWithRootViewController:b];
     
     SWRevealViewController *revealController = [[SWRevealViewController alloc] initWithRearViewController:rearViewController frontViewController:frontNavigationController];
     revealController.delegate = self;

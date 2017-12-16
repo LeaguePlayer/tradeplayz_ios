@@ -25,6 +25,7 @@
 @property (nonatomic,retain) NSString* address;
 @property (nonatomic,retain) NSString* zipcode;
 @property (nonatomic,retain) NSString* email;
+@property (nonatomic,retain) NSString* phone;
 
 @property (nonatomic,retain) TPZUserProvider* provider;
 
@@ -34,6 +35,11 @@
 
 -(void)actualizeProfileOnSuccess:(void(^)(NSDictionary *data))success
                        onFailure:(void(^)(NSString *error))failure;
+
+
+-(void)editProfileWithParams:(NSDictionary*)profileParams
+                        OnSuccess:(void(^)(NSDictionary *data))success
+                        onFailure:(void(^)(NSString *error))failure;
 
 
 @end
