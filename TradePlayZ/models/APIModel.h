@@ -45,6 +45,35 @@
                          onSuccess:(void(^)(NSDictionary *data))success
                          onFailure:(void(^)(NSString *error))failure;
 
+- (void)getAllPrizesByTourID:(NSString*)tourID
+                    andToken:(NSString*)token
+                      onSuccess:(void(^)(NSDictionary *data))success
+                      onFailure:(void(^)(NSString *error))failure;
+
+- (void)getAllParticipantsWithToken:(NSString*)token
+          andQuery:(NSString*)query
+                            andTourID:(NSString*)tourID
+         onSuccess:(void(^)(NSDictionary *data))success
+     onFailure:(void(^)(NSString *error))failure;
+
+//bet
+- (void)betWithSizing:(NSString*)sizing
+           andTypeBet:(NSInteger)betType
+                    andToken:(NSString*)token
+                   onSuccess:(void(^)(NSDictionary *data))success
+                   onFailure:(void(^)(NSString *error))failure;
+
+//trade
+- (void)getActiveTournamentWithToken:(NSString*)token
+            onSuccess:(void(^)(NSDictionary *data))success
+            onFailure:(void(^)(NSString *error))failure;
+
+- (void)checkStatusTournamentByID:(NSString*)tourID
+                         andToken:(NSString*)token
+                           onSuccess:(void(^)(NSDictionary *data))success
+                           onFailure:(void(^)(NSString *error))failure;
+
+
 //regist / unregist to tour
 - (void)registerToTournamentWithToken:(NSString*)token
                             andIdTour:(NSString*)tourID
@@ -68,6 +97,16 @@
 - (void)getChatListWithToken:(NSString*)token
                       onSuccess:(void(^)(NSDictionary *data))success
                       onFailure:(void(^)(NSString *error))failure;
+
+- (void)sendChatMessage:(NSString*)message
+              withToken:(NSString *)token
+                   onSuccess:(void(^)(NSDictionary *data))success
+              onFailure:(void(^)(NSString *error))failure;
+
+//page
+- (void)getStaticPageWithAlias:(NSString*)alias
+                   onSuccess:(void(^)(NSDictionary *data))success
+                   onFailure:(void(^)(NSString *error))failure;
 
 
 - (void)loginWithNetworkProvider:(TPZUserProvider *)provider

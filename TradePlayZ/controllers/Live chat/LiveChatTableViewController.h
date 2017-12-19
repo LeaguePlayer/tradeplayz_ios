@@ -8,8 +8,9 @@
 
 #import "LobbyBaseTableViewController.h"
 
-
 @interface LiveChatTableViewController : LobbyBaseTableViewController
 
+@property (strong, nonatomic) UITextField *messageField;
+@property (strong, nonatomic) UIView *messageTextView;
 
 @end

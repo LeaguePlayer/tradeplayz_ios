@@ -10,6 +10,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "BaseButton.h"
 #import "EditProfileViewController.h"
+#import "LobbyBaseNavigationController.h"
 
 @interface SettingsViewController : LobbyBaseViewController
 

@@ -18,9 +18,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = [MCLocalization stringForKey:@"terms"];
+//    self.title = [MCLocalization stringForKey:@"terms"];
     
-    UIBarButtonItem *revealButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Close"
+    UIBarButtonItem *revealButtonItem = [[UIBarButtonItem alloc] initWithTitle:[MCLocalization stringForKey:@"close"]
                                                                          style:UIBarButtonItemStylePlain target:self action:@selector(closeTerms:)];
     //        self.navigationItem.leftBarButtonItem = revealButtonItem;
     self.navigationController.navigationBar.topItem.leftBarButtonItem = revealButtonItem;

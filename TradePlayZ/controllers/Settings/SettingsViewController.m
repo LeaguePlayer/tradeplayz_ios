@@ -251,9 +251,24 @@
     [self.scrollView addSubview:loginButton];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
+}
+
 -(void)replenishAction:(id)sender
 {
     NSLog(@"replenishAction");
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    // переходим на другое представление
+    SWRevealViewController *revealController = self.revealViewController;
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    
+    NSString* identifier = @"replenishController";
+    LobbyBaseNavigationController *navController = [storyboard instantiateViewControllerWithIdentifier: identifier ];
+    navController.aliasPage = @"replenish";
+    [revealController pushFrontViewController:navController animated:YES];
 }
 
 -(void)editProfileAction:(id)sender

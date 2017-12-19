@@ -34,10 +34,13 @@
     
     if([[self.navigationController viewControllers] count] == 1)
     {
-        UIBarButtonItem *revealButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu"
-                                                                             style:UIBarButtonItemStylePlain target:revealController action:@selector(revealToggle:)];
+//        UIBarButtonItem *revealButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu"
+//                                                                             style:UIBarButtonItemStylePlain target:revealController action:@selector(revealToggle:)];
         
-        self.navigationItem.leftBarButtonItem = revealButtonItem;
+//        self.navigationItem.leftBarButtonItem = revealButtonItem;
+        
+         UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"leftmenu"] style:UIBarButtonItemStylePlain target:revealController action:@selector(revealToggle:)];
+          self.navigationController.navigationBar.topItem.leftBarButtonItem = item;
     }
     
     

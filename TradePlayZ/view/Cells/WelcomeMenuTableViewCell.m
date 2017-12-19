@@ -39,7 +39,7 @@
         
         
         
-        self.countryLabel = [[UILabel alloc] initWithFrame:CGRectMake(padding_left+CGRectGetWidth(self.avatarImageView.frame)+15, padding_top+25+15, 180, 25)];
+        self.countryLabel = [[UILabel alloc] initWithFrame:CGRectMake(padding_left+CGRectGetWidth(self.avatarImageView.frame)+15, padding_top+25+15, 180, 20)];
         [self.countryLabel setFont:[UIFont fontWithName:@"Lato-Regular" size:16.0f]];
         [self.countryLabel setTextColor:[UIColor colorWithRed:0.43 green:0.44 blue:0.45 alpha:1.0]];
         
@@ -123,37 +123,47 @@
     
     CGSize nameLabelSize = [Functions getHeightLabelWithFont:self.nameLabel];
     
-    float adding = (nameLabelSize.height + paddingTop + 15+25) - self.avatarImageView.frame.size.height + 15.f;
-//    if( adding < 0 )
-        adding = 0;
+//    float adding = (nameLabelSize.height + paddingTop + 15+25) - self.avatarImageView.frame.size.height + 15.f;
+   
+
+
     
     CGRect frame = self.countryLabel.frame;
 //    frame.origin.y += (nameLabelSize.height - paddingTop);
     frame.origin.y = self.nameLabel.frame.origin.y + elementSpacing + (nameLabelSize.height);
     self.countryLabel.frame = frame;
+    
+    float startY = 75 + paddingTop;
+    if(((nameLabelSize.height - 25) > 15))
+        startY += nameLabelSize.height - 25 - 15;
+    
+//    startY += frame.size.height + elementSpacing;
 
     CGRect frame2 = self.balanceLabel.frame;
 //    frame2.origin.y += (nameLabelSize.height - paddingTop);
 //    frame2.origin.y = frame2.origin.y + (nameLabelSize.height-25); // 25 - это начальная высота блока
     
-    frame2.origin.y = self.nameLabel.frame.origin.y + paddingTop  + (nameLabelSize.height) + adding;
+//    frame2.origin.y = self.nameLabel.frame.origin.y + paddingTop  + (nameLabelSize.height) + adding;
+    frame2.origin.y = startY;
     self.balanceLabel.frame = frame2;
 
     CGRect frame3 = self.ratingLabel.frame;
 //    frame3.origin.y += (nameLabelSize.height - paddingTop);
 //    frame3.origin.y = frame3.origin.y + (nameLabelSize.height-25); // 25 - это начальная высота блока
-     frame3.origin.y = self.nameLabel.frame.origin.y + paddingTop  + (nameLabelSize.height) + adding;
+     frame3.origin.y = startY;
     self.ratingLabel.frame = frame3;
     
     CGRect frame4 = self.balancePlace.frame;
 //    frame4.origin.y += (nameLabelSize.height - paddingTop);
 //    frame4.origin.y = frame4.origin.y + (nameLabelSize.height-25); // 25 - это начальная высота блока
-    frame4.origin.y = self.nameLabel.frame.origin.y + paddingTop + frame2.size.height  + (nameLabelSize.height) + adding;
+//    frame4.origin.y = self.nameLabel.frame.origin.y + paddingTop + frame2.size.height  + (nameLabelSize.height) + adding;
+    frame4.origin.y = startY + frame2.size.height + elementSpacing;
     self.balancePlace.frame = frame4;
     
     CGRect frame5 = self.ratingPlace.frame;
 //    frame5.origin.y = frame5.origin.y + (nameLabelSize.height-25); // 25 - это начальная высота блока
-    frame5.origin.y = self.nameLabel.frame.origin.y + paddingTop + frame3.size.height  + (nameLabelSize.height) + adding;
+//    frame5.origin.y = self.nameLabel.frame.origin.y + paddingTop + frame3.size.height  + (nameLabelSize.height) + adding;
+    frame5.origin.y = startY + frame3.size.height + elementSpacing;
     self.ratingPlace.frame = frame5;
     
     CGRect frame6 = self.sep.frame;

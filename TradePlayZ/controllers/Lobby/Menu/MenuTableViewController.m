@@ -74,10 +74,10 @@ static NSString* actionLogout = @"actionLogout";
     return [self.tableData count];
 }
 
-- (void)viewDidAppear:(BOOL)animated
+-(void)viewWillAppear:(BOOL)animated
 {
-   
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
     
     if(builded_content)
         [self.authUser actualizeProfileOnSuccess:^(NSDictionary *data) {
@@ -91,12 +91,20 @@ static NSString* actionLogout = @"actionLogout";
         [self.tableView reloadData];
         builded_content = YES;
     }
-    
-    
-   
-    
-
 }
+
+//- (void)viewDidAppear:(BOOL)animated
+//{
+//
+//    [super viewDidAppear:animated];
+//
+//
+//
+//
+//
+//
+//
+//}
 
 
 
@@ -267,11 +275,11 @@ static NSString* actionLogout = @"actionLogout";
         }else if([[dictionaryCell objectForKey:@"type"] isEqualToString:mailCellIdentifier])
         {
             // отправляем емейл
-            NSString *recipients = [NSString stringWithFormat:@"mailto:%@&subject=Hello from California!",[dictionaryCell objectForKey:@"title"]];
+            NSString *recipients = [NSString stringWithFormat:@"mailto:%@",[dictionaryCell objectForKey:@"title"]];
             
-            NSString *body = @"&body=It is raining in sunny California!";
+//            NSString *body = @"&body=It is raining in sunny California!";
             
-            NSString *email = [NSString stringWithFormat:@"%@%@", recipients, body];
+            NSString *email = [NSString stringWithFormat:@"%@", recipients];
             
             email = [email stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             
@@ -286,6 +294,28 @@ static NSString* actionLogout = @"actionLogout";
             [self.navigationController pushViewController:settingController animated:YES];
             //            [revealController pushFrontViewController:navController animated:YES];
         }
+        else if([[dictionaryCell objectForKey:@"action"] isEqualToString:actionWithdraw])
+        {
+            // переходим на другое представление
+            SWRevealViewController *revealController = self.revealViewController;
+            
+            
+            NSString* identifier = [dictionaryCell objectForKey:@"action"];
+            LobbyBaseNavigationController *navController = [sb instantiateViewControllerWithIdentifier: identifier ];
+            navController.aliasPage = @"withdraw";
+            [revealController pushFrontViewController:navController animated:YES];
+        }
+        else if([[dictionaryCell objectForKey:@"action"] isEqualToString:actionTutorial])
+        {
+            // переходим на другое представление
+            SWRevealViewController *revealController = self.revealViewController;
+            
+            
+            NSString* identifier = [dictionaryCell objectForKey:@"action"];
+            LobbyBaseNavigationController *navController = [sb instantiateViewControllerWithIdentifier: identifier ];
+            navController.aliasPage = @"tutorial";
+            [revealController pushFrontViewController:navController animated:YES];
+        }
         else
         {
             // переходим на другое представление
@@ -294,12 +324,7 @@ static NSString* actionLogout = @"actionLogout";
             
             NSString* identifier = [dictionaryCell objectForKey:@"action"];
             LobbyBaseNavigationController *navController = [sb instantiateViewControllerWithIdentifier: identifier ];
-//            NSLog(@"%@",sb);
-//            NSLog(@"%@",self.navigationController);
-            
-//            UIViewController *a = [[UIViewController alloc] init];
-            
-//            [self.navigationController pushViewController:a animated:YES];
+
             [revealController pushFrontViewController:navController animated:YES];
         }
         

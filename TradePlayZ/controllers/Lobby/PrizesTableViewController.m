@@ -63,14 +63,30 @@ static NSString* prizeCellIdentifier = @"prizeCell";
 
 -(void)initData
 {
-    NSMutableArray *array = [[NSMutableArray alloc] init];
-    for(int i = 1; i <= 100; i++)
-    {
-        int result = 15000-i;
-        [array addObject:@{@"place":[NSString stringWithFormat:@"%i",i],
-                           @"prize":[NSString stringWithFormat:@"%i",result]}];
-    }
-    self.prizesTableData = [array copy];
+//     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    NSMutableArray* tmpData = [[NSMutableArray alloc] init];
+    
+    [[[APIModel alloc] init] getAllPrizesByTourID:_selectedTourID andToken:self.authUser.token onSuccess:^(NSDictionary *data) {
+            NSDictionary *obj = [[[data objectForKey:@"response"] objectForKey:@"tournament"] objectForKey:@"prizes"];
+        
+            for(NSDictionary* prize in obj)
+                [tmpData addObject:@{@"place":[prize objectForKey:@"row_number"],
+                                     @"prize":[prize objectForKey:@"prize"]}];
+        
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                self.prizesTableData = tmpData;
+                // buildContent
+                [self.tableView reloadData];
+//                [MBProgressHUD hideHUDForView:self.view animated:YES];
+            });
+    } onFailure:^(NSString *error) {
+//         [MBProgressHUD hideHUDForView:self.view animated:YES];
+         [self showMessage:error withTitle:[MCLocalization stringForKey:@"error"]];
+    }];
+    
+
+    
 }
 
 

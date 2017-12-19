@@ -11,4 +11,6 @@
 
 @interface PrizesTableViewController : LobbyBaseTableViewController
 
+@property(nonatomic, retain) NSString* selectedTourID;
+
 @end

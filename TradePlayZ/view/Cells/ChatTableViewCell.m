@@ -43,14 +43,16 @@
         
         //
 //        float top = padding_for_text;
-        self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(padding_for_text, padding_for_text, width_place-(padding_for_text*2), 0)];
+         width_place = SCREEN_WIDTH - ((left_right_padding+triangle+widthImageView) *2) - (padding_for_text*2);
+        
+        self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(padding_for_text, padding_for_text, width_place, 0)];
         [self.nameLabel setNumberOfLines:0];
         [self.nameLabel setTextColor:[UIColor colorWithRed:0.33 green:0.50 blue:0.69 alpha:1.0]];
         [self.nameLabel setFont:[UIFont fontWithName:@"Lato-Regular" size:13.0f]];
         [self.nameLabel setLineBreakMode:NSLineBreakByWordWrapping];
         
         //
-        self.messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(padding_for_text, padding_for_text, width_place-(padding_for_text*2), 0)];
+        self.messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(padding_for_text, padding_for_text, width_place, 0)];
         [self.messageLabel setNumberOfLines:0];
         [self.messageLabel setTextColor:[UIColor whiteColor]];
         [self.messageLabel setFont:[UIFont fontWithName:@"Lato-Regular" size:13.0f]];
@@ -71,24 +73,31 @@
     self.messageLabel.text = message;
 //    if([name length])
 //    {
-        CGSize nameLabelSize = [Functions getHeightLabelWithFont:self.nameLabel];
-        CGSize messageLabelSize = [Functions getHeightLabelWithFont:self.messageLabel];
-        [self.nameLabel sizeToFit];
-        [self.messageLabel sizeToFit];
-        
-        float width_place = SCREEN_WIDTH - ((left_right_padding+triangle+widthImageView) *2);
+    float width_place = SCREEN_WIDTH - ((left_right_padding+triangle+widthImageView) *2) - (padding_for_text*2);
+    [self.nameLabel sizeToFit];
+    [self.messageLabel sizeToFit];
+        CGSize nameLabelSize = [Functions getHeightLabelWithFont:self.nameLabel andWidth:width_place];
+        CGSize messageLabelSize = [Functions getHeightLabelWithFont:self.messageLabel andWidth:width_place];
+  
+    NSLog(@"%f",placeView.frame.size.width);
+    
         
         CGRect frame = self.nameLabel.frame;
         frame.size.height = nameLabelSize.height;
-        frame.size.width = width_place-(padding_for_text*2);
+        frame.size.width = width_place;
         self.nameLabel.frame = frame;
+    
+    NSLog(@"%@",message);
     
     float originYForMessage = ([name length]) ? padding_for_text + nameLabelSize.height + padding_for_text : padding_for_text;
         CGRect frameMessage = self.messageLabel.frame;
         frameMessage.origin.y = originYForMessage;
         frameMessage.size.height = messageLabelSize.height;
-        frameMessage.size.width = width_place-(padding_for_text*2);
+        frameMessage.size.width = width_place;
         self.messageLabel.frame = frameMessage;
+    
+//    NSLog(@"%@",message);
+    
     
     float heightForView = ([name length]) ? padding_for_text + nameLabelSize.height + padding_for_text + messageLabelSize.height +padding_for_text : padding_for_text + messageLabelSize.height + padding_for_text;
     CGRect Viewframe = placeView.frame;

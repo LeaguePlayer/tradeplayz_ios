@@ -7,22 +7,16 @@
 //
 
 #import "PlayersTableViewController.h"
-#import "PlayersTableViewCell.h"
+#import "PlayersPaddingTableViewCell.h"
 #import "headerView.h"
-#import "SearchPlayersTableViewController.h"
 
-@interface PlayersTableViewController () <UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating>
+
+@interface PlayersTableViewController ()
 
 @property (strong, nonatomic) NSArray* playersTableData;
 
-@property (nonatomic, strong) UISearchController *searchController;
 
-// our secondary search results table view
-@property (nonatomic, strong) SearchPlayersTableViewController *resultsTableController;
 
-// for state restoration
-@property BOOL searchControllerWasActive;
-@property BOOL searchControllerSearchFieldWasFirstResponder;
 
 @end
 
@@ -35,54 +29,63 @@ static NSString* playersCellIdentifier = @"playersCell";
     [super viewDidLoad];
     
     self.title = [MCLocalization stringForKey:@"table_prizes"];
+    query_string = @"";
     
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.separatorColor = [UIColor clearColor];
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [[[UIApplication sharedApplication] keyWindow] setBackgroundColor:[UIColor whiteColor]];
-    self.tableView.contentInset = UIEdgeInsetsMake(0, 40.f, 0, 0);
+//    self.tableView.contentInset = UIEdgeInsetsMake(0, 40.f, 0, 40);
+    
+    
+//    [self.tableView setFrame:CGRectMake(40.f, 0, SCREEN_WIDTH - (40*2), self.tableView.frame.size.height)];
+//    [self.tableView edge]
+    
+    
+    UIView *mainHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 130)];
+    [mainHeaderView setBackgroundColor:[UIColor clearColor]];
+    
+     float paddingLeft = (SCREEN_WIDTH * 10.35f) / 100;
+    headerView *tableHeaderView = [[headerView alloc] initWithFrame:CGRectMake(paddingLeft, 100-1.5f, SCREEN_WIDTH-(paddingLeft*2), 30)];
+    [tableHeaderView setColumns:@[
+                                         @{@"width":@12,
+                                           @"name":[MCLocalization stringForKey:@"place"]},
+
+                                         @{@"width":@75,
+                                           @"name":[MCLocalization stringForKey:@"player_title"]},
+
+                                         @{@"width":@13,
+                                           @"name":[MCLocalization stringForKey:@"status_title"]},
+
+                                         ]];
+    
+    [mainHeaderView addSubview:tableHeaderView];
+    
+    float widthField = 227.f;
+    float heightField = 34;
+    _searchField = [[SmallBaseTextField alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-widthField)/2, (CGRectGetHeight(mainHeaderView.frame)-heightField-30.f)/2, widthField, heightField)];
+    _searchField.delegate = self;
+    _searchField.tag = 0;
+    [_searchField setPlaceHolderText:[MCLocalization stringForKey:@"search"]];
+    [mainHeaderView addSubview:_searchField];
+    
+    _activityView = [[UIActivityIndicatorView alloc]
+                     initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    
+    _activityView.frame = CGRectMake((SCREEN_WIDTH-widthField)/2-heightField-8.f, (CGRectGetHeight(mainHeaderView.frame)-heightField-30.f)/2, heightField, heightField);
+    [_activityView startAnimating];
+    _activityView.alpha = 0.f;
+    [mainHeaderView addSubview:_activityView];
+
+    self.tableView.tableHeaderView = mainHeaderView;
+    
+    
+
     
     
     
-//    headerView *tableHeaderView = [[headerView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-(40*2), 30)];
-//    [tableHeaderView setColumns:@[
-//                                         @{@"width":@15,
-//                                           @"name":[MCLocalization stringForKey:@"place"]},
-//
-//                                         @{@"width":@75,
-//                                           @"name":[MCLocalization stringForKey:@"player_title"]},
-//
-//                                         @{@"width":@10,
-//                                           @"name":[MCLocalization stringForKey:@"status_title"]},
-//
-//                                         ]];
-//
-//    self.tableView.tableHeaderView = tableHeaderView;
     
     
-//    _resultsTableController = [[SearchPlayersTableViewController alloc] init];
-    _searchController = [[UISearchController alloc] initWithSearchResultsController:self];
-    self.searchController.searchResultsUpdater = self;
-    [self.searchController.searchBar sizeToFit];
-    self.tableView.tableHeaderView = self.searchController.searchBar;
-    
-    // We want ourselves to be the delegate for this filtered table so didSelectRowAtIndexPath is called for both tables.
-    self.resultsTableController.tableView.delegate = self;
-    self.searchController.delegate = self;
-    self.searchController.dimsBackgroundDuringPresentation = NO; // default is YES
-    self.searchController.searchBar.delegate = self; // so we can monitor text changes + others
-    
-    // Search is now just presenting a view controller. As such, normal view controller
-    // presentation semantics apply. Namely that presentation will walk up the view controller
-    // hierarchy until it finds the root view controller or one that defines a presentation context.
-    //
-    self.definesPresentationContext = YES;  // know where you want UISearchController to be displaye
-    
-    
-    
-    
-    //set content
-    [self initData];
     
     // registerCell
     [self registerCell];
@@ -91,20 +94,30 @@ static NSString* playersCellIdentifier = @"playersCell";
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    float width_table = SCREEN_WIDTH -  (40*2);
-    [self.tableView setContentSize:CGSizeMake(width_table, self.tableView.contentSize.height)];
+//    float width_table = SCREEN_WIDTH -  (40*2);
+//    [self.tableView setContentSize:CGSizeMake(width_table, self.tableView.contentSize.height)];
     
     
-    // restore the searchController's active state
-    if (self.searchControllerWasActive) {
-        self.searchController.active = self.searchControllerWasActive;
-        _searchControllerWasActive = NO;
+    //set content
+    [self initData];
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField*)textField
+{
+    NSInteger nextTag = textField.tag + 1;
+    // Try to find next responder
+    UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [nextResponder becomeFirstResponder];
+    } else {
+        // Not found, so remove keyboard.
+        query_string = textField.text;
+        [textField resignFirstResponder];
         
-        if (self.searchControllerSearchFieldWasFirstResponder) {
-            [self.searchController.searchBar becomeFirstResponder];
-            _searchControllerSearchFieldWasFirstResponder = NO;
-        }
+        [self initData];
     }
+    return NO; // We do not want UITextField to insert line-breaks.
 }
 
 
@@ -115,157 +128,46 @@ static NSString* playersCellIdentifier = @"playersCell";
 }
 
 
-#pragma mark - UISearchControllerDelegate
-
-// Called after the search controller's search bar has agreed to begin editing or when
-// 'active' is set to YES.
-// If you choose not to present the controller yourself or do not implement this method,
-// a default presentation is performed on your behalf.
-//
-// Implement this method if the default presentation is not adequate for your purposes.
-//
-- (void)presentSearchController:(UISearchController *)searchController {
-    
-}
-
-- (void)willPresentSearchController:(UISearchController *)searchController {
-    // do something before the search controller is presented
-}
-
-- (void)didPresentSearchController:(UISearchController *)searchController {
-    // do something after the search controller is presented
-}
-
-- (void)willDismissSearchController:(UISearchController *)searchController {
-    // do something before the search controller is dismissed
-}
-
-- (void)didDismissSearchController:(UISearchController *)searchController {
-    // do something after the search controller is dismissed
-}
-
-#pragma mark - UISearchResultsUpdating
-
-- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
-    // update the filtered array based on the search text
-    NSString *searchText = searchController.searchBar.text;
-    NSMutableArray *searchResults = [self.playersTableData mutableCopy];
-    
-//    // strip out all the leading and trailing spaces
-//    NSString *strippedString = [searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-//
-//    // break up the search terms (separated by spaces)
-//    NSArray *searchItems = nil;
-//    if (strippedString.length > 0) {
-//        searchItems = [strippedString componentsSeparatedByString:@" "];
-//    }
-//
-//    // build all the "AND" expressions for each value in the searchString
-//    //
-//    NSMutableArray *andMatchPredicates = [NSMutableArray array];
-//
-//    for (NSString *searchString in searchItems) {
-//        // each searchString creates an OR predicate for: name, yearIntroduced, introPrice
-//        //
-//        // example if searchItems contains "iphone 599 2007":
-//        //      name CONTAINS[c] "iphone"
-//        //      name CONTAINS[c] "599", yearIntroduced ==[c] 599, introPrice ==[c] 599
-//        //      name CONTAINS[c] "2007", yearIntroduced ==[c] 2007, introPrice ==[c] 2007
-//        //
-//        NSMutableArray *searchItemsPredicate = [NSMutableArray array];
-//
-//        // Below we use NSExpression represent expressions in our predicates.
-//        // NSPredicate is made up of smaller, atomic parts: two NSExpressions (a left-hand value and a right-hand value)
-//
-//        // name field matching
-//        NSExpression *lhs = [NSExpression expressionForKeyPath:@"place"];
-//        NSExpression *rhs = [NSExpression expressionForConstantValue:searchString];
-//        NSPredicate *finalPredicate = [NSComparisonPredicate
-//                                       predicateWithLeftExpression:lhs
-//                                       rightExpression:rhs
-//                                       modifier:NSDirectPredicateModifier
-//                                       type:NSContainsPredicateOperatorType
-//                                       options:NSCaseInsensitivePredicateOption];
-//        [searchItemsPredicate addObject:finalPredicate];
-//
-//        // yearIntroduced field matching
-//        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-//        numberFormatter.numberStyle = NSNumberFormatterNoStyle;
-//        NSNumber *targetNumber = [numberFormatter numberFromString:searchString];
-//        if (targetNumber != nil) {   // searchString may not convert to a number
-//            lhs = [NSExpression expressionForKeyPath:@"yearIntroduced"];
-//            rhs = [NSExpression expressionForConstantValue:targetNumber];
-//            finalPredicate = [NSComparisonPredicate
-//                              predicateWithLeftExpression:lhs
-//                              rightExpression:rhs
-//                              modifier:NSDirectPredicateModifier
-//                              type:NSEqualToPredicateOperatorType
-//                              options:NSCaseInsensitivePredicateOption];
-//            [searchItemsPredicate addObject:finalPredicate];
-//
-//            // price field matching
-//            lhs = [NSExpression expressionForKeyPath:@"introPrice"];
-//            rhs = [NSExpression expressionForConstantValue:targetNumber];
-//            finalPredicate = [NSComparisonPredicate
-//                              predicateWithLeftExpression:lhs
-//                              rightExpression:rhs
-//                              modifier:NSDirectPredicateModifier
-//                              type:NSEqualToPredicateOperatorType
-//                              options:NSCaseInsensitivePredicateOption];
-//            [searchItemsPredicate addObject:finalPredicate];
-//        }
-//
-//        // at this OR predicate to our master AND predicate
-//        NSCompoundPredicate *orMatchPredicates = [NSCompoundPredicate orPredicateWithSubpredicates:searchItemsPredicate];
-//        [andMatchPredicates addObject:orMatchPredicates];
-//    }
-//
-//    // match up the fields of the Product object
-//    NSCompoundPredicate *finalCompoundPredicate =
-//    [NSCompoundPredicate andPredicateWithSubpredicates:andMatchPredicates];
-//    searchResults = [[searchResults filteredArrayUsingPredicate:finalCompoundPredicate] mutableCopy];
-//
-//    // hand over the filtered results to our search results table
-////    SearchPlayersTableViewController *tableController = (SearchPlayersTableViewController *)self.searchController.searchResultsController;
-//    self.filteredData = searchResults;
-   [self.tableView reloadData];
-    
-    
-//    self.table
-}
-
-
-
-
--(int)getRandomNumberBetween:(int)from to:(int)to {
-    
-    return (int)from + arc4random() % (to-from+1);
-}
 
 -(void)initData
 {
-    int me = [self getRandomNumberBetween:1 to:100];
+    _activityView.alpha = 1.f;
+    NSMutableArray* tmpData = [[NSMutableArray alloc] init];
     
-    NSMutableArray *array = [[NSMutableArray alloc] init];
-    for(int i = 1; i <= 100; i++)
-    {
-        int status = [self getRandomNumberBetween:1 to:2];
-        BOOL itsMe = (me == i) ? YES : NO;
-//        int result = 15000-i;
-        [array addObject:@{@"place":[NSString stringWithFormat:@"%i",i],
-                           @"player":@"Ilshat",
-                           @"status":[NSString stringWithFormat:@"%i",status],
-                           @"me":[NSNumber numberWithBool:itsMe]}];
-    }
-    self.playersTableData = [array copy];
-    self.filteredData = [array copy];
+    
+    [[[APIModel alloc] init] getAllParticipantsWithToken:self.authUser.token andQuery:query_string andTourID:_selectedTourID  onSuccess:^(NSDictionary *data) {
+        NSDictionary *obj = [[[data objectForKey:@"response"] objectForKey:@"tournament"] objectForKey:@"participants"];
+        
+        for(NSDictionary* participant in obj)
+            [tmpData addObject:@{@"place":[participant objectForKey:@"row"],
+                                 @"player":[participant objectForKey:@"fullname"],
+                                 @"id_status":[participant objectForKey:@"id_status"],
+                                 @"status":[participant objectForKey:@"status"],
+                                 @"me":[participant objectForKey:@"me"]}];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.playersTableData = tmpData;
+            // buildContent
+            [self.tableView reloadData];
+            _activityView.alpha = 0.f;
+            
+            if(_beginSearch)
+            {
+                _beginSearch = NO;
+                [_searchField becomeFirstResponder];
+            }
+        });
+    } onFailure:^(NSString *error) {
+        [self showMessage:error withTitle:[MCLocalization stringForKey:@"error"]];
+        _activityView.alpha = 0.f;
+    }];
 }
 
 
 - (void)registerCell
 {
     
-    [self.tableView registerClass:[PlayersTableViewCell class] forCellReuseIdentifier:playersCellIdentifier];
+    [self.tableView registerClass:[PlayersPaddingTableViewCell class] forCellReuseIdentifier:playersCellIdentifier];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -280,7 +182,7 @@ static NSString* playersCellIdentifier = @"playersCell";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.filteredData count];
+    return [self.playersTableData count];
 }
 
 
@@ -298,14 +200,19 @@ static NSString* playersCellIdentifier = @"playersCell";
     UITableViewCell* cellDef;
     
     
-    dictionaryCell = [self.filteredData objectAtIndex:indexPath.row];
+    dictionaryCell = [self.playersTableData objectAtIndex:indexPath.row];
     
-    PlayersTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:playersCellIdentifier];
+    PlayersPaddingTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:playersCellIdentifier];
     cell.placeLabel.text = [dictionaryCell objectForKey:@"place"];
     cell.playerLabel.text = [dictionaryCell objectForKey:@"player"];
+    cell.statusLabel.text = [dictionaryCell objectForKey:@"status"];
     cell.showMe = [[dictionaryCell objectForKey:@"me"] boolValue];
-    cell.status = [[dictionaryCell objectForKey:@"status"] integerValue];
+    cell.status = [[dictionaryCell objectForKey:@"id_status"] integerValue];
     [cell changeStatus];
+    
+    
+//    CGRect cellFrame = CGRectMake(100,0,200,200); //CHANGE FRAME FOR YOUR APP
+//    [cell setFrame:cellFrame];
     
     cellDef = cell;
     

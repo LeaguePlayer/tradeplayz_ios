@@ -7,9 +7,23 @@
 //
 
 #import "LobbyBaseViewController.h"
+#import "BaseButton.h"
+#import "BetButton.h"
 
 @interface TradeViewController : LobbyBaseViewController
-
+{
+    NSString* sizing;
+    NSString* name;
+    NSString* timeBegin;
+    
+    BetButton* bet100;
+     BetButton* bet25;
+     BetButton* bet50;
+    
+    UILabel* balanceLabel;
+    
+    NSTimer *tickTimer;
+}
 @property (nonatomic) int selected_id_tour;
 
 @end

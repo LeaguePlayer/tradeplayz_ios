@@ -37,8 +37,7 @@
     
     self.descriptionPlace.frame = CGRectMake(_titlePlace.frame.origin.x, CGRectGetHeight(_titlePlace.frame)+20.f, SCREEN_WIDTH-(leftRightPadding*2), 55.f);
     
-//    NSString * htmlString = @"<html><body> Some html string </body></html>";
-//    NSAttributedString * attrStr = [[NSAttributedString alloc] initWithData:[value dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
+
     
 
     

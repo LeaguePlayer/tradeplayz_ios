@@ -381,7 +381,8 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     
     LobbyBaseNavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"termsAction"];
-    [self presentViewController:vc animated:YES completion:nil];
+    vc.aliasPage = @"term-and-conditions";
+        [self presentViewController:vc animated:YES completion:nil];
 }
 
 

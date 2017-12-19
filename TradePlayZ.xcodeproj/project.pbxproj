@@ -25,6 +25,9 @@
 		CFBC55E91FE41C8C00A0A285 /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFBC55E81FE41C8C00A0A285 /* EditProfileViewController.m */; };
 		CFBC55EC1FE53E9800A0A285 /* ChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CFBC55EB1FE53E9800A0A285 /* ChatTableViewCell.m */; };
 		CFBC55EF1FE544A200A0A285 /* TriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFBC55EE1FE544A200A0A285 /* TriangleView.m */; };
+		CFBC55F31FE6615000A0A285 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFBC55F21FE6615000A0A285 /* PageViewController.m */; };
+		CFBC55F61FE6869B00A0A285 /* PlayersPaddingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CFBC55F51FE6869B00A0A285 /* PlayersPaddingTableViewCell.m */; };
+		CFBC55F91FE8082200A0A285 /* BetButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CFBC55F81FE8082200A0A285 /* BetButton.m */; };
 		CFEC7D521FD034990045768A /* PlayersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFEC7D511FD034980045768A /* PlayersTableViewController.m */; };
 		CFEC7D551FD03C410045768A /* SearchPlayersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFEC7D541FD03C410045768A /* SearchPlayersTableViewController.m */; };
 		CFEC7D571FD119950045768A /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CFEC7D561FD119950045768A /* Lato-Light.ttf */; };
@@ -123,6 +126,12 @@
 		CFBC55EB1FE53E9800A0A285 /* ChatTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChatTableViewCell.m; sourceTree = "<group>"; };
 		CFBC55ED1FE544A200A0A285 /* TriangleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TriangleView.h; sourceTree = "<group>"; };
 		CFBC55EE1FE544A200A0A285 /* TriangleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TriangleView.m; sourceTree = "<group>"; };
+		CFBC55F11FE6615000A0A285 /* PageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PageViewController.h; sourceTree = "<group>"; };
+		CFBC55F21FE6615000A0A285 /* PageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PageViewController.m; sourceTree = "<group>"; };
+		CFBC55F41FE6869A00A0A285 /* PlayersPaddingTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayersPaddingTableViewCell.h; sourceTree = "<group>"; };
+		CFBC55F51FE6869B00A0A285 /* PlayersPaddingTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayersPaddingTableViewCell.m; sourceTree = "<group>"; };
+		CFBC55F71FE8082200A0A285 /* BetButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BetButton.h; sourceTree = "<group>"; };
+		CFBC55F81FE8082200A0A285 /* BetButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BetButton.m; sourceTree = "<group>"; };
 		CFEC7D501FD034980045768A /* PlayersTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayersTableViewController.h; sourceTree = "<group>"; };
 		CFEC7D511FD034980045768A /* PlayersTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayersTableViewController.m; sourceTree = "<group>"; };
 		CFEC7D531FD03C410045768A /* SearchPlayersTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchPlayersTableViewController.h; sourceTree = "<group>"; };
@@ -347,6 +356,15 @@
 			path = RTLabel;
 			sourceTree = "<group>";
 		};
+		CFBC55F01FE6613F00A0A285 /* Page */ = {
+			isa = PBXGroup;
+			children = (
+				CFBC55F11FE6615000A0A285 /* PageViewController.h */,
+				CFBC55F21FE6615000A0A285 /* PageViewController.m */,
+			);
+			path = Page;
+			sourceTree = "<group>";
+		};
 		CFEC7D5B1FD12ECF0045768A /* TextField */ = {
 			isa = PBXGroup;
 			children = (
@@ -363,6 +381,8 @@
 			children = (
 				CFEC7D601FD134070045768A /* BaseButton.h */,
 				CFEC7D611FD134070045768A /* BaseButton.m */,
+				CFBC55F71FE8082200A0A285 /* BetButton.h */,
+				CFBC55F81FE8082200A0A285 /* BetButton.m */,
 			);
 			path = UIButton;
 			sourceTree = "<group>";
@@ -379,6 +399,7 @@
 		CFFDA13A1FCAAE67000F43E2 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				CFBC55F01FE6613F00A0A285 /* Page */,
 				CFBC55D61FE3CF2F00A0A285 /* RTLabel */,
 				CFBC55C81FE3AFE100A0A285 /* Trade */,
 				CFFDA1AA1FCD5391000F43E2 /* Settings */,
@@ -510,6 +531,8 @@
 				CFBC55CD1FE3BF8900A0A285 /* FAQTableViewCell.m */,
 				CFBC55EA1FE53E9800A0A285 /* ChatTableViewCell.h */,
 				CFBC55EB1FE53E9800A0A285 /* ChatTableViewCell.m */,
+				CFBC55F41FE6869A00A0A285 /* PlayersPaddingTableViewCell.h */,
+				CFBC55F51FE6869B00A0A285 /* PlayersPaddingTableViewCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -768,9 +791,11 @@
 				CFFDA1C61FCE8B89000F43E2 /* headerView.m in Sources */,
 				CFF331771FD7F1CB00DDD93E /* AuthBaseViewController.m in Sources */,
 				CFBC55C71FDFE5AE00A0A285 /* TournamentModalView.m in Sources */,
+				CFBC55F91FE8082200A0A285 /* BetButton.m in Sources */,
 				CFBC55C31FDFB72200A0A285 /* KLCPopup.m in Sources */,
 				CFFDA1C21FCE7382000F43E2 /* TournamentViewController.m in Sources */,
 				CFBC55DF1FE3D7B300A0A285 /* SmallBaseTextField.m in Sources */,
+				CFBC55F61FE6869B00A0A285 /* PlayersPaddingTableViewCell.m in Sources */,
 				CFEC7D521FD034990045768A /* PlayersTableViewController.m in Sources */,
 				CFBC55CE1FE3BF8900A0A285 /* FAQTableViewCell.m in Sources */,
 				CFEC7D5A1FD1222A0045768A /* LoginViewController.m in Sources */,
@@ -797,6 +822,7 @@
 				CFFDA1A11FCD519F000F43E2 /* LobbyBaseViewController.m in Sources */,
 				CFBC55EF1FE544A200A0A285 /* TriangleView.m in Sources */,
 				CFF3316B1FD7D79C00DDD93E /* UIDeviceHardware.m in Sources */,
+				CFBC55F31FE6615000A0A285 /* PageViewController.m in Sources */,
 				CFFDA1881FCBFF54000F43E2 /* MCLocalizationDummyDataSource.m in Sources */,
 				CFFDA13E1FCAC4EF000F43E2 /* RegistrationViewController.m in Sources */,
 				CFF331741FD7E65800DDD93E /* NSString+MD5.m in Sources */,

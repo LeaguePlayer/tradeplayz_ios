@@ -6,13 +6,18 @@
 //  Copyright © 2017 Leonid Minderov. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+
 #import "LobbyBaseTableViewController.h"
+#import "SmallBaseTextField.h"
 
-@interface PlayersTableViewController : LobbyBaseTableViewController 
-
-@property (nonatomic, strong) NSArray *filteredData;
-
+@interface PlayersTableViewController : LobbyBaseTableViewController  <UITextFieldDelegate>
+{
+    NSString* query_string;
+}
+@property(nonatomic,retain) SmallBaseTextField* searchField;
+@property(nonatomic,retain) UIActivityIndicatorView *activityView;
+@property(nonatomic, retain) NSString* selectedTourID;
+@property(nonatomic) BOOL beginSearch;
 
 
 @end

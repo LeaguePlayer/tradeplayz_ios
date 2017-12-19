@@ -6,8 +6,8 @@
 //  Copyright © 2017 Leonid Minderov. All rights reserved.
 //
 
-#import "LobbyBaseViewController.h"
+#import "PageViewController.h"
 
-@interface TermsViewController : LobbyBaseViewController
+@interface TermsViewController : PageViewController
 
 @end

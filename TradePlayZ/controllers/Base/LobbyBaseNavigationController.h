@@ -10,4 +10,6 @@
 
 @interface LobbyBaseNavigationController : UINavigationController
 
+@property (nonatomic, retain) NSString* aliasPage;
+
 @end

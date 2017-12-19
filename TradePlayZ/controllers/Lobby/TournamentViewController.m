@@ -89,8 +89,9 @@ static NSString* playersCellIdentifier = @"playersCell";
         {
             bool me = [[pl objectForKey:@"me"] boolValue];
 //            NSLog(@"%@",[NSNumber numberWithBool:me]);
-            [tmpPlayers addObject:@{@"place":[pl objectForKey:@"row_number"],
+            [tmpPlayers addObject:@{@"place":[pl objectForKey:@"row"],
                                      @"player":[pl objectForKey:@"fullname"],
+                                    @"id_status":[pl objectForKey:@"id_status"],
                                      @"status":[pl objectForKey:@"status"], // 0 - still play, 1 - finished
                                      @"me":[NSNumber numberWithBool:me]}];
             
@@ -487,6 +488,7 @@ static NSString* playersCellIdentifier = @"playersCell";
     
     PrizesTableViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"PrizeController"];
 //    vc.order = model;
+    vc.selectedTourID = _selectedTourId;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -496,6 +498,8 @@ static NSString* playersCellIdentifier = @"playersCell";
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     
     PlayersTableViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"PlayersController"];
+    vc.selectedTourID = _selectedTourId;
+    vc.beginSearch = NO;
     [self.navigationController pushViewController:vc animated:YES];
 }
 -(void)searchPlayers:(id)sender
@@ -504,6 +508,8 @@ static NSString* playersCellIdentifier = @"playersCell";
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     
     PlayersTableViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"PlayersController"];
+    vc.selectedTourID = _selectedTourId;
+    vc.beginSearch = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -558,10 +564,11 @@ static NSString* playersCellIdentifier = @"playersCell";
         dictionaryCell = [self.playersTableData objectAtIndex:indexPath.row];
         NSLog(@"%@",dictionaryCell);
         PlayersTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:playersCellIdentifier];
-        cell.placeLabel.text = [[dictionaryCell objectForKey:@"place"] stringValue];
+        cell.placeLabel.text = [dictionaryCell objectForKey:@"place"];
         cell.playerLabel.text = [dictionaryCell objectForKey:@"player"];
         cell.showMe = [[dictionaryCell objectForKey:@"me"] boolValue];
-        cell.status = [[dictionaryCell objectForKey:@"status"] integerValue];
+        cell.statusLabel.text = [dictionaryCell objectForKey:@"status"];
+        cell.status = [[dictionaryCell objectForKey:@"id_status"] integerValue];
         [cell changeStatus];
 //        [cell.textLabel setText:@"test"];
         

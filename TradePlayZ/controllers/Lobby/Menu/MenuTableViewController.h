@@ -8,6 +8,7 @@
 
 #import "LobbyBaseTableViewController.h"
 #import "SettingsViewController.h"
+#import "PageViewController.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <Google/SignIn.h>

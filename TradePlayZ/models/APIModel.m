@@ -9,9 +9,9 @@
 #import "APIModel.h"
 #import "AFNetworking.h"
 
-//#define DOMAIN_API @"http://dev.tradeplayz.com/api/"
+#define DOMAIN_API @"http://dev.tradeplayz.com/api/"
 
-#define DOMAIN_API @"http://tpz.server.loc.192.168.88.23.xip.io:8888/api/"
+//#define DOMAIN_API @"http://tpz.server.loc.192.168.88.23.xip.io:8888/api/"
 
 
 @implementation APIModel
@@ -37,6 +37,78 @@
             success(responseObject);
     } failure:^(NSURLSessionTask *operation, NSError *error) {
             failure([error.userInfo objectForKey:@"NSLocalizedDescription"]);
+    }];
+}
+
+- (void)checkStatusTournamentByID:(NSString*)tourID
+                         andToken:(NSString*)token
+                        onSuccess:(void(^)(NSDictionary *data))success
+                        onFailure:(void(^)(NSString *error))failure
+{
+    NSString* apiName = @"tournaments/getStatusTour";
+    NSString* urlAPI = [NSString stringWithFormat:@"%@%@", DOMAIN_API, apiName];
+    
+    
+    NSDictionary *parameters = @{@"id_tour": tourID, @"token":token, @"language":[MCLocalization sharedInstance].language};
+    
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager GET:urlAPI parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+        if([[responseObject objectForKey:@"result"] integerValue] == 0)//error
+            failure([responseObject objectForKey:@"error_text"]);
+        else
+            success(responseObject);
+    } failure:^(NSURLSessionTask *operation, NSError *error) {
+        failure([error.userInfo objectForKey:@"NSLocalizedDescription"]);
+    }];
+}
+
+- (void)betWithSizing:(NSString*)sizing
+           andTypeBet:(NSInteger)betType
+             andToken:(NSString*)token
+            onSuccess:(void(^)(NSDictionary *data))success
+            onFailure:(void(^)(NSString *error))failure
+{
+    NSString* apiName = @"tournaments/bet";
+    NSString* urlAPI = [NSString stringWithFormat:@"%@%@", DOMAIN_API, apiName];
+    
+    
+    NSDictionary *parameters = @{@"sizing": sizing, @"id_type_bet":[NSString stringWithFormat:@"%ld",(long)betType], @"token":token, @"language":[MCLocalization sharedInstance].language};
+    
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager GET:urlAPI parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+        if([[responseObject objectForKey:@"result"] integerValue] == 0)//error
+            failure([responseObject objectForKey:@"error_text"]);
+        else
+            success(responseObject);
+    } failure:^(NSURLSessionTask *operation, NSError *error) {
+        failure([error.userInfo objectForKey:@"NSLocalizedDescription"]);
+    }];
+}
+
+- (void)getActiveTournamentWithToken:(NSString*)token
+                           onSuccess:(void(^)(NSDictionary *data))success
+                           onFailure:(void(^)(NSString *error))failure
+{
+    NSString* apiName = @"tournaments/getActiveTour";
+    NSString* urlAPI = [NSString stringWithFormat:@"%@%@", DOMAIN_API, apiName];
+    
+    
+    NSDictionary *parameters = @{@"token":token, @"language":[MCLocalization sharedInstance].language};
+    
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager GET:urlAPI parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+        if([[responseObject objectForKey:@"result"] integerValue] == 0)//error
+            failure([responseObject objectForKey:@"error_text"]);
+        else
+            success(responseObject);
+    } failure:^(NSURLSessionTask *operation, NSError *error) {
+        failure([error.userInfo objectForKey:@"NSLocalizedDescription"]);
     }];
 }
 
@@ -118,6 +190,53 @@ andWithUserDevice:(NSDictionary *)userDevice
     }];
 }
 
+- (void)getStaticPageWithAlias:(NSString*)alias
+                     onSuccess:(void(^)(NSDictionary *data))success
+                     onFailure:(void(^)(NSString *error))failure
+{
+    NSString* apiName = @"page";
+    NSString* urlAPI = [NSString stringWithFormat:@"%@%@", DOMAIN_API, apiName];
+    
+    
+    NSDictionary *parameters = @{@"alias": alias, @"language":[MCLocalization sharedInstance].language};
+    
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager GET:urlAPI parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+        if([[responseObject objectForKey:@"result"] integerValue] == 0)//error
+            failure([responseObject objectForKey:@"error_text"]);
+        else
+            success(responseObject);
+    } failure:^(NSURLSessionTask *operation, NSError *error) {
+        failure([error.userInfo objectForKey:@"NSLocalizedDescription"]);
+    }];
+}
+
+- (void)sendChatMessage:(NSString*)message
+              withToken:(NSString *)token
+              onSuccess:(void(^)(NSDictionary *data))success
+              onFailure:(void(^)(NSString *error))failure
+{
+    NSString* apiName = @"chat/sendMessage";
+    NSString* urlAPI = [NSString stringWithFormat:@"%@%@", DOMAIN_API, apiName];
+    
+    
+    NSDictionary *parameters = @{@"token": token, @"message":message, @"language":[MCLocalization sharedInstance].language};
+    
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager GET:urlAPI parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+        if([[responseObject objectForKey:@"result"] integerValue] == 0)//error
+            failure([responseObject objectForKey:@"error_text"]);
+        else
+            success(responseObject);
+    } failure:^(NSURLSessionTask *operation, NSError *error) {
+        failure([error.userInfo objectForKey:@"NSLocalizedDescription"]);
+    }];
+}
+
 - (void)getUserProfileWithToken:(NSString*)token
                       OnSuccess:(void(^)(NSDictionary *data))success
                       onFailure:(void(^)(NSString *error))failure
@@ -174,6 +293,31 @@ andWithUserDevice:(NSDictionary *)userDevice
     
     
     NSDictionary *parameters = @{@"token": token, @"language":[MCLocalization sharedInstance].language};
+    
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    NSLog(@"%@",token);
+    [manager GET:urlAPI parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+        if([[responseObject objectForKey:@"result"] integerValue] == 0)//error
+            failure([responseObject objectForKey:@"error_text"]);
+        else
+            success(responseObject);
+    } failure:^(NSURLSessionTask *operation, NSError *error) {
+        failure([error.userInfo objectForKey:@"NSLocalizedDescription"]);
+    }];
+}
+
+- (void)getAllPrizesByTourID:(NSString*)tourID
+                    andToken:(NSString*)token
+                   onSuccess:(void(^)(NSDictionary *data))success
+                   onFailure:(void(^)(NSString *error))failure
+{
+    NSString* apiName = @"tournaments/getAllPrizes";
+    NSString* urlAPI = [NSString stringWithFormat:@"%@%@", DOMAIN_API, apiName];
+    
+    
+    NSDictionary *parameters = @{@"token": token, @"id_tour":tourID, @"language":[MCLocalization sharedInstance].language};
     
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -248,6 +392,31 @@ andWithUserDevice:(NSDictionary *)userDevice
     NSDictionary *parameters = @{@"token": token,@"id_tour": tourID, @"language":[MCLocalization sharedInstance].language};
     
     
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager GET:urlAPI parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+        if([[responseObject objectForKey:@"result"] integerValue] == 0)//error
+            failure([responseObject objectForKey:@"error_text"]);
+        else
+            success(responseObject);
+    } failure:^(NSURLSessionTask *operation, NSError *error) {
+        failure([error.userInfo objectForKey:@"NSLocalizedDescription"]);
+    }];
+}
+
+- (void)getAllParticipantsWithToken:(NSString*)token
+                           andQuery:(NSString*)query
+                          andTourID:(NSString*)tourID
+                          onSuccess:(void(^)(NSDictionary *data))success
+                          onFailure:(void(^)(NSString *error))failure;
+{
+    NSString* apiName = @"tournaments/getAllParticipants";
+    NSString* urlAPI = [NSString stringWithFormat:@"%@%@", DOMAIN_API, apiName];
+    
+    
+    NSDictionary *parameters = @{@"token": token,@"query": query, @"id_tour":tourID, @"language":[MCLocalization sharedInstance].language};
+    
+//    NSLog(@"%@",urlAPI);
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     [manager GET:urlAPI parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
