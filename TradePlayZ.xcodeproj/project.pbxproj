@@ -693,7 +693,7 @@
 				TargetAttributes = {
 					CF53792D1FB7592E006990F9 = {
 						CreatedOnToolsVersion = 9.1;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -978,10 +978,11 @@
 			baseConfigurationReference = A4D7958EB9CD96607DF36C1A /* Pods-TradePlayZ.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEBUG_ACTIVITY_MODE = "";
 				"DEBUG_ACTIVITY_MODE[sdk=iphonesimulator*]" = default;
-				DEVELOPMENT_TEAM = 8BCTU2FQ33;
+				DEVELOPMENT_TEAM = 6VJ4L9KXJW;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -994,6 +995,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.amobile.TradePlayZ;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "538a35d8-571d-48f3-bb84-10e383463630";
+				PROVISIONING_PROFILE_SPECIFIER = TpzDist;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1003,9 +1006,10 @@
 			baseConfigurationReference = 09F78998F6EF5C4E33AEAAF8 /* Pods-TradePlayZ.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEBUG_ACTIVITY_MODE = "";
-				DEVELOPMENT_TEAM = 8BCTU2FQ33;
+				DEVELOPMENT_TEAM = 6VJ4L9KXJW;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1018,6 +1022,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.amobile.TradePlayZ;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "538a35d8-571d-48f3-bb84-10e383463630";
+				PROVISIONING_PROFILE_SPECIFIER = TpzDist;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
