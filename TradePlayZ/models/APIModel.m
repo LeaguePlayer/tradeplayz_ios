@@ -262,17 +262,83 @@ andWithUserDevice:(NSDictionary *)userDevice
 
 - (void)editUserProfileWithToken:(NSString*)token
                        andParams:(NSDictionary*)profileParams
+                       andImage:(UIImage *)avatarImage
                        OnSuccess:(void(^)(NSDictionary *data))success
                        onFailure:(void(^)(NSString *error))failure
 {
     NSString* apiName = @"users/editProfile";
+    NSString* urlAPI = [NSString stringWithFormat:@"%@%@?token=%@", DOMAIN_API, apiName,token];
+    
+    // Create path.
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"avatartmpimage.png"];
+    
+    // Save image.
+    [UIImagePNGRepresentation(avatarImage) writeToFile:filePath atomically:YES];
+    
+    NSDictionary *parameters = @{@"token": token, @"users": profileParams, @"language":[MCLocalization sharedInstance].language};
+    
+    
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:urlAPI parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        [formData appendPartWithFileURL:[NSURL fileURLWithPath:filePath] name:[NSString stringWithFormat:@"Users\[img_avatar\]"] fileName:@"file.jpg" mimeType:@"image/jpeg]" error:nil];
+    } error:nil];
+    
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    NSURLSessionUploadTask *uploadTask;
+    uploadTask = [manager
+                  uploadTaskWithStreamedRequest:request
+                  progress:^(NSProgress * _Nonnull uploadProgress) {
+                      NSLog(@"loading");
+                      // This is not called back on the main queue.
+                      // You are responsible for dispatching to the main queue for UI updates
+//                      dispatch_async(dispatch_get_main_queue(), ^{
+                          //Update the progress view
+                          
+//                          [progressView setProgress:uploadProgress.fractionCompleted];
+//                      });
+                  }
+                  completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+                      if (error) {
+                          NSLog(@"%@",error.userInfo);
+                          failure([error.userInfo objectForKey:@"NSLocalizedDescription"]);
+                      } else {
+                          NSLog(@"JSON: %@", responseObject);
+                          if([[responseObject objectForKey:@"result"] integerValue] == 0)//error
+                              failure([responseObject objectForKey:@"error_text"]);
+                          else
+                              success(responseObject);
+                      }
+                  }];
+    
+    [uploadTask resume];
+    
+    
+//    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+//    [manager GET:urlAPI parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+//        NSLog(@"JSON: %@", responseObject);
+//        if([[responseObject objectForKey:@"result"] integerValue] == 0)//error
+//            failure([responseObject objectForKey:@"error_text"]);
+//        else
+//            success(responseObject);
+//    } failure:^(NSURLSessionTask *operation, NSError *error) {
+//        failure([error.userInfo objectForKey:@"NSLocalizedDescription"]);
+//    }];
+}
+
+- (void)getTournamentsWithToken:(NSString*)token
+                      onSuccess:(void(^)(NSDictionary *data))success
+                      onFailure:(void(^)(NSString *error))failure
+{
+    NSString* apiName = @"tournaments";
     NSString* urlAPI = [NSString stringWithFormat:@"%@%@", DOMAIN_API, apiName];
     
     
-    NSDictionary *parameters = @{@"token": token, @"user": profileParams, @"language":[MCLocalization sharedInstance].language};
+    NSDictionary *parameters = @{@"token": token, @"language":[MCLocalization sharedInstance].language};
     
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    NSLog(@"%@",token);
     [manager GET:urlAPI parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
         if([[responseObject objectForKey:@"result"] integerValue] == 0)//error
@@ -284,11 +350,11 @@ andWithUserDevice:(NSDictionary *)userDevice
     }];
 }
 
-- (void)getTournamentsWithToken:(NSString*)token
-                      onSuccess:(void(^)(NSDictionary *data))success
-                      onFailure:(void(^)(NSString *error))failure
+- (void)getHistoryWithToken:(NSString*)token
+                  onSuccess:(void(^)(NSDictionary *data))success
+                  onFailure:(void(^)(NSString *error))failure
 {
-    NSString* apiName = @"tournaments";
+    NSString* apiName = @"tournaments/history";
     NSString* urlAPI = [NSString stringWithFormat:@"%@%@", DOMAIN_API, apiName];
     
     

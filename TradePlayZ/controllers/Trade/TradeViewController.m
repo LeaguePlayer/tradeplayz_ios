@@ -34,11 +34,7 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     
-    tickTimer = [NSTimer scheduledTimerWithTimeInterval:3.5
-                                     target:self
-                                   selector:@selector(tickTimer:)
-                                   userInfo:nil
-                                    repeats:YES];
+   
     
 //    UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithTitle:@"TOURNAMENT\nLOBBY" style:UIBarButtonItemStylePlain target:self action:@selector(goToLobby:)];
  
@@ -50,12 +46,7 @@
     //        self.navigationItem.leftBarButtonItem = revealButtonItem;
     self.navigationItem.leftBarButtonItem = item;
     
-    
-    balanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(72, 8, 160.f, 25.f)];
-    balanceLabel.font = [UIFont fontWithName:@"Lato-Regular" size:21.0f];
-    balanceLabel.textColor = [UIColor whiteColor];
-    [self.navigationController.navigationBar addSubview:balanceLabel];
-    
+   
     
     [self initData];
 }
@@ -107,6 +98,19 @@
 {
     [super viewWillAppear:animated];
     balanceLabel.alpha = 1;
+    if(tickTimer == nil)
+        tickTimer = [NSTimer scheduledTimerWithTimeInterval:3.5
+                                                     target:self
+                                                   selector:@selector(tickTimer:)
+                                                   userInfo:nil
+                                                    repeats:YES];
+    if(balanceLabel == nil)
+    {
+        balanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(72, 8, 160.f, 25.f)];
+        balanceLabel.font = [UIFont fontWithName:@"Lato-Regular" size:21.0f];
+        balanceLabel.textColor = [UIColor whiteColor];
+        [self.navigationController.navigationBar addSubview:balanceLabel];
+    }
 }
 
 -(void)buildContent

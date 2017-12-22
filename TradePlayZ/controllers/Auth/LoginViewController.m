@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import "BaseButton.h"
 #import "ViewController.h"
+#import "RecoveryPasswordViewController.h"
 
 //#import <TwitterKit/TwitterKit.h>
 
@@ -87,6 +88,158 @@ static NSString * const kClientId = @"252641785323-tisb2u7rfle1q3kf5j59qsu4chumm
     [self buildContent];
 }
 
+-(void)forgotPasswordAction:(id)sender
+{
+    RecoveryPasswordViewController *recoveryPasswordControlelr = [[RecoveryPasswordViewController alloc] init];
+    [self.navigationController pushViewController:recoveryPasswordControlelr animated:YES];
+}
+
+-(void)buildContent
+{
+    float top = 60.f;
+    
+    //row facebookk
+    self.loginButton = [[FBSDKLoginButton alloc] init];
+    self.loginButton.hidden = YES;
+    self.loginButton.delegate = self;
+    self.loginButton.readPermissions =
+    @[@"public_profile", @"email"];
+    [self.scrollView addSubview:self.loginButton];
+    
+    
+    
+    
+    
+    //row
+    UILabel* titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, top, SCREEN_WIDTH, 36)];
+    [titleLabel setFont:[UIFont fontWithName:@"Lato-Regular" size:31.0f]];
+    [titleLabel setTextColor:[UIColor whiteColor]];
+    [titleLabel setTextAlignment:NSTextAlignmentCenter];
+    titleLabel.text = [MCLocalization stringForKey:@"login"];
+    
+    NSMutableAttributedString *attributedString;
+    attributedString = [[NSMutableAttributedString alloc] initWithString:titleLabel.text];
+    [attributedString addAttribute:NSKernAttributeName value:@6 range:NSMakeRange(0, [titleLabel.text length])];
+    [titleLabel setAttributedText:attributedString];
+    
+    top += CGRectGetHeight(titleLabel.frame) + 36.f;
+    
+    
+    //row
+    float width_field = 226.5f;
+    float height_field = 55.f;
+    self.emailField = [[BaseTextField alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - width_field)/2, top, width_field, height_field)];
+    [self.emailField setPlaceHolderText:@"E-MAIL"];
+    self.emailField.delegate = self;
+    self.emailField.tag = 0;
+    
+    top += CGRectGetHeight(self.emailField.frame) + 12.5f;
+    
+    
+    //row
+    self.passwordField = [[BaseTextField alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - width_field)/2, top, width_field, height_field)];
+    [self.passwordField setPlaceHolderText:@"PASSWORD"];
+    self.passwordField.secureTextEntry = YES;
+    self.passwordField.delegate = self;
+    self.passwordField.tag = 1;
+    
+    top += CGRectGetHeight(self.passwordField.frame) + 21.5f;
+    
+    
+    //row
+    height_field = 35.f;
+    UIButton *forgotPasswordButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [forgotPasswordButton addTarget:self
+                             action:@selector(forgotPasswordAction:)
+                   forControlEvents:UIControlEventTouchUpInside];
+    [forgotPasswordButton setTitle:[MCLocalization stringForKey:@"forgot_password"] forState:UIControlStateNormal];
+    forgotPasswordButton.titleLabel.font = [UIFont fontWithName:@"Lato-Regular" size:14.0f];
+    [forgotPasswordButton setTitleColor:[UIColor colorWithRed:0.33 green:0.50 blue:0.69 alpha:1.0] forState:UIControlStateNormal];
+    [forgotPasswordButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
+    forgotPasswordButton.frame = CGRectMake( (SCREEN_WIDTH - width_field)/2 , top, width_field, height_field);
+    
+    NSMutableAttributedString *commentString = [[NSMutableAttributedString alloc] initWithString:forgotPasswordButton.titleLabel.text];
+    [commentString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:NSMakeRange(0, [forgotPasswordButton.titleLabel.text length])];
+    [forgotPasswordButton setAttributedTitle:commentString forState:UIControlStateNormal];
+    
+    top += CGRectGetHeight(forgotPasswordButton.frame) + 21.5f;
+    
+    
+    //row
+    float width_button = 226.5f;
+    float height_button = 55.f;
+    BaseButton *openAccountButton = [BaseButton buttonWithType:UIButtonTypeCustom];
+    [openAccountButton addTarget:self
+                          action:@selector(loginAction:)
+                forControlEvents:UIControlEventTouchUpInside];
+    [openAccountButton setTitle:[MCLocalization stringForKey:@"login"] forState:UIControlStateNormal];
+    openAccountButton.frame = CGRectMake((SCREEN_WIDTH - width_button)/2 , top, width_button, height_button);
+    
+    top += CGRectGetHeight(openAccountButton.frame) + 40.f;
+    
+    
+    //row
+    UILabel* helperLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, top, SCREEN_WIDTH,25)];
+    [helperLabel setFont:[UIFont fontWithName:@"Lato-Regular" size:14.0f]];
+    [helperLabel setTextColor:[UIColor whiteColor]];
+    [helperLabel setTextAlignment:NSTextAlignmentCenter];
+    helperLabel.text = [NSString stringWithFormat:@"%@:",[MCLocalization stringForKey:@"social_login"]];
+    
+    top += CGRectGetHeight(helperLabel.frame) + 25.f;
+    
+    
+    //row
+    height_button = 42.f;
+    width_button = 42.f;
+    float spacing_social_buttons = ((CGRectGetWidth(openAccountButton.frame)-50.f) - (width_button * 3))/2;
+    float left_padding_buttons = (SCREEN_WIDTH - (CGRectGetWidth(openAccountButton.frame)-50.f))/2;
+    
+    BaseButton *fbAuthButton = [BaseButton buttonWithType:UIButtonTypeCustom];
+    [fbAuthButton addTarget:self
+                     action:@selector(facebookLoginAction:)
+           forControlEvents:UIControlEventTouchUpInside];
+    fbAuthButton.frame = CGRectMake(left_padding_buttons , top, width_button, height_button);
+    [fbAuthButton setBackgroundColor:[UIColor clearColor]];
+    [fbAuthButton setBackgroundImage:[UIImage imageNamed:@"facebook"] forState:UIControlStateNormal];
+    
+    //
+    left_padding_buttons += width_button + spacing_social_buttons;
+    BaseButton *googlePlusAuthButton = [BaseButton buttonWithType:UIButtonTypeCustom];
+    [googlePlusAuthButton addTarget:self
+                             action:@selector(googlePlusLoginAction:)
+                   forControlEvents:UIControlEventTouchUpInside];
+    googlePlusAuthButton.frame = CGRectMake(left_padding_buttons , top, width_button, height_button);
+    [googlePlusAuthButton setBackgroundColor:[UIColor clearColor]];
+    [googlePlusAuthButton setBackgroundImage:[UIImage imageNamed:@"googleplus"] forState:UIControlStateNormal];
+    
+    //
+    left_padding_buttons += width_button + spacing_social_buttons;
+    BaseButton *twitterAuthButton = [BaseButton buttonWithType:UIButtonTypeCustom];
+    [twitterAuthButton addTarget:self
+                          action:@selector(twitterLoginAction:)
+                forControlEvents:UIControlEventTouchUpInside];
+    twitterAuthButton.frame = CGRectMake(left_padding_buttons , top, width_button, height_button);
+    [twitterAuthButton setBackgroundColor:[UIColor clearColor]];
+    [twitterAuthButton setBackgroundImage:[UIImage imageNamed:@"twitter"] forState:UIControlStateNormal];
+    
+    top += CGRectGetHeight(fbAuthButton.frame) + 25.f;
+    
+    
+    //
+    [self.scrollView setContentSize:CGSizeMake(CGRectGetWidth(self.scrollView.frame), top)];
+    
+    //
+    [self.scrollView addSubview:titleLabel];
+    [self.scrollView addSubview:self.emailField];
+    [self.scrollView addSubview:self.passwordField];
+    [self.scrollView addSubview:forgotPasswordButton];
+    [self.scrollView addSubview:openAccountButton];
+    [self.scrollView addSubview:helperLabel];
+    [self.scrollView addSubview:fbAuthButton];
+    [self.scrollView addSubview:googlePlusAuthButton];
+    [self.scrollView addSubview:twitterAuthButton];
+}
+
 
 - (void)signInWillDispatch:(GIDSignIn *)signIn error:(NSError *)error {
 //    [myActivityIndicator stopAnimating];
@@ -114,151 +267,7 @@ dismissViewController:(UIViewController *)viewController {
     [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
 
--(void)buildContent
-{
-    float top = 60.f;
-    
-    //row facebookk
-    self.loginButton = [[FBSDKLoginButton alloc] init];
-    self.loginButton.hidden = YES;
-    self.loginButton.delegate = self;
-    self.loginButton.readPermissions =
-    @[@"public_profile", @"email"];
-    [self.scrollView addSubview:self.loginButton];
 
-    
-    
-    
-    
-    //row
-    UILabel* titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, top, SCREEN_WIDTH, 36)];
-    [titleLabel setFont:[UIFont fontWithName:@"Lato-Regular" size:31.0f]];
-    [titleLabel setTextColor:[UIColor whiteColor]];
-    [titleLabel setTextAlignment:NSTextAlignmentCenter];
-    titleLabel.text = [MCLocalization stringForKey:@"login"];
-
-    NSMutableAttributedString *attributedString;
-    attributedString = [[NSMutableAttributedString alloc] initWithString:titleLabel.text];
-    [attributedString addAttribute:NSKernAttributeName value:@6 range:NSMakeRange(0, [titleLabel.text length])];
-    [titleLabel setAttributedText:attributedString];
-
-    top += CGRectGetHeight(titleLabel.frame) + 36.f;
-
-
-    //row
-    float width_field = 226.5f;
-    float height_field = 55.f;
-    self.emailField = [[BaseTextField alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - width_field)/2, top, width_field, height_field)];
-    [self.emailField setPlaceHolderText:@"E-MAIL"];
-     self.emailField.delegate = self;
-    self.emailField.tag = 0;
-
-     top += CGRectGetHeight(self.emailField.frame) + 12.5f;
-
-
-    //row
-    self.passwordField = [[BaseTextField alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - width_field)/2, top, width_field, height_field)];
-    [self.passwordField setPlaceHolderText:@"PASSWORD"];
-    self.passwordField.secureTextEntry = YES;
-    self.passwordField.delegate = self;
-    self.passwordField.tag = 1;
-
-    top += CGRectGetHeight(self.passwordField.frame) + 21.5f;
-
-
-    //row
-    height_field = 35.f;
-    UIButton *forgotPasswordButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [forgotPasswordButton addTarget:self
-                             action:@selector(forgotPasswordAction:)
-                   forControlEvents:UIControlEventTouchUpInside];
-    [forgotPasswordButton setTitle:[MCLocalization stringForKey:@"forgot_password"] forState:UIControlStateNormal];
-    forgotPasswordButton.titleLabel.font = [UIFont fontWithName:@"Lato-Regular" size:14.0f];
-    [forgotPasswordButton setTitleColor:[UIColor colorWithRed:0.33 green:0.50 blue:0.69 alpha:1.0] forState:UIControlStateNormal];
-    [forgotPasswordButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
-    forgotPasswordButton.frame = CGRectMake( (SCREEN_WIDTH - width_field)/2 , top, width_field, height_field);
-
-    NSMutableAttributedString *commentString = [[NSMutableAttributedString alloc] initWithString:forgotPasswordButton.titleLabel.text];
-    [commentString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:NSMakeRange(0, [forgotPasswordButton.titleLabel.text length])];
-    [forgotPasswordButton setAttributedTitle:commentString forState:UIControlStateNormal];
-
-    top += CGRectGetHeight(forgotPasswordButton.frame) + 21.5f;
-
-
-    //row
-    float width_button = 226.5f;
-    float height_button = 55.f;
-    BaseButton *openAccountButton = [BaseButton buttonWithType:UIButtonTypeCustom];
-    [openAccountButton addTarget:self
-                          action:@selector(loginAction:)
-                forControlEvents:UIControlEventTouchUpInside];
-    [openAccountButton setTitle:[MCLocalization stringForKey:@"login"] forState:UIControlStateNormal];
-    openAccountButton.frame = CGRectMake((SCREEN_WIDTH - width_button)/2 , top, width_button, height_button);
-
-    top += CGRectGetHeight(openAccountButton.frame) + 40.f;
-
-
-    //row
-    UILabel* helperLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, top, SCREEN_WIDTH,25)];
-    [helperLabel setFont:[UIFont fontWithName:@"Lato-Regular" size:14.0f]];
-    [helperLabel setTextColor:[UIColor whiteColor]];
-    [helperLabel setTextAlignment:NSTextAlignmentCenter];
-    helperLabel.text = [NSString stringWithFormat:@"%@:",[MCLocalization stringForKey:@"social_login"]];
-
-    top += CGRectGetHeight(helperLabel.frame) + 25.f;
-
-
-    //row
-    height_button = 42.f;
-    width_button = 42.f;
-    float spacing_social_buttons = ((CGRectGetWidth(openAccountButton.frame)-50.f) - (width_button * 3))/2;
-    float left_padding_buttons = (SCREEN_WIDTH - (CGRectGetWidth(openAccountButton.frame)-50.f))/2;
-
-    BaseButton *fbAuthButton = [BaseButton buttonWithType:UIButtonTypeCustom];
-    [fbAuthButton addTarget:self
-                          action:@selector(facebookLoginAction:)
-                forControlEvents:UIControlEventTouchUpInside];
-    fbAuthButton.frame = CGRectMake(left_padding_buttons , top, width_button, height_button);
-    [fbAuthButton setBackgroundColor:[UIColor clearColor]];
-    [fbAuthButton setBackgroundImage:[UIImage imageNamed:@"facebook"] forState:UIControlStateNormal];
-
-    //
-    left_padding_buttons += width_button + spacing_social_buttons;
-    BaseButton *googlePlusAuthButton = [BaseButton buttonWithType:UIButtonTypeCustom];
-    [googlePlusAuthButton addTarget:self
-                     action:@selector(googlePlusLoginAction:)
-           forControlEvents:UIControlEventTouchUpInside];
-    googlePlusAuthButton.frame = CGRectMake(left_padding_buttons , top, width_button, height_button);
-    [googlePlusAuthButton setBackgroundColor:[UIColor clearColor]];
-    [googlePlusAuthButton setBackgroundImage:[UIImage imageNamed:@"googleplus"] forState:UIControlStateNormal];
-
-    //
-    left_padding_buttons += width_button + spacing_social_buttons;
-    BaseButton *twitterAuthButton = [BaseButton buttonWithType:UIButtonTypeCustom];
-    [twitterAuthButton addTarget:self
-                             action:@selector(twitterLoginAction:)
-                   forControlEvents:UIControlEventTouchUpInside];
-    twitterAuthButton.frame = CGRectMake(left_padding_buttons , top, width_button, height_button);
-    [twitterAuthButton setBackgroundColor:[UIColor clearColor]];
-    [twitterAuthButton setBackgroundImage:[UIImage imageNamed:@"twitter"] forState:UIControlStateNormal];
-
-    top += CGRectGetHeight(fbAuthButton.frame) + 25.f;
-
-
-    //
-    [self.scrollView setContentSize:CGSizeMake(CGRectGetWidth(self.scrollView.frame), top)];
-
-    //
-    [self.scrollView addSubview:titleLabel];
-    [self.scrollView addSubview:self.emailField];
-    [self.scrollView addSubview:self.passwordField];
-    [self.scrollView addSubview:forgotPasswordButton];
-    [self.scrollView addSubview:openAccountButton];
-    [self.scrollView addSubview:helperLabel];
-    [self.scrollView addSubview:fbAuthButton];
-    [self.scrollView addSubview:googlePlusAuthButton];
-    [self.scrollView addSubview:twitterAuthButton];
-}
 
 -(void)loginAction:(id)sender
 {

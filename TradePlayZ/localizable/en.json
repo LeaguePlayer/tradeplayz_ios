@@ -76,4 +76,13 @@
     "close":"Close",
     "results":"Result",
     
+    "title_popup_camera":"Select option",
+    "popup_camera":"Camera",
+    "popup_gallery":"Photo gallery",
+    "buyin":"Buy in",
+    "date":"Date",
+    "time":"Time",
+    "recovery_password":"Recovery password",
+    
+    
 }

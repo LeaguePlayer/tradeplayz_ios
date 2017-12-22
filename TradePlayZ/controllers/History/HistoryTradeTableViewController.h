@@ -8,7 +8,10 @@
 
 
 #import "LobbyBaseTableViewController.h"
+#import "KLCPopup.h"
 
 @interface HistoryTradeTableViewController : LobbyBaseTableViewController
+
+@property(nonatomic,retain) KLCPopup* popup;
 
 @end

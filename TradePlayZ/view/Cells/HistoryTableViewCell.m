@@ -82,7 +82,7 @@
 
 -(void)setResult:(NSString *)newValue
 {
-    self.resultPlace.text = [NSString stringWithFormat:@"%@ TPZ", newValue];
+    self.resultPlace.text = [NSString stringWithFormat:@"%@", newValue];
 }
 
 @end

@@ -11,6 +11,9 @@
 #import "BaseButton.h"
 
 @interface EditProfileViewController : BaseTextFieldsViewController
+{
+    UIActionSheet *popup;
+}
 
 @property(nonatomic,retain) UIImageView* avatarPlace;
 @property (nonatomic,retain)  BaseTextField* nameField;

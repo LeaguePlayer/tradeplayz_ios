@@ -69,20 +69,33 @@
 }
 
 -(void)editProfileWithParams:(NSDictionary*)profileParams
+                   andAvatarImage:(UIImage *)avatarImage
                    OnSuccess:(void(^)(NSDictionary *data))success
                    onFailure:(void(^)(NSString *error))failure
 {
-    [[[APIModel alloc] init] editUserProfileWithToken:self.token andParams:profileParams OnSuccess:^(NSDictionary *data) {
-        
+    NSLog(@"%@",self.token);
+    [[[APIModel alloc]  init] editUserProfileWithToken:self.token andParams:profileParams andImage:avatarImage OnSuccess:^(NSDictionary *data) {
         [self actualizeProfileOnSuccess:^(NSDictionary *data) {
             success(data);
         } onFailure:^(NSString *error) {
             failure(error);
         }];
-        
     } onFailure:^(NSString *error) {
         failure(error);
     }];
+    
+    
+//    [[[APIModel alloc] init] editUserProfileWithToken:self.token andParams:profileParams OnSuccess:^(NSDictionary *data) {
+//
+//        [self actualizeProfileOnSuccess:^(NSDictionary *data) {
+//            success(data);
+//        } onFailure:^(NSString *error) {
+//            failure(error);
+//        }];
+//
+//    } onFailure:^(NSString *error) {
+//        failure(error);
+//    }];
 }
 
 -(NSString *)getFullName
@@ -99,7 +112,7 @@
         lastname = self.lastname;
     
 //    fullName = [NSString stringWithFormat:@"%@ %@", lastname, firstname];
-    fullName = [[NSString stringWithFormat:@"%@ %@", lastname, firstname] stringByTrimmingCharactersInSet:
+    fullName = [[NSString stringWithFormat:@"%@ %@", firstname, lastname] stringByTrimmingCharactersInSet:
                                [NSCharacterSet whitespaceCharacterSet]];
     
     if(![fullName length])

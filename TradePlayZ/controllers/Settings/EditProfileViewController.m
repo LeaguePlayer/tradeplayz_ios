@@ -26,6 +26,12 @@
     self.emailField = [[BaseTextField alloc] init];
     self.phoneField = [[BaseTextField alloc] init];
     
+    popup = [[UIActionSheet alloc] initWithTitle:[MCLocalization stringForKey:@"title_popup_camera"] delegate:self cancelButtonTitle:[MCLocalization stringForKey:@"cancel"] destructiveButtonTitle:nil otherButtonTitles:
+                            [MCLocalization stringForKey:@"popup_camera"],
+                            [MCLocalization stringForKey:@"popup_gallery"],
+                            nil];
+    popup.tag = 1;
+    
     
     //test data
     [self initData];
@@ -37,7 +43,7 @@
     [[[APIModel alloc] init] getUserProfileWithToken:self.authUser.token OnSuccess:^(NSDictionary *data) {
         NSDictionary* gotJson = [[data objectForKey:@"response"] objectForKey:@"user"];
         
-        NSString* nameText = ( [[gotJson objectForKey:@"lastname"] isKindOfClass:[NSNull class]] || [[gotJson objectForKey:@"firstname"] isKindOfClass:[NSNull class]] ) ? @"" : [NSString stringWithFormat:@"%@ %@",[gotJson objectForKey:@"lastname"], [gotJson objectForKey:@"firstname"]];
+        NSString* nameText = ( [[gotJson objectForKey:@"lastname"] isKindOfClass:[NSNull class]] || [[gotJson objectForKey:@"firstname"] isKindOfClass:[NSNull class]] ) ? @"" : [NSString stringWithFormat:@"%@ %@",[gotJson objectForKey:@"firstname"], [gotJson objectForKey:@"lastname"]];
 
         self.addressField.text = ( [[gotJson objectForKey:@"address"] isKindOfClass:[NSNull class]]  ) ? @"" : [gotJson objectForKey:@"address"];
         self.nameField.text = nameText;
@@ -180,6 +186,7 @@
 
 -(void)confirmAction:(id)sender
 {
+     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSLog(@"confirmAction");
     NSDictionary* profileParams = @{
                                  @"name":self.nameField.text,
@@ -187,18 +194,106 @@
                                  @"zipcode": self.zipCodeField.text,
                                  @"email": self.emailField.text,
                                  @"phone": self.phoneField.text,
+//                                 @"img_avatar": @"filename.png",
                                  };
     
-    [self.authUser editProfileWithParams:profileParams OnSuccess:^(NSDictionary *data) {
+    
+    [self.authUser editProfileWithParams:profileParams andAvatarImage:self.avatarPlace.image OnSuccess:^(NSDictionary *data) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self.navigationController popToRootViewControllerAnimated:YES];
     } onFailure:^(NSString *error) {
         NSLog(@"bad");
+         [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
+    
+//    [self.authUser editProfileWithParams:profileParams andAvatarImage:self.avatarPlace.image OnSuccess:^(NSDictionary *data) {
+//        [self.navigationController popToRootViewControllerAnimated:YES];
+//    } onFailure:^(NSString *error) {
+//        NSLog(@"bad");
+//    }];
 }
 
 -(void)changeImageAction:(id)sender
 {
     NSLog(@"changeImageAction");
+    
+    [popup showInView:self.view];
+}
+
+- (void)takePhoto {
+    
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    
+    [self presentViewController:picker animated:YES completion:NULL];
+    
+}
+
+- (void)selectPhoto {
+    
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    
+    [self presentViewController:picker animated:YES completion:NULL];
+    
+    
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    
+    UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
+    self.avatarPlace.image = chosenImage;
+    
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+    
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+    
+}
+
+- (void)actionSheet:(UIActionSheet *)popup clickedButtonAtIndex:(NSInteger)buttonIndex {
+  
+    switch (popup.tag) {
+        case 1: {
+            switch (buttonIndex) {
+                case 0:
+                    NSLog(@"camera");
+                    [self takePhoto];
+                    break;
+                case 1:
+                    [self selectPhoto];
+                    break;
+                
+            
+            }
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker
+        didFinishPickingImage:(UIImage *)image
+                  editingInfo:(NSDictionary *)editingInfo
+{
+    _avatarPlace.image = image;
+    [[picker parentViewController] dismissModalViewControllerAnimated:YES];
+}
+
+
+- (IBAction)saveImage:(id)sender {
+    if(_avatarPlace.image) {
+//        [self showProgressIndicator:@"Saving"];
+        UIImageWriteToSavedPhotosAlbum(_avatarPlace.image, self, @selector(finishUIImageWriteToSavedPhotosAlbum:didFinishSavingWithError:contextInfo:), nil);
+    }
 }
 
 - (void)didReceiveMemoryWarning {

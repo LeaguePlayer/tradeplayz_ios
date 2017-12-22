@@ -8,6 +8,7 @@
 
 #import "HistoryTradeTableViewController.h"
 #import "HistoryTableViewCell.h"
+#import "HistoryModalView.h"
 
 @interface HistoryTradeTableViewController ()
 @property (strong, nonatomic) NSArray* tableData;
@@ -25,7 +26,7 @@ static NSString* historyCellIdentifier = @"historyCell";
     self.title = [MCLocalization stringForKey:@"TradeHistory"];
     
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 100)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 20)];
     [headerView setBackgroundColor:[UIColor clearColor]];
 
     self.tableView.tableHeaderView = headerView;
@@ -48,50 +49,31 @@ static NSString* historyCellIdentifier = @"historyCell";
 {
     [super viewDidAppear:animated];
     [self initTableData];
-    [self.tableView reloadData];
 }
 
 
 - (void)initTableData
 {
-    self.tableData = @[
-                       
-                       
-                       @{@"type":historyCellIdentifier,
-                         @"date_begin":@"12.08.17",
-                         @"time_begin":@"9:30",
-                         @"result":@"10 000",
-                         @"prize_pool":@"4 000 000",
-                         @"buy_in":@"FREE ROLL"},
-                       
-                       @{@"type":historyCellIdentifier,
-                         @"date_begin":@"13.08.17",
-                         @"time_begin":@"9:30",
-                         @"result":@"10 000",
-                         @"prize_pool":@"4 000 000",
-                         @"buy_in":@"FREE ROLL"},
-                       
-                       
-                       @{@"type":historyCellIdentifier,
-                         @"date_begin":@"14.08.17",
-                         @"time_begin":@"9:30",
-                         @"result":@"10 000",
-                         @"prize_pool":@"4 000 000",
-                         @"buy_in":@"FREE ROLL"},
-                       
-                       
-                       @{@"type":historyCellIdentifier,
-                         @"date_begin":@"15.08.17",
-                         @"time_begin":@"9:30",
-                         @"result":@"10 000",
-                         @"prize_pool":@"4 000 000",
-                         @"buy_in":@"FREE ROLL"},
-                       
-                       
-                       ];
-    
-    
-    
+    NSMutableArray* tmpData = [[NSMutableArray alloc] init];
+    [[[APIModel alloc] init] getHistoryWithToken:self.authUser.token onSuccess:^(NSDictionary *data) {
+        NSDictionary *obj = [[data objectForKey:@"response"] objectForKey:@"history"];
+        
+        for(NSDictionary* history in obj)
+            [tmpData addObject:@{@"type":historyCellIdentifier,
+                                 @"date_begin":[history objectForKey:@"begin_date"],
+                                 @"time_begin":[history objectForKey:@"begin_time"],
+                                 @"result":[history objectForKey:@"prize_won"],
+                                 @"prize_pool":[history objectForKey:@"prize_pool"],
+                                 @"buy_in":[history objectForKey:@"buyin"]}];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.tableData = tmpData;
+            // buildContent
+            [self.tableView reloadData];
+        });
+    } onFailure:^(NSString *error) {
+         [self showMessage:error withTitle:[MCLocalization stringForKey:@"error"]];
+    }];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -143,6 +125,32 @@ static NSString* historyCellIdentifier = @"historyCell";
     
     
     return cellDef;
+}
+
+
+//[tmpData addObject:@{@"type":historyCellIdentifier,
+//                     @"date_begin":[history objectForKey:@"begin_date"],
+//                     @"time_begin":[history objectForKey:@"begin_time"],
+//                     @"result":[history objectForKey:@"prize_won"],
+//                     @"prize_pool":[history objectForKey:@"prize_pool"],
+//                     @"buy_in":[history objectForKey:@"buyin"]}];
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSDictionary* dictionaryCell = [self.tableData objectAtIndex:indexPath.row];
+    
+    HistoryModalView* contentView = [[HistoryModalView alloc] init];
+    contentView.frame = CGRectMake(0.0, 0.0, SCREEN_WIDTH, 230.f);
+    contentView.backgroundColor =[UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_modal"]];
+    contentView.datePlaceLabel.text = [dictionaryCell objectForKey:@"date_begin"];
+    contentView.timePlaceLabel.text = [dictionaryCell objectForKey:@"time_begin"];
+    contentView.prizeWinPlaceLabel.text = [dictionaryCell objectForKey:@"result"];
+    contentView.prizePoolPlaceLabel.text = [dictionaryCell objectForKey:@"prize_pool"];
+    contentView.buyinPlaceLabel.text = [dictionaryCell objectForKey:@"buy_in"];
+    
+    self.popup = [KLCPopup popupWithContentView:contentView];
+    [_popup show];
+    
+    
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end

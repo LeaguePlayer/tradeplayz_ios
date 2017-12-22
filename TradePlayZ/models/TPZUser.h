@@ -38,8 +38,9 @@
 
 
 -(void)editProfileWithParams:(NSDictionary*)profileParams
-                        OnSuccess:(void(^)(NSDictionary *data))success
-                        onFailure:(void(^)(NSString *error))failure;
+              andAvatarImage:(UIImage *)avatarImage
+                   OnSuccess:(void(^)(NSDictionary *data))success
+                   onFailure:(void(^)(NSString *error))failure;
 
 
 @end

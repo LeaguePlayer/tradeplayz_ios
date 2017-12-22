@@ -23,8 +23,9 @@
 
 - (void)editUserProfileWithToken:(NSString*)token
                        andParams:(NSDictionary*)profileParams
-                      OnSuccess:(void(^)(NSDictionary *data))success
-                      onFailure:(void(^)(NSString *error))failure;
+                        andImage:(UIImage *)avatarImage
+                       OnSuccess:(void(^)(NSDictionary *data))success
+                       onFailure:(void(^)(NSString *error))failure;
 
 -(void)checkExistToken:(NSString*)token
              OnSuccess:(void(^)(NSDictionary *data))success
@@ -55,6 +56,11 @@
                             andTourID:(NSString*)tourID
          onSuccess:(void(^)(NSDictionary *data))success
      onFailure:(void(^)(NSString *error))failure;
+
+//history
+- (void)getHistoryWithToken:(NSString*)token
+                      onSuccess:(void(^)(NSDictionary *data))success
+                  onFailure:(void(^)(NSString *error))failure;
 
 //bet
 - (void)betWithSizing:(NSString*)sizing

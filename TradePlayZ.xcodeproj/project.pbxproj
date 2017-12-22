@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		C4070E42266DBC65D989BC56 /* Pods_TradePlayZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FE716AAF667BAD1005EF64F /* Pods_TradePlayZ.framework */; };
+		CF44B68C1FECD8E8008639D7 /* HistoryModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = CF44B68B1FECD8E8008639D7 /* HistoryModalView.m */; };
+		CF44B68F1FECEC3C008639D7 /* RecoveryPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF44B68E1FECEC3C008639D7 /* RecoveryPasswordViewController.m */; };
 		CF5379331FB7592E006990F9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CF5379321FB7592E006990F9 /* AppDelegate.m */; };
 		CF5379361FB7592E006990F9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF5379351FB7592E006990F9 /* ViewController.m */; };
 		CF53793B1FB7592E006990F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF53793A1FB7592E006990F9 /* Assets.xcassets */; };
@@ -91,6 +93,10 @@
 		09F78998F6EF5C4E33AEAAF8 /* Pods-TradePlayZ.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TradePlayZ.release.xcconfig"; path = "Pods/Target Support Files/Pods-TradePlayZ/Pods-TradePlayZ.release.xcconfig"; sourceTree = "<group>"; };
 		6FE716AAF667BAD1005EF64F /* Pods_TradePlayZ.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TradePlayZ.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4D7958EB9CD96607DF36C1A /* Pods-TradePlayZ.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TradePlayZ.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TradePlayZ/Pods-TradePlayZ.debug.xcconfig"; sourceTree = "<group>"; };
+		CF44B68A1FECD8E8008639D7 /* HistoryModalView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryModalView.h; sourceTree = "<group>"; };
+		CF44B68B1FECD8E8008639D7 /* HistoryModalView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryModalView.m; sourceTree = "<group>"; };
+		CF44B68D1FECEC3C008639D7 /* RecoveryPasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecoveryPasswordViewController.h; sourceTree = "<group>"; };
+		CF44B68E1FECEC3C008639D7 /* RecoveryPasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecoveryPasswordViewController.m; sourceTree = "<group>"; };
 		CF53792E1FB7592E006990F9 /* TradePlayZ.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TradePlayZ.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF5379311FB7592E006990F9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CF5379321FB7592E006990F9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -334,6 +340,8 @@
 				CFBC55D01FE3C98B00A0A285 /* FAQModalView.m */,
 				CFBC55ED1FE544A200A0A285 /* TriangleView.h */,
 				CFBC55EE1FE544A200A0A285 /* TriangleView.m */,
+				CF44B68A1FECD8E8008639D7 /* HistoryModalView.h */,
+				CF44B68B1FECD8E8008639D7 /* HistoryModalView.m */,
 			);
 			path = UIView;
 			sourceTree = "<group>";
@@ -427,6 +435,8 @@
 				CFEC7D591FD1222A0045768A /* LoginViewController.m */,
 				CFF331751FD7F1CB00DDD93E /* AuthBaseViewController.h */,
 				CFF331761FD7F1CB00DDD93E /* AuthBaseViewController.m */,
+				CF44B68D1FECEC3C008639D7 /* RecoveryPasswordViewController.h */,
+				CF44B68E1FECEC3C008639D7 /* RecoveryPasswordViewController.m */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -801,6 +811,7 @@
 				CFEC7D5A1FD1222A0045768A /* LoginViewController.m in Sources */,
 				CFFDA1BF1FCE6E7D000F43E2 /* TournamentTableViewController.m in Sources */,
 				CFFDA1871FCBFF54000F43E2 /* MCLocalizationOneJSONFilePerLanguageDataSource.m in Sources */,
+				CF44B68C1FECD8E8008639D7 /* HistoryModalView.m in Sources */,
 				CFBC55EC1FE53E9800A0A285 /* ChatTableViewCell.m in Sources */,
 				CFF331681FD7D23E00DDD93E /* BaseTextFieldsViewController.m in Sources */,
 				CF5379361FB7592E006990F9 /* ViewController.m in Sources */,
@@ -822,6 +833,7 @@
 				CFFDA1A11FCD519F000F43E2 /* LobbyBaseViewController.m in Sources */,
 				CFBC55EF1FE544A200A0A285 /* TriangleView.m in Sources */,
 				CFF3316B1FD7D79C00DDD93E /* UIDeviceHardware.m in Sources */,
+				CF44B68F1FECEC3C008639D7 /* RecoveryPasswordViewController.m in Sources */,
 				CFBC55F31FE6615000A0A285 /* PageViewController.m in Sources */,
 				CFFDA1881FCBFF54000F43E2 /* MCLocalizationDummyDataSource.m in Sources */,
 				CFFDA13E1FCAC4EF000F43E2 /* RegistrationViewController.m in Sources */,
@@ -978,7 +990,7 @@
 			baseConfigurationReference = A4D7958EB9CD96607DF36C1A /* Pods-TradePlayZ.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEBUG_ACTIVITY_MODE = "";
 				"DEBUG_ACTIVITY_MODE[sdk=iphonesimulator*]" = default;
@@ -993,10 +1005,10 @@
 				GCC_PREFIX_HEADER = TradePlayZ/PrefixHeader.pch;
 				INFOPLIST_FILE = TradePlayZ/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.amobile.TradePlayZ;
+				PRODUCT_BUNDLE_IDENTIFIER = com.amobile.tpz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "538a35d8-571d-48f3-bb84-10e383463630";
-				PROVISIONING_PROFILE_SPECIFIER = TpzDist;
+				PROVISIONING_PROFILE = "f4e622be-c701-4aeb-a951-67be2a4cf314";
+				PROVISIONING_PROFILE_SPECIFIER = TpzDevelopmentProvision;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1006,7 +1018,7 @@
 			baseConfigurationReference = 09F78998F6EF5C4E33AEAAF8 /* Pods-TradePlayZ.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEBUG_ACTIVITY_MODE = "";
 				DEVELOPMENT_TEAM = 6VJ4L9KXJW;
@@ -1020,10 +1032,10 @@
 				GCC_PREFIX_HEADER = TradePlayZ/PrefixHeader.pch;
 				INFOPLIST_FILE = TradePlayZ/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.amobile.TradePlayZ;
+				PRODUCT_BUNDLE_IDENTIFIER = com.amobile.tpz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "538a35d8-571d-48f3-bb84-10e383463630";
-				PROVISIONING_PROFILE_SPECIFIER = TpzDist;
+				PROVISIONING_PROFILE = "f4e622be-c701-4aeb-a951-67be2a4cf314";
+				PROVISIONING_PROFILE_SPECIFIER = TpzDevelopmentProvision;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
