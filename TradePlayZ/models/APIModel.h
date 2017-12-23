@@ -62,6 +62,12 @@
                       onSuccess:(void(^)(NSDictionary *data))success
                   onFailure:(void(^)(NSString *error))failure;
 
+
+//recovery password
+- (void)recoveryPasswordByEmail:(NSString*)email
+                  onSuccess:(void(^)(NSDictionary *data))success
+                  onFailure:(void(^)(NSString *error))failure;
+
 //bet
 - (void)betWithSizing:(NSString*)sizing
            andTypeBet:(NSInteger)betType

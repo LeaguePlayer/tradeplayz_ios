@@ -112,6 +112,29 @@
     }];
 }
 
+- (void)recoveryPasswordByEmail:(NSString*)email
+                      onSuccess:(void(^)(NSDictionary *data))success
+                      onFailure:(void(^)(NSString *error))failure
+{
+    NSString* apiName = @"users/forgotPassword";
+    NSString* urlAPI = [NSString stringWithFormat:@"%@%@", DOMAIN_API, apiName];
+    
+    
+    NSDictionary *parameters = @{@"email":email, @"language":[MCLocalization sharedInstance].language};
+    
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager GET:urlAPI parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+        if([[responseObject objectForKey:@"result"] integerValue] == 0)//error
+            failure([responseObject objectForKey:@"error_text"]);
+        else
+            success(responseObject);
+    } failure:^(NSURLSessionTask *operation, NSError *error) {
+        failure([error.userInfo objectForKey:@"NSLocalizedDescription"]);
+    }];
+}
+
 - (void)loginWith:(NSDictionary *)user
 andWithUserDevice:(NSDictionary *)userDevice
         onSuccess:(void(^)(NSDictionary *data))success
@@ -280,6 +303,10 @@ andWithUserDevice:(NSDictionary *)userDevice
     
     
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:urlAPI parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        
+//        [formData appendPartWithFormData:[[NSNumber numberWithInt:imageData.length].stringValue dataUsingEncoding:NSUTF8StringEncoding] name:@"filelength"];
+        
+        
         [formData appendPartWithFileURL:[NSURL fileURLWithPath:filePath] name:[NSString stringWithFormat:@"Users\[img_avatar\]"] fileName:@"file.jpg" mimeType:@"image/jpeg]" error:nil];
     } error:nil];
     

@@ -139,6 +139,7 @@
     self.emailField.frame = CGRectMake(padding_left, top, width_screen, height_field);
     [self.emailField setPlaceHolderText:[MCLocalization stringForKey:@"your_email"]];
     self.emailField.tag = 3;
+    self.emailField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     [self.emailField setKeyboardType:UIKeyboardTypeEmailAddress];
     self.emailField.delegate = self;
     top += height_field + 14.f;

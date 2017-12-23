@@ -129,6 +129,7 @@ static NSString * const kClientId = @"252641785323-tisb2u7rfle1q3kf5j59qsu4chumm
     float width_field = 226.5f;
     float height_field = 55.f;
     self.emailField = [[BaseTextField alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - width_field)/2, top, width_field, height_field)];
+     self.emailField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     [self.emailField setPlaceHolderText:@"E-MAIL"];
     self.emailField.delegate = self;
     self.emailField.tag = 0;

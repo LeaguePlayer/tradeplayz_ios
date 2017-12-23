@@ -47,6 +47,7 @@
     self.emailField = [[BaseTextField alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - width_field)/2, top, width_field, height_field)];
     [self.emailField setPlaceHolderText:@"E-MAIL"];
     self.emailField.delegate = self;
+    self.emailField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.emailField.tag = 0;
     
     top += CGRectGetHeight(self.emailField.frame) + 12.5f +  CGRectGetHeight(self.emailField.frame) + 21.5f +35.f+21.5f;
@@ -78,8 +79,18 @@
 -(void)recoveryPasswordAction:(id)sender
 {
     NSLog(@"recoveryPasswordAction");
-     [self.navigationController popToRootViewControllerAnimated:YES];
-    [self showMessage:@"We sent an insturment with password recovery to your mail" withTitle:@"Warning!"];
+    
+    [[[APIModel alloc] init] recoveryPasswordByEmail:self.emailField.text onSuccess:^(NSDictionary *data) {
+        NSDictionary *obj = [[data objectForKey:@"response"] objectForKey:@"recovery"];
+        
+        
+        
+                [self.navigationController popToRootViewControllerAnimated:YES];
+         
+        [self showMessage:[obj objectForKey:@"message"] withTitle:[MCLocalization stringForKey:@"alert"]];
+    } onFailure:^(NSString *error) {
+        [self showMessage:error withTitle:[MCLocalization stringForKey:@"error"]];
+    }];
     
 }
 

@@ -25,7 +25,7 @@
     
     [self.navigationBar setTitleTextAttributes:
      @{NSForegroundColorAttributeName:[UIColor whiteColor],
-       NSFontAttributeName:[UIFont fontWithName:@"Lato-Regular" size:29.f], NSKernAttributeName: @3}];
+       NSFontAttributeName:[UIFont fontWithName:@"Lato-Regular" size:29.f], NSKernAttributeName: @1.8f}];
     
 
     [self setNeedsStatusBarAppearanceUpdate];

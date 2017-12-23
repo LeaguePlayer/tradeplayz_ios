@@ -49,7 +49,7 @@
     UIColor *color = [UIColor colorWithRed:0.33 green:0.50 blue:0.69 alpha:1.0];
     self.placeholder = placeHolder;
     
-    self.attributedPlaceholder = [[NSAttributedString alloc] initWithString:self.placeholder attributes:@{NSForegroundColorAttributeName: color, NSKernAttributeName: @3}];
+    self.attributedPlaceholder = [[NSAttributedString alloc] initWithString:self.placeholder attributes:@{NSForegroundColorAttributeName: color, NSKernAttributeName: @1.8f}];
 }
 
 @end

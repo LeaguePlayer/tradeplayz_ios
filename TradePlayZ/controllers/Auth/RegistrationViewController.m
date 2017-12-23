@@ -127,6 +127,7 @@
     float height_field = 55.f;
     self.emailField = [[BaseTextField alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - width_field)/2, top, width_field, height_field)];
     [self.emailField setPlaceHolderText:@"E-MAIL"];
+    self.emailField.autocapitalizationType = UITextAutocapitalizationTypeNone; //UITextAutocapitalizationTypeWords
     self.emailField.tag = 0;
     self.emailField.delegate = self;
     
