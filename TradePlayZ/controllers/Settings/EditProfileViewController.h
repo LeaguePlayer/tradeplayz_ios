@@ -16,6 +16,9 @@
 }
 
 @property(nonatomic,retain) UIImageView* avatarPlace;
+@property (nonatomic,retain)  BaseTextField* nicknameField;
+@property (nonatomic,retain)  BaseTextField* countryField;
+
 @property (nonatomic,retain)  BaseTextField* nameField;
 @property (nonatomic,retain)  BaseTextField* zipCodeField;
 @property (nonatomic,retain)  BaseTextField* addressField;

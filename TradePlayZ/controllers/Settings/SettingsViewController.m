@@ -7,6 +7,7 @@
 //
 
 #import "SettingsViewController.h"
+#import "LanguagesTableViewController.h"
 
 @interface SettingsViewController ()
 
@@ -22,6 +23,8 @@
     self.avatarPlace = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 126, 126)];
     self.nameLabel = [[UILabel alloc] init];
     self.ratingLabel = [[UILabel alloc] init];
+    self.nicknameLabel = [[UILabel alloc] init];
+    self.countryLabel = [[UILabel alloc] init];
     self.addressLabel = [[UILabel alloc] init];
     self.zipPostalLabel = [[UILabel alloc] init];
     self.emailLabel = [[UILabel alloc] init];
@@ -60,15 +63,19 @@
     
     float top = padding_top;
     
+    NSString *country = ([self.authUser.country isKindOfClass:[NSNull class]]) ? [MCLocalization stringForKey:@"not_specified"] : self.authUser.country;
+    country = ([country isEqualToString:@""]) ? [MCLocalization stringForKey:@"not_specified"] : country;
     
+    NSString *nickname = ([self.authUser.nickname isKindOfClass:[NSNull class]]) ? [MCLocalization stringForKey:@"not_specified"] : self.authUser.nickname;
+    nickname = ([nickname isEqualToString:@""]) ? [MCLocalization stringForKey:@"not_specified"] : nickname;
 
 
     //row
     float paddingLeftTemp = (width_screen - 126)/2;
     if([self.authUser.img_avatar isKindOfClass:[NSNull class]])
-        [self.avatarPlace setImage:[UIImage imageNamed:@"avatar"]];
+        [self.avatarPlace setImage:[UIImage imageNamed:@"noavatar2"]];
     else
-        [self.avatarPlace setImageWithURL:[NSURL URLWithString:self.authUser.img_avatar] placeholderImage:[UIImage imageNamed:@"avatar"]];
+        [self.avatarPlace setImageWithURL:[NSURL URLWithString:self.authUser.img_avatar] placeholderImage:[UIImage imageNamed:@"noavatar2"]];
     self.avatarPlace.layer.cornerRadius = self.avatarPlace.frame.size.height/2;
     self.avatarPlace.clipsToBounds = YES;
     
@@ -82,7 +89,7 @@
     //row
     [self.nameLabel setFont:[UIFont fontWithName:@"Lato-Bold" size:26.0f]];
     [self.nameLabel setTextColor:[UIColor whiteColor]];
-    self.nameLabel.text = [self.authUser getFullName];
+    self.nameLabel.text = [self.authUser getFirstLastName];
     self.nameLabel.numberOfLines = 0;
     self.nameLabel.lineBreakMode = NSLineBreakByWordWrapping;
     [self.nameLabel sizeToFit];
@@ -109,6 +116,38 @@
     [self.ratingLabel setFrame:CGRectMake(padding_left, top, width_screen, 24.f)];
     top += CGRectGetHeight(self.ratingLabel.frame) + 32.f;
     
+    //row
+    [self.nicknameLabel setFont:[UIFont fontWithName:@"Lato-Regular" size:17.0f]];
+    [self.nicknameLabel setTextColor:[UIColor whiteColor]];
+    self.nicknameLabel.text =  [NSString stringWithFormat:@"%@: %@",[MCLocalization stringForKey:@"nickname"], nickname];
+    [self.nicknameLabel setTextAlignment:NSTextAlignmentCenter];
+    self.nicknameLabel.numberOfLines = 0;
+    self.nicknameLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    [self.nicknameLabel sizeToFit];
+    nameLabelLabelSize = [Functions getHeightLabelWithFont:self.nicknameLabel andWidth:width_screen];
+    [self.nicknameLabel setFrame:CGRectMake(padding_left, top, width_screen, nameLabelLabelSize.height)];
+    top += CGRectGetHeight(self.nicknameLabel.frame) + 6.f;
+    //
+    NSMutableAttributedString *commentString = [[NSMutableAttributedString alloc] initWithString:self.nicknameLabel.text];
+    [commentString addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:0.33 green:0.50 blue:0.69 alpha:1.0] range:NSMakeRange(0, [[MCLocalization stringForKey:@"nickname"] length]+1)];
+    [self.nicknameLabel setAttributedText:commentString];
+    
+    //row
+    [self.countryLabel setFont:[UIFont fontWithName:@"Lato-Regular" size:17.0f]];
+    [self.countryLabel setTextColor:[UIColor whiteColor]];
+    self.countryLabel.text =  [NSString stringWithFormat:@"%@: %@",[MCLocalization stringForKey:@"country"], country];
+    [self.countryLabel setTextAlignment:NSTextAlignmentCenter];
+    self.countryLabel.numberOfLines = 0;
+    self.countryLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    [self.countryLabel sizeToFit];
+    nameLabelLabelSize = [Functions getHeightLabelWithFont:self.countryLabel andWidth:width_screen];
+    [self.countryLabel setFrame:CGRectMake(padding_left, top, width_screen, nameLabelLabelSize.height)];
+    top += CGRectGetHeight(self.countryLabel.frame) + 6.f;
+    //
+    commentString = [[NSMutableAttributedString alloc] initWithString:self.countryLabel.text];
+    [commentString addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:0.33 green:0.50 blue:0.69 alpha:1.0] range:NSMakeRange(0, [[MCLocalization stringForKey:@"country"] length]+1)];
+    [self.countryLabel setAttributedText:commentString];
+    
     
     //row
     [self.addressLabel setFont:[UIFont fontWithName:@"Lato-Regular" size:17.0f]];
@@ -122,7 +161,7 @@
     [self.addressLabel setFrame:CGRectMake(padding_left, top, width_screen, nameLabelLabelSize.height)];
     top += CGRectGetHeight(self.addressLabel.frame) + 6.f;
     //
-    NSMutableAttributedString *commentString = [[NSMutableAttributedString alloc] initWithString:self.addressLabel.text];
+    commentString = [[NSMutableAttributedString alloc] initWithString:self.addressLabel.text];
     [commentString addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:0.33 green:0.50 blue:0.69 alpha:1.0] range:NSMakeRange(0, [[MCLocalization stringForKey:@"address"] length]+1)];
     [self.addressLabel setAttributedText:commentString];
     
@@ -214,7 +253,7 @@
     
     
     //row
-    width_button = 90.f;
+    width_button = 200.f;
     height_button = 35.f;
     paddingLeftTemp = (width_screen - width_button)/2;
     UIButton *loginButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -231,14 +270,37 @@
     [commentString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:NSMakeRange(0, [loginButton.titleLabel.text length])];
     [loginButton setAttributedTitle:commentString forState:UIControlStateNormal];
     
-    top += CGRectGetHeight(loginButton.frame) + 25.f;
+    top += CGRectGetHeight(loginButton.frame) + 15.f;
+    
+    //row
+    width_button = 150.f;
+    height_button = 35.f;
+    paddingLeftTemp = (width_screen - width_button)/2;
+    UIButton *changeLanguageButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [changeLanguageButton addTarget:self
+                             action:@selector(changeLangAction:)
+                   forControlEvents:UIControlEventTouchUpInside];
+    [changeLanguageButton setTitle:[MCLocalization stringForKey:@"change_lang"] forState:UIControlStateNormal];
+    changeLanguageButton.titleLabel.font = [UIFont fontWithName:@"Lato-Regular" size:16.0f];
+    [changeLanguageButton setTitleColor:[UIColor colorWithRed:0.33 green:0.50 blue:0.69 alpha:1.0] forState:UIControlStateNormal];
+    [changeLanguageButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
+    changeLanguageButton.frame = CGRectMake( padding_left+paddingLeftTemp , top, width_button, height_button);
+    
+    commentString = [[NSMutableAttributedString alloc] initWithString:changeLanguageButton.titleLabel.text];
+    [commentString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:NSMakeRange(0, [changeLanguageButton.titleLabel.text length])];
+    [changeLanguageButton setAttributedTitle:commentString forState:UIControlStateNormal];
+    
+    top += CGRectGetHeight(changeLanguageButton.frame) + 25.f;
     
     
+        // resize scroll view
     [self.scrollView setContentSize:CGSizeMake(CGRectGetWidth(self.scrollView.frame), top)];
     
     
     [self.scrollView addSubview:self.avatarPlace];
     [self.scrollView addSubview:self.nameLabel];
+    [self.scrollView addSubview:self.nicknameLabel];
+    [self.scrollView addSubview:self.countryLabel];
     [self.scrollView addSubview:ratingPreLabel];
     [self.scrollView addSubview:self.ratingLabel];
     [self.scrollView addSubview:self.addressLabel];
@@ -249,6 +311,15 @@
     [self.scrollView addSubview:self.balanceLabel];
      [self.scrollView addSubview:replenishButton];
     [self.scrollView addSubview:loginButton];
+    [self.scrollView addSubview:changeLanguageButton];
+}
+
+-(void)changeLangAction:(id)sender
+{
+    NSLog(@"changeLangAction");
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    LanguagesTableViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"changeLanguageController"];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -260,15 +331,24 @@
 -(void)replenishAction:(id)sender
 {
     NSLog(@"replenishAction");
-    [self.navigationController popToRootViewControllerAnimated:YES];
-    // переходим на другое представление
-    SWRevealViewController *revealController = self.revealViewController;
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    NSURL *url = [NSURL URLWithString:@"http://get.tradeplayz.com/"];
     
-    NSString* identifier = @"replenishController";
-    LobbyBaseNavigationController *navController = [storyboard instantiateViewControllerWithIdentifier: identifier ];
-    navController.aliasPage = @"replenish";
-    [revealController pushFrontViewController:navController animated:YES];
+    if ([[UIApplication sharedApplication] respondsToSelector:@selector(openURL:options:completionHandler:)]) {
+        [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:NULL];
+    }else{
+        // Fallback on earlier versions
+        [[UIApplication sharedApplication] openURL:url];
+    }
+    
+//    [self.navigationController popToRootViewControllerAnimated:YES];
+//    // переходим на другое представление
+//    SWRevealViewController *revealController = self.revealViewController;
+//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//
+//    NSString* identifier = @"replenishController";
+//    LobbyBaseNavigationController *navController = [storyboard instantiateViewControllerWithIdentifier: identifier ];
+//    navController.aliasPage = @"replenish";
+//    [revealController pushFrontViewController:navController animated:YES];
 }
 
 -(void)editProfileAction:(id)sender

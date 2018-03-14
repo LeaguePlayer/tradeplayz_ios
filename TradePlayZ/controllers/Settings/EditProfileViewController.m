@@ -23,6 +23,8 @@
     self.nameField = [[BaseTextField alloc] init];
     self.zipCodeField = [[BaseTextField alloc] init];
     self.addressField = [[BaseTextField alloc] init];
+    self.nicknameField = [[BaseTextField alloc] init];
+    self.countryField = [[BaseTextField alloc] init];
     self.emailField = [[BaseTextField alloc] init];
     self.phoneField = [[BaseTextField alloc] init];
     
@@ -50,6 +52,10 @@
         self.zipCodeField.text = ( [[gotJson objectForKey:@"zipcode"] isKindOfClass:[NSNull class]]  ) ? @"" :[gotJson objectForKey:@"zipcode"];
         self.emailField.text = ( [[gotJson objectForKey:@"email"] isKindOfClass:[NSNull class]]  ) ? @"" :[gotJson objectForKey:@"email"];
         self.phoneField.text = ( [[gotJson objectForKey:@"phone"] isKindOfClass:[NSNull class]]  ) ? @"" :[gotJson objectForKey:@"phone"];
+        
+        self.nicknameField.text = ( [[gotJson objectForKey:@"nickname"] isKindOfClass:[NSNull class]]  ) ? @"" :[gotJson objectForKey:@"nickname"];
+        self.countryField.text = ( [[gotJson objectForKey:@"country"] isKindOfClass:[NSNull class]]  ) ? @"" :[gotJson objectForKey:@"country"];
+        
 
         [self buildContent];
     } onFailure:^(NSString *error) {
@@ -75,9 +81,9 @@
         //row
         float paddingLeftTemp = (width_screen - 126)/2;
         if([self.authUser.img_avatar isKindOfClass:[NSNull class]])
-            [self.avatarPlace setImage:[UIImage imageNamed:@"avatar"]];
+            [self.avatarPlace setImage:[UIImage imageNamed:@"noavatar2"]];
         else
-            [self.avatarPlace setImageWithURL:[NSURL URLWithString:self.authUser.img_avatar] placeholderImage:[UIImage imageNamed:@"avatar"]];
+            [self.avatarPlace setImageWithURL:[NSURL URLWithString:self.authUser.img_avatar] placeholderImage:[UIImage imageNamed:@"noavatar2"]];
         self.avatarPlace.layer.cornerRadius = self.avatarPlace.frame.size.height/2;
         self.avatarPlace.clipsToBounds = YES;
         
@@ -121,16 +127,30 @@
     top += height_field + 14.f;
     
     //row
+    self.nicknameField.frame = CGRectMake(padding_left, top, width_screen, height_field);
+    [self.nicknameField setPlaceHolderText:[MCLocalization stringForKey:@"your_nickname"]];
+    self.nicknameField.tag = 1;
+    self.nicknameField.delegate = self;
+    top += height_field + 14.f;
+    
+    //row
+    self.countryField.frame = CGRectMake(padding_left, top, width_screen, height_field);
+    [self.countryField setPlaceHolderText:[MCLocalization stringForKey:@"your_country"]];
+    self.countryField.tag = 2;
+    self.countryField.delegate = self;
+    top += height_field + 14.f;
+    
+    //row
     self.addressField.frame = CGRectMake(padding_left, top, width_screen, height_field);
     [self.addressField setPlaceHolderText:[MCLocalization stringForKey:@"your_address"]];
-    self.addressField.tag = 1;
+    self.addressField.tag = 3;
     self.addressField.delegate = self;
     top += height_field + 14.f;
     
     //row
     self.zipCodeField.frame = CGRectMake(padding_left, top, width_screen, height_field);
     [self.zipCodeField setPlaceHolderText:[MCLocalization stringForKey:@"your_zip"]];
-    self.zipCodeField.tag = 2;
+    self.zipCodeField.tag = 4;
     [self.zipCodeField setKeyboardType:UIKeyboardTypeNamePhonePad ];
     self.zipCodeField.delegate = self;
     top += height_field + 14.f;
@@ -138,7 +158,7 @@
     //row
     self.emailField.frame = CGRectMake(padding_left, top, width_screen, height_field);
     [self.emailField setPlaceHolderText:[MCLocalization stringForKey:@"your_email"]];
-    self.emailField.tag = 3;
+    self.emailField.tag = 5;
     self.emailField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     [self.emailField setKeyboardType:UIKeyboardTypeEmailAddress];
     self.emailField.delegate = self;
@@ -147,7 +167,7 @@
     //row
     self.phoneField.frame = CGRectMake(padding_left, top, width_screen, height_field);
     [self.phoneField setPlaceHolderText:[MCLocalization stringForKey:@"your_phone"]];
-    self.phoneField.tag = 4;
+    self.phoneField.tag = 6;
     [self.phoneField setKeyboardType:UIKeyboardTypeNamePhonePad];
     self.phoneField.delegate = self;
     top += height_field + 36.f;
@@ -176,6 +196,8 @@
         //add subviews
         [self.scrollView addSubview:self.avatarPlace];
     [self.scrollView addSubview:self.nameField];
+    [self.scrollView addSubview:self.nicknameField];
+    [self.scrollView addSubview:self.countryField];
      [self.scrollView addSubview:self.addressField];
      [self.scrollView addSubview:self.zipCodeField];
      [self.scrollView addSubview:self.emailField];
@@ -183,6 +205,14 @@
     [self.scrollView addSubview:changeImage];
     [self.scrollView addSubview:confirmButton];
 }
+
+
+- (void)keyboardDidShow: (NSNotification *) notif{
+    [self.scrollView setContentSize:CGSizeMake(self.scrollView.contentSize.width, self.scrollView.contentSize.height+216.f)];
+}
+
+- (void)keyboardDidHide: (NSNotification *) notif{
+    [self.scrollView setContentSize:CGSizeMake(self.scrollView.contentSize.width, self.scrollView.contentSize.height-216.f)];}
 
 
 -(void)confirmAction:(id)sender
@@ -195,6 +225,8 @@
                                  @"zipcode": self.zipCodeField.text,
                                  @"email": self.emailField.text,
                                  @"phone": self.phoneField.text,
+                                 @"country": self.countryField.text,
+                                 @"nickname": self.nicknameField.text,
 //                                 @"img_avatar": @"filename.png",
                                  };
     

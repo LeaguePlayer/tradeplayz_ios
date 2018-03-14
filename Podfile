@@ -13,6 +13,7 @@ target 'TradePlayZ' do
   pod "CZPicker"
   pod 'Google/SignIn'
   pod 'AFNetworking', '~> 3.0'
+#	pod 'TOWebViewController'
   pod 'Reachability', '~> 3.2'
   pod 'MBProgressHUD', '~> 1.0.0'
 #  pod 'MWPhotoBrowser'

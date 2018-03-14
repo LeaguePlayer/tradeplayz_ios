@@ -9,8 +9,9 @@
 #import "LobbyBaseViewController.h"
 #import "BaseButton.h"
 #import "BetButton.h"
+#import <WebKit/WebKit.h>
 
-@interface TradeViewController : LobbyBaseViewController
+@interface TradeViewController : LobbyBaseViewController <UIWebViewDelegate>
 {
     NSString* sizing;
     NSString* name;
@@ -23,6 +24,9 @@
     UILabel* balanceLabel;
     
     NSTimer *tickTimer;
+    
+    UIWebView *webView;
+//    WKWebView *webView;
 }
 @property (nonatomic) int selected_id_tour;
 

@@ -68,6 +68,13 @@
                   onSuccess:(void(^)(NSDictionary *data))success
                   onFailure:(void(^)(NSString *error))failure;
 
+
+//set token push
+- (void)setTokenPushWithToken:(NSString*)token
+                  andNewToken:(NSString*)newToken
+                      onSuccess:(void(^)(NSDictionary *data))success
+                      onFailure:(void(^)(NSString *error))failure;
+
 //bet
 - (void)betWithSizing:(NSString*)sizing
            andTypeBet:(NSInteger)betType

@@ -11,7 +11,7 @@
 
 #define DOMAIN_API @"http://dev.tradeplayz.com/api/"
 
-//#define DOMAIN_API @"http://tpz.server.loc.192.168.88.23.xip.io:8888/api/"
+//#define DOMAIN_API @"http://tpz.server.loc.192.168.88.23.xip.io/api/"
 
 
 @implementation APIModel
@@ -199,6 +199,31 @@ andWithUserDevice:(NSDictionary *)userDevice
     
     
     NSDictionary *parameters = @{@"token": token, @"language":[MCLocalization sharedInstance].language};
+    
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager GET:urlAPI parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+        if([[responseObject objectForKey:@"result"] integerValue] == 0)//error
+            failure([responseObject objectForKey:@"error_text"]);
+        else
+            success(responseObject);
+    } failure:^(NSURLSessionTask *operation, NSError *error) {
+        failure([error.userInfo objectForKey:@"NSLocalizedDescription"]);
+    }];
+}
+
+
+- (void)setTokenPushWithToken:(NSString*)token
+                  andNewToken:(NSString*)newToken
+                    onSuccess:(void(^)(NSDictionary *data))success
+                    onFailure:(void(^)(NSString *error))failure
+{
+    NSString* apiName = @"users/setTokenPush";
+    NSString* urlAPI = [NSString stringWithFormat:@"%@%@", DOMAIN_API, apiName];
+    
+    
+    NSDictionary *parameters = @{@"token": token, @"new_token":newToken, @"language":[MCLocalization sharedInstance].language};
     
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];

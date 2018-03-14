@@ -17,6 +17,9 @@
 @property(nonatomic,retain) UIImageView* avatarPlace;
 @property(nonatomic,retain) UILabel* nameLabel;
 @property(nonatomic,retain) UILabel* ratingLabel;
+
+@property(nonatomic,retain) UILabel* nicknameLabel;
+@property(nonatomic,retain) UILabel* countryLabel;
 @property(nonatomic,retain) UILabel* addressLabel;
 @property(nonatomic,retain) UILabel* zipPostalLabel;
 @property(nonatomic,retain) UILabel* emailLabel;

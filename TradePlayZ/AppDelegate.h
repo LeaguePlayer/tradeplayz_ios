@@ -14,6 +14,7 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property (retain, nonatomic) TPZUser* tpzUser;
+@property (nonatomic) BOOL registredToken;
 
 @end
 

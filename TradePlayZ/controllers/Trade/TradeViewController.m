@@ -9,6 +9,7 @@
 #import "TradeViewController.h"
 #import "TournamentViewController.h"
 #import "BetButton.h"
+//#import "WKWebView.h"
 
 @interface TradeViewController ()
 
@@ -19,11 +20,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.hidesBackButton = YES;
-    
+    [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     
     UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.titleLabel.numberOfLines = 0;
-    [button setTitle:@"TOURNAMENT\nLOBBY" forState:UIControlStateNormal];
+    [button setTitle:[MCLocalization stringForKey:@"lobby_tournament_2"] forState:UIControlStateNormal];
     [button.titleLabel setTextAlignment:NSTextAlignmentCenter];
     button.titleLabel.font = [UIFont fontWithName:@"Lato-Bold" size:13.0f];
     [button setTitleColor:[UIColor colorWithRed:1.00 green:0.28 blue:0.00 alpha:1.0] forState:UIControlStateNormal];
@@ -58,6 +59,7 @@
     // Stop timer:
     [tickTimer invalidate];
     tickTimer = nil;
+    [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 }
 
 -(void)tickTimer:(id)sender
@@ -113,6 +115,17 @@
     }
 }
 
+- (NSURL*) getBaseURL {
+    NSString* path = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
+    NSRange r = [path rangeOfString:@"/" options:NSBackwardsSearch];
+    path = [path substringToIndex:r.location];
+    
+    path = [path stringByReplacingOccurrencesOfString:@"/" withString:@"//"];
+    path = [path stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+    path = [NSString stringWithFormat:@"file:/%@//",path];
+    return  [NSURL URLWithString:path];
+}
+
 -(void)buildContent
 {
     float padding_top = 32.f;
@@ -154,9 +167,70 @@
     
     
     //row
-    UIView* graph = [[UIView alloc] initWithFrame:CGRectMake(0, top, SCREEN_WIDTH, 250.f)];
-    [graph setBackgroundColor:[UIColor blackColor]];
-     top += CGRectGetHeight(graph.frame) + 25.f;
+//    UIView* graph = [[UIView alloc] initWithFrame:CGRectMake(0, top, SCREEN_WIDTH, 250.f)];
+//    [graph setBackgroundColor:[UIColor blackColor]];
+    
+//    NSString* currentURL = [NSString stringWithFormat:@"http://chart.amobile-studio.ru/demo2/"];
+//    NSString* currentURL = [NSString stringWithFormat:@"http://dev.tradeplayz.com/api/charts/getChart?token=%@",self.authUser.token];
+    
+//
+//     NSString* currentURL = [NSString stringWithFormat:@"http://tpz.server.loc.192.168.88.23.xip.io/api/charts/getChart?token=%@",self.authUser.token];
+    NSLog(@"token is %@",self.authUser.token);
+//    NSString* currentURL = [NSString stringWithFormat:@"http://tpz.server.loc.192.168.88.23.xip.io/api/charts/getChart?token=8243bc3603c78fb7d93842b598aec539"];
+    
+
+
+//    NSString* currentURL = [NSString stringWithFormat:@"http://yandex.ru"];
+//    webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, top, SCREEN_WIDTH, 350.f)];  //Change self.view.bounds to a smaller CGRect if you don't want it to take up the whole screen
+//    webView.dataDetectorTypes = UIDataDetectorTypeAll;
+//    webView.scalesPageToFit = YES;
+//    [webView setAllowsInlineMediaPlayback:YES];
+//    webView.mediaPlaybackRequiresUserAction = NO;
+//    NSError* error;
+//    NSString* html = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"] encoding:NSASCIIStringEncoding error:&error];
+//
+//    [webView loadHTMLString:html baseURL:[self getBaseURL]];
+    
+  
+    
+    
+//    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:currentURL]]];
+    
+
+//    NSString *urlAddress = @"http://mywebsite.com/";
+//    NSURL *url = [NSURL URLWithString:urlAddress];
+//    NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
+   
+//    [webView loadRequest:requestObj];
+    
+    
+//    webView.opaque = NO;
+//    webView.backgroundColor = [UIColor clearColor];
+    
+//    WKWebViewConfiguration *theConfiguration = [[WKWebViewConfiguration alloc] init];
+//    webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, top, SCREEN_WIDTH, 350.f) configuration:theConfiguration];
+//    webView.navigationDelegate = self;
+//
+//    webView.scrollView.scrollEnabled = NO;
+//    webView.scrollView.bounces = NO;
+    
+    webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, top, SCREEN_WIDTH, 350.f)];
+//    webView.navigationDelegate = self;
+    
+    webView.scrollView.scrollEnabled = NO;
+    webView.scrollView.bounces = NO;
+    
+//    NSString* currentURL = [NSString stringWithFormat:@"http://dev.tradeplayz.com/api/charts/getChart?token=%@",self.authUser.token];
+    
+    
+    NSURL *nsurl=[NSURL URLWithString: [NSString stringWithFormat:@"http://dev.tradeplayz.com/api/charts/getChart?token=%@&font_size=10",self.authUser.token]];
+    NSURLRequest *nsrequest=[NSURLRequest requestWithURL:nsurl];
+    [webView loadRequest:nsrequest];
+//    [self.view addSubview:webView];
+    
+    [self.view addSubview:webView];
+    
+     top += CGRectGetHeight(webView.frame) + 25.f;
     
     //row
     float betButtonSize = 45.f;
@@ -224,10 +298,26 @@
      [self.scrollView addSubview:downButton];
     [self.scrollView addSubview:nameLabel];
      [self.scrollView addSubview:timeBeginLabel];
-    [self.scrollView addSubview:graph];
+    [self.scrollView addSubview:webView];
      [self.scrollView addSubview:bet25];
     [self.scrollView addSubview:bet50];
     [self.scrollView addSubview:bet100];
+}
+-(void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [self zoomToFit];
+}
+
+- (void)zoomToFit
+{
+    if ([webView respondsToSelector:@selector(scrollView)])
+    {
+        UIScrollView *scrollView = [webView scrollView];
+        
+        float zoom = webView.bounds.size.width / scrollView.contentSize.width;
+        scrollView.minimumZoomScale = zoom;
+        [scrollView setZoomScale:zoom animated:YES];
+    }
 }
 
 -(void)setSizing:(BetButton*)sender

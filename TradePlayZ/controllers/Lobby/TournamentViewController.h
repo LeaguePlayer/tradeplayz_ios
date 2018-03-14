@@ -10,7 +10,7 @@
 #import "LobbyBaseViewController.h"
 #import "headerView.h"
 #import "BaseButton.h"
-
+#import "RTLabel.h"
 
 @interface TournamentViewController : LobbyBaseViewController
 {
@@ -22,7 +22,7 @@
 @property(nonatomic,retain) UILabel* statusTournamentLabel;
 @property(nonatomic,retain) UILabel* participantsTournamentLabel;
 @property(nonatomic,retain) UILabel* prizePlacesLabel;
-@property(nonatomic,retain) UILabel* rulesTournamentLabel;
+@property(nonatomic,retain) RTLabel* rulesTournamentLabel;
 
 @property(nonatomic,retain) UITableView* prizesGrid;
 @property(nonatomic,retain) UITableView* playersGrid;

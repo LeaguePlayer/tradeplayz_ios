@@ -12,6 +12,7 @@
 #import "PrizesTableViewController.h"
 #import "PlayersTableViewController.h"
 
+
 @interface TournamentViewController ()
 
 @property (strong, nonatomic) NSArray* prizesTableData;
@@ -40,7 +41,7 @@ static NSString* playersCellIdentifier = @"playersCell";
     self.statusTournamentLabel = [[UILabel alloc] init];
     self.participantsTournamentLabel = [[UILabel alloc] init];
     self.prizePlacesLabel = [[UILabel alloc] init];
-    self.rulesTournamentLabel = [[UILabel alloc] init];
+    self.rulesTournamentLabel = [[RTLabel alloc] init];
     self.prizesGrid = [[UITableView alloc] init];
     self.playersGrid = [[UITableView alloc] init];
     
@@ -75,7 +76,9 @@ static NSString* playersCellIdentifier = @"playersCell";
         you_registred = [[obj objectForKey:@"you_registred"] boolValue];
         self.participantsTournamentLabel.text = [NSString stringWithFormat:@"%@ (%@)",[[obj objectForKey:@"count_participants"] objectForKey:@"still_play"], [[obj objectForKey:@"count_participants"] objectForKey:@"all"]];
         self.prizePlacesLabel.text = [obj objectForKey:@"prize_places"];
-        self.rulesTournamentLabel.text = [obj objectForKey:@"rules"];
+        [self.rulesTournamentLabel setText:[obj objectForKey:@"rules"]];
+        NSLog(@"%@",self.rulesTournamentLabel.text);
+       NSLog(@"%@",[obj objectForKey:@"rules"]);
         
         NSMutableArray* tmpPrizes = [[NSMutableArray alloc] init];
         for(NSDictionary* pr in [obj objectForKey:@"prizes"])
@@ -199,6 +202,9 @@ static NSString* playersCellIdentifier = @"playersCell";
     
     //row
     widthObject = (SCREEN_WIDTH-(padding_left*2));
+    
+
+    
     UILabel* rulesLabel = [[UILabel alloc] init];
     [rulesLabel setFont:[UIFont fontWithName:@"Lato-Regular" size:12.0f]];
     [rulesLabel setTextColor:[UIColor colorWithRed:0.33 green:0.50 blue:0.69 alpha:1.0]];
@@ -209,15 +215,32 @@ static NSString* playersCellIdentifier = @"playersCell";
     
     //row
 //    widthObject = (SCREEN_WIDTH-(padding_left*2));
+//    self.rulesTournamentLabel = [[RTLabel alloc] init];
     [self.rulesTournamentLabel setFont:[UIFont fontWithName:@"Lato-Regular" size:12.0f]];
     [self.rulesTournamentLabel setTextColor:[UIColor whiteColor]];
-    self.rulesTournamentLabel.numberOfLines = 0;
-    self.rulesTournamentLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    [self.rulesTournamentLabel sizeToFit];
-    CGSize rulesTournamentLabelSize = [Functions getHeightLabelWithFont:self.rulesTournamentLabel andWidth:widthObject];
-    [self.rulesTournamentLabel setFrame:CGRectMake(padding_left, top, widthObject, rulesTournamentLabelSize.height)];
-    self.rulesTournamentLabel.textAlignment = NSTextAlignmentCenter;
-    top += CGRectGetHeight(self.rulesTournamentLabel.frame) + padding_top;
+    self.rulesTournamentLabel.frame = CGRectMake(padding_left, top, widthObject, 55.f);
+//    [self.rulesTournamentLabel setText:descriptionPage];
+//    self.rulesTournamentLabel.textAlignment = NSTextAlignmentCenter;
+    NSLog(@"%@",self.rulesTournamentLabel.text);
+    // set height rules block
+    CGSize optimumSize = [self.rulesTournamentLabel optimumSize];
+    CGRect frame = self.rulesTournamentLabel.frame;
+    frame.size.height = optimumSize.height;
+//    frame.size.width = optimumSize.width;
+    self.rulesTournamentLabel.frame = frame;
+    top += optimumSize.height + padding_top;
+    
+    
+    
+//    [self.rulesTournamentLabel setFont:[UIFont fontWithName:@"Lato-Regular" size:12.0f]];
+//    [self.rulesTournamentLabel setTextColor:[UIColor whiteColor]];
+//    self.rulesTournamentLabel.numberOfLines = 0;
+//    self.rulesTournamentLabel.lineBreakMode = NSLineBreakByWordWrapping;
+//    [self.rulesTournamentLabel sizeToFit];
+//    CGSize rulesTournamentLabelSize = [Functions getHeightLabelWithFont:self.rulesTournamentLabel andWidth:widthObject];
+//    [self.rulesTournamentLabel setFrame:CGRectMake(padding_left, top, widthObject, rulesTournamentLabelSize.height)];
+    
+//    top += CGRectGetHeight(self.rulesTournamentLabel.frame) + padding_top;
     
     
     //row
@@ -264,7 +287,7 @@ static NSString* playersCellIdentifier = @"playersCell";
     morePricesButton.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
     
     UIImageView* downIcon = [[UIImageView alloc]  initWithImage:[UIImage imageNamed:@"down"]];
-    CGRect frame = downIcon.frame;
+     frame = downIcon.frame;
     frame.origin.x = (width_button - CGRectGetWidth(downIcon.frame))/2;
     frame.origin.y = height_button-CGRectGetHeight(downIcon.frame);
     downIcon.frame = frame;

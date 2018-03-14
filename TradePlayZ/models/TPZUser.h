@@ -24,6 +24,8 @@
 @property (nonatomic,retain) NSString* rating;
 @property (nonatomic,retain) NSString* address;
 @property (nonatomic,retain) NSString* zipcode;
+@property (nonatomic,retain) NSString* country;
+@property (nonatomic,retain) NSString* nickname;
 @property (nonatomic,retain) NSString* email;
 @property (nonatomic,retain) NSString* phone;
 
@@ -32,6 +34,7 @@
 
 -(NSDictionary* )getDeviceParams;
 -(NSString *)getFullName;
+-(NSString *)getFirstLastName;
 
 -(void)actualizeProfileOnSuccess:(void(^)(NSDictionary *data))success
                        onFailure:(void(^)(NSString *error))failure;

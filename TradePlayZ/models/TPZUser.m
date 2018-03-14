@@ -18,7 +18,7 @@
     NSString* devicetoken = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     NSString *model_phone = [UIDeviceHardware platformString];
     NSString *device_type = @"0"; // its iOs
-    
+    NSLog(@"%@",devicetoken);
     NSDictionary *result = @{
                                 @"id_os":id_os,
                                 @"devicetoken": devicetoken,
@@ -40,6 +40,9 @@
         NSString *address = ([[jsonData objectForKey:@"address"] isKindOfClass:[NSNull class]]) ? [MCLocalization stringForKey:@"not_specified"] : [jsonData objectForKey:@"address"];
         address = ([address isEqualToString:@""]) ? [MCLocalization stringForKey:@"not_specified"] : address;
         
+
+        
+        
         NSString *zipCodeString = ([[jsonData objectForKey:@"zipcode"] isKindOfClass:[NSNull class]]) ? [MCLocalization stringForKey:@"not_specified"] : [jsonData objectForKey:@"zipcode"];
         zipCodeString = ([zipCodeString isEqualToString:@""]) ? [MCLocalization stringForKey:@"not_specified"] : zipCodeString;
         
@@ -55,9 +58,13 @@
         self.img_avatar = [jsonData objectForKey:@"img_avatar"];
         self.balance = [jsonData objectForKey:@"balance"];
         self.login = [jsonData objectForKey:@"login"];
+        self.nickname = [jsonData objectForKey:@"nickname"];
+        self.country = [jsonData objectForKey:@"country"];
         self.rating = [jsonData objectForKey:@"rating"];
         self.address = address;
         self.zipcode = zipCodeString;
+//        self.country = country;
+//        self.nickname = nickname;
         self.email = emailString;
         self.phone = phoneString;
         self.currency = [jsonData objectForKey:@"currency"];
@@ -98,7 +105,7 @@
 //    }];
 }
 
--(NSString *)getFullName
+-(NSString *)getFirstLastName
 {
     NSString* fullName;
     
@@ -106,12 +113,36 @@
     NSString* lastname = @"";
     
     if(![self.firstname isKindOfClass:[NSNull class]])
+    firstname = self.firstname;
+    
+    if(![self.lastname isKindOfClass:[NSNull class]])
+    lastname = self.lastname;
+    
+    fullName = [[NSString stringWithFormat:@"%@ %@", firstname, lastname] stringByTrimmingCharactersInSet:
+                [NSCharacterSet whitespaceCharacterSet]];
+    
+    if(![fullName length])
+    fullName = self.email;
+    
+    return fullName;
+}
+
+-(NSString *)getFullName
+{
+    NSString* fullName;
+    
+    NSString* firstname = @"";
+    NSString* lastname = @"";
+    NSLog(@"%lu",(unsigned long)[self.nickname length]);
+    if([self.nickname length] != 0 && ![self.nickname isKindOfClass:[NSNull class]])
+        return self.nickname;
+    
+    if(![self.firstname isKindOfClass:[NSNull class]])
         firstname = self.firstname;
     
     if(![self.lastname isKindOfClass:[NSNull class]])
         lastname = self.lastname;
     
-//    fullName = [NSString stringWithFormat:@"%@ %@", lastname, firstname];
     fullName = [[NSString stringWithFormat:@"%@ %@", firstname, lastname] stringByTrimmingCharactersInSet:
                                [NSCharacterSet whitespaceCharacterSet]];
     

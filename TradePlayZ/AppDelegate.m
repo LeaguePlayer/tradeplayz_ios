@@ -56,6 +56,7 @@ didDisconnectWithUser:(GIDGoogleUser *)user
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     _tpzUser = [[TPZUser alloc] init];
+    _registredToken = NO;
     
     NSError* configureError;
     [[GGLContext sharedInstance] configureWithError: &configureError];
@@ -77,7 +78,20 @@ didDisconnectWithUser:(GIDGoogleUser *)user
     
     [MCLocalization sharedInstance].noKeyPlaceholder = @"[No '{key}' in '{language}']";
     
-     [MCLocalization sharedInstance].language = @"en";
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *result = [userDefaults objectForKey:@"language"];
+    if ([result length])
+        [MCLocalization sharedInstance].language = result;
+    else
+        [MCLocalization sharedInstance].language = @"en";
+    
+    
+    
+    
+   
+    
+    
     
     [self.window makeKeyAndVisible];
     return YES;
@@ -98,6 +112,7 @@ didDisconnectWithUser:(GIDGoogleUser *)user
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0; // unset badge number
 }
 
 
@@ -109,6 +124,26 @@ didDisconnectWithUser:(GIDGoogleUser *)user
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+#pragma mark - PushNotificationMethods
+
+- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
+{
+    NSString* token = [[[[NSString stringWithFormat:@"%@", deviceToken] stringByReplacingOccurrencesOfString:@" " withString:@""] stringByReplacingOccurrencesOfString:@">" withString:@""] stringByReplacingOccurrencesOfString:@"<" withString:@""];
+    NSLog(@"My token is: %@", token);
+//    [[VVSettings sharedManager] saveDeviceToken:token];
+    [[[APIModel alloc] init] setTokenPushWithToken:_tpzUser.token andNewToken:token onSuccess:^(NSDictionary *data) {
+        NSLog(@"token push updated");
+    } onFailure:^(NSString *error) {
+        NSLog(@"token push fail");
+    }];
+}
+
+- (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
+{
+    NSLog(@"Failed to get token, error: %@", error);
+}
+
 
 
 @end

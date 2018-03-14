@@ -267,12 +267,12 @@ static NSString* chatCellIdentifier = @"chatCell";
         
         if([[dictionaryCell objectForKey:@"side"] isEqualToString:@"1"]) // leftSide admin answer
         {
-            [cell.avatarImageView setImage:[UIImage imageNamed:@"avatar"]];
+            [cell.avatarImageView setImage:[UIImage imageNamed:@"noavatar2"]];
             [cell setLeftSide];
         }
         else // right side your question
         {
-            [cell.avatarImageView setImageWithURL:[NSURL URLWithString:self.authUser.img_avatar] placeholderImage:[UIImage imageNamed:@"avatar"]];
+            [cell.avatarImageView setImageWithURL:[NSURL URLWithString:self.authUser.img_avatar] placeholderImage:[UIImage imageNamed:@"noavatar2"]];
             [cell setRightSide];
         }
         

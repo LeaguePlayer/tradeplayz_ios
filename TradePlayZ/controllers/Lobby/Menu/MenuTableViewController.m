@@ -112,7 +112,7 @@ static NSString* actionLogout = @"actionLogout";
 {
     self.tableData = @[@{@"type":welcomeAccountCellIdentifier,
                          @"title":[self.authUser getFullName],
-                         @"country":@"Russia",
+                         @"country":self.authUser.country,
                          @"balance":self.authUser.balance,
                          @"rating":self.authUser.rating,
                          @"avatar":self.authUser.img_avatar},
@@ -205,14 +205,20 @@ static NSString* actionLogout = @"actionLogout";
         NSLog(@"%@",[dictionaryCell objectForKey:@"avatar"]);
         
         if([[dictionaryCell objectForKey:@"avatar"] isKindOfClass:[NSNull class]])
-            [cell.avatarImageView setImage:[UIImage imageNamed:@"avatar"]];
+            [cell.avatarImageView setImage:[UIImage imageNamed:@"noavatar2"]];
         else
-            [cell.avatarImageView setImageWithURL:[NSURL URLWithString:[dictionaryCell objectForKey:@"avatar"]] placeholderImage:[UIImage imageNamed:@"avatar"]];
+            [cell.avatarImageView setImageWithURL:[NSURL URLWithString:[dictionaryCell objectForKey:@"avatar"]] placeholderImage:[UIImage imageNamed:@"noavatar2"]];
 
         
         
                 [cell setName: [dictionaryCell objectForKey:@"title"] ];
+        
+        NSLog(@"%@",[dictionaryCell objectForKey:@"country"]);
+            if(![dictionaryCell objectForKey:@"country"] || [[dictionaryCell objectForKey:@"country"] isKindOfClass:[NSNull class]])
+                [cell.countryLabel setText: @"" ];
+            else
                 [cell.countryLabel setText: [dictionaryCell objectForKey:@"country"] ];
+        
                 [cell setBalance: [dictionaryCell objectForKey:@"balance"] ];
                 [cell.ratingPlace setText: [[dictionaryCell objectForKey:@"rating"] stringValue] ];
         
@@ -293,6 +299,17 @@ static NSString* actionLogout = @"actionLogout";
             
             [self.navigationController pushViewController:settingController animated:YES];
             //            [revealController pushFrontViewController:navController animated:YES];
+        }
+        else if([[dictionaryCell objectForKey:@"action"] isEqualToString:actionFAQ])
+        {
+            NSURL *url = [NSURL URLWithString:@"http://tradeplayz.com/en"];
+            
+            if ([[UIApplication sharedApplication] respondsToSelector:@selector(openURL:options:completionHandler:)]) {
+                [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:NULL];
+            }else{
+                // Fallback on earlier versions
+                [[UIApplication sharedApplication] openURL:url];
+            }
         }
         else if([[dictionaryCell objectForKey:@"action"] isEqualToString:actionWithdraw])
         {

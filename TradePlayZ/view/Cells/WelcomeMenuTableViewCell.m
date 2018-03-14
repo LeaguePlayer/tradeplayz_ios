@@ -104,7 +104,7 @@
 
 -(void)setBalance:(NSString *)newValue
 {
-    self.balancePlace.text = [NSString stringWithFormat:@"$ %@", newValue];
+    self.balancePlace.text = [NSString stringWithFormat:@"%@ ZED", newValue];
 }
 
 

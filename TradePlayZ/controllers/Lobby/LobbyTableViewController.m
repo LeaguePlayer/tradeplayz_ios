@@ -11,6 +11,7 @@
 #import "TournamentTableViewCell.h"
 #import "TradeViewController.h"
 #import "TournamentModalView.h"
+#import "AppDelegate.h"
 
 @interface LobbyTableViewController () 
 @property (strong, nonatomic) NSArray* tableData;
@@ -23,6 +24,32 @@ static NSString* tournamentCellIdentifier = @"tournamentCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    if(!appDelegate.registredToken)
+    {
+        // Регистируем девайс на приём push-уведомлений
+        if ([ [UIApplication sharedApplication] respondsToSelector:@selector(isRegisteredForRemoteNotifications)])
+        {
+            // iOS 8 Notifications
+            [ [UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
+            
+            [ [UIApplication sharedApplication] registerForRemoteNotifications];
+        }
+        else
+        {
+            // iOS < 8 Notifications
+            [ [UIApplication sharedApplication] registerForRemoteNotificationTypes:
+             (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound)];
+        }
+        [UIApplication sharedApplication].applicationIconBadgeNumber = 0; // unset badge number
+        appDelegate.registredToken = YES;
+        
+    }
+    
+   
+    
+    
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 35.f)];
     [headerView setBackgroundColor:[UIColor clearColor]];
@@ -135,7 +162,7 @@ static NSString* tournamentCellIdentifier = @"tournamentCell";
     UIButton *button = (UIButton *)sender;
    
     NSDictionary* dictionaryCell = [self.tableData objectAtIndex: button.tag];
-    NSString *message = [NSString stringWithFormat:@"%@ %@ TPZ, %@?", [MCLocalization stringForKey:@"money_will_charged"], [dictionaryCell objectForKey:@"byuin"], [MCLocalization stringForKey:@"continue"]];
+    NSString *message = [NSString stringWithFormat:@"%@ %@ ZED, %@?", [MCLocalization stringForKey:@"money_will_charged"], [dictionaryCell objectForKey:@"byuin"], [MCLocalization stringForKey:@"continue"]];
     
     UIAlertController * alert=   [UIAlertController
                                   alertControllerWithTitle:[MCLocalization stringForKey:@"alert"]

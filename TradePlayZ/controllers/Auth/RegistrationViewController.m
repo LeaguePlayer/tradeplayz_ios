@@ -379,11 +379,20 @@
 -(void)showTerms:(UIGestureRecognizer*)recognizer
 {
     NSLog(@"show terms");
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    NSURL *url = [NSURL URLWithString:@"http://tradeplayz.com/tpz_whitepaper.pdf"];
     
-    LobbyBaseNavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"termsAction"];
-    vc.aliasPage = @"term-and-conditions";
-        [self presentViewController:vc animated:YES completion:nil];
+    if ([[UIApplication sharedApplication] respondsToSelector:@selector(openURL:options:completionHandler:)]) {
+        [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:NULL];
+    }else{
+        // Fallback on earlier versions
+        [[UIApplication sharedApplication] openURL:url];
+    }
+    
+//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//
+//    LobbyBaseNavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"termsAction"];
+//    vc.aliasPage = @"term-and-conditions";
+//        [self presentViewController:vc animated:YES completion:nil];
 }
 
 

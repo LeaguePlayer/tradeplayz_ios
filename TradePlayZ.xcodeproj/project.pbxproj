@@ -30,6 +30,8 @@
 		CFBC55F31FE6615000A0A285 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFBC55F21FE6615000A0A285 /* PageViewController.m */; };
 		CFBC55F61FE6869B00A0A285 /* PlayersPaddingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CFBC55F51FE6869B00A0A285 /* PlayersPaddingTableViewCell.m */; };
 		CFBC55F91FE8082200A0A285 /* BetButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CFBC55F81FE8082200A0A285 /* BetButton.m */; };
+		CFDB151B2058111E00BA4379 /* LanguagesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFDB151A2058111E00BA4379 /* LanguagesTableViewController.m */; };
+		CFDB151E20581A9F00BA4379 /* LanguageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CFDB151D20581A9F00BA4379 /* LanguageTableViewCell.m */; };
 		CFEC7D521FD034990045768A /* PlayersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFEC7D511FD034980045768A /* PlayersTableViewController.m */; };
 		CFEC7D551FD03C410045768A /* SearchPlayersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFEC7D541FD03C410045768A /* SearchPlayersTableViewController.m */; };
 		CFEC7D571FD119950045768A /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CFEC7D561FD119950045768A /* Lato-Light.ttf */; };
@@ -138,6 +140,11 @@
 		CFBC55F51FE6869B00A0A285 /* PlayersPaddingTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayersPaddingTableViewCell.m; sourceTree = "<group>"; };
 		CFBC55F71FE8082200A0A285 /* BetButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BetButton.h; sourceTree = "<group>"; };
 		CFBC55F81FE8082200A0A285 /* BetButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BetButton.m; sourceTree = "<group>"; };
+		CFDB15182056638500BA4379 /* TradePlayZ.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TradePlayZ.entitlements; sourceTree = "<group>"; };
+		CFDB15192058111D00BA4379 /* LanguagesTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LanguagesTableViewController.h; sourceTree = "<group>"; };
+		CFDB151A2058111E00BA4379 /* LanguagesTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LanguagesTableViewController.m; sourceTree = "<group>"; };
+		CFDB151C20581A9F00BA4379 /* LanguageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LanguageTableViewCell.h; sourceTree = "<group>"; };
+		CFDB151D20581A9F00BA4379 /* LanguageTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LanguageTableViewCell.m; sourceTree = "<group>"; };
 		CFEC7D501FD034980045768A /* PlayersTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayersTableViewController.h; sourceTree = "<group>"; };
 		CFEC7D511FD034980045768A /* PlayersTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayersTableViewController.m; sourceTree = "<group>"; };
 		CFEC7D531FD03C410045768A /* SearchPlayersTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchPlayersTableViewController.h; sourceTree = "<group>"; };
@@ -305,6 +312,7 @@
 		CF5379301FB7592E006990F9 /* TradePlayZ */ = {
 			isa = PBXGroup;
 			children = (
+				CFDB15182056638500BA4379 /* TradePlayZ.entitlements */,
 				CFFDA1B41FCD84C2000F43E2 /* models */,
 				CFFDA1AF1FCD73ED000F43E2 /* fonts */,
 				CFFDA18B1FCC002C000F43E2 /* localizable */,
@@ -543,6 +551,8 @@
 				CFBC55EB1FE53E9800A0A285 /* ChatTableViewCell.m */,
 				CFBC55F41FE6869A00A0A285 /* PlayersPaddingTableViewCell.h */,
 				CFBC55F51FE6869B00A0A285 /* PlayersPaddingTableViewCell.m */,
+				CFDB151C20581A9F00BA4379 /* LanguageTableViewCell.h */,
+				CFDB151D20581A9F00BA4379 /* LanguageTableViewCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -624,6 +634,8 @@
 				CFBC55E51FE4082E00A0A285 /* SettingsViewController.m */,
 				CFBC55E71FE41C8C00A0A285 /* EditProfileViewController.h */,
 				CFBC55E81FE41C8C00A0A285 /* EditProfileViewController.m */,
+				CFDB15192058111D00BA4379 /* LanguagesTableViewController.h */,
+				CFDB151A2058111E00BA4379 /* LanguagesTableViewController.m */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -704,6 +716,11 @@
 					CF53792D1FB7592E006990F9 = {
 						CreatedOnToolsVersion = 9.1;
 						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -841,6 +858,7 @@
 				CFEC7D621FD134070045768A /* BaseButton.m in Sources */,
 				CFFDA1581FCAD1EB000F43E2 /* LobbyBaseTableViewController.m in Sources */,
 				CFFDA1961FCD48D5000F43E2 /* HistoryTradeTableViewController.m in Sources */,
+				CFDB151E20581A9F00BA4379 /* LanguageTableViewCell.m in Sources */,
 				CFFDA19E1FCD5136000F43E2 /* WithdrawViewController.m in Sources */,
 				CF5379411FB7592E006990F9 /* main.m in Sources */,
 				CFFDA1C91FCE939C000F43E2 /* PrizeTableViewCell.m in Sources */,
@@ -853,6 +871,7 @@
 				CFFDA1641FCBF4D7000F43E2 /* WelcomeMenuTableViewCell.m in Sources */,
 				CFFDA1891FCBFF54000F43E2 /* MCLocalizationSingleJSONFileDataSource.m in Sources */,
 				CFBC55D91FE3CF3B00A0A285 /* RTLabel.m in Sources */,
+				CFDB151B2058111E00BA4379 /* LanguagesTableViewController.m in Sources */,
 				CFFDA1CF1FCECE45000F43E2 /* PrizesTableViewController.m in Sources */,
 				CFFDA1491FCAC743000F43E2 /* LobbyNavigationController.m in Sources */,
 				CFFDA1B71FCD84C9000F43E2 /* Functions.m in Sources */,
@@ -990,11 +1009,12 @@
 			baseConfigurationReference = A4D7958EB9CD96607DF36C1A /* Pods-TradePlayZ.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TradePlayZ/TradePlayZ.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEBUG_ACTIVITY_MODE = "";
 				"DEBUG_ACTIVITY_MODE[sdk=iphonesimulator*]" = default;
-				DEVELOPMENT_TEAM = 6VJ4L9KXJW;
+				DEVELOPMENT_TEAM = 5Z6258L6GB;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1005,10 +1025,10 @@
 				GCC_PREFIX_HEADER = TradePlayZ/PrefixHeader.pch;
 				INFOPLIST_FILE = TradePlayZ/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.amobile.tpz;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tradeplayz.game;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "f4e622be-c701-4aeb-a951-67be2a4cf314";
-				PROVISIONING_PROFILE_SPECIFIER = TpzDevelopmentProvision;
+				PROVISIONING_PROFILE = "102af79d-6fd5-4dad-89c6-c76455da27c1";
+				PROVISIONING_PROFILE_SPECIFIER = devtpz_120318;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1018,10 +1038,11 @@
 			baseConfigurationReference = 09F78998F6EF5C4E33AEAAF8 /* Pods-TradePlayZ.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = TradePlayZ/TradePlayZ.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEBUG_ACTIVITY_MODE = "";
-				DEVELOPMENT_TEAM = 6VJ4L9KXJW;
+				DEVELOPMENT_TEAM = 5Z6258L6GB;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1032,10 +1053,10 @@
 				GCC_PREFIX_HEADER = TradePlayZ/PrefixHeader.pch;
 				INFOPLIST_FILE = TradePlayZ/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.amobile.tpz;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tradeplayz.game;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "f4e622be-c701-4aeb-a951-67be2a4cf314";
-				PROVISIONING_PROFILE_SPECIFIER = TpzDevelopmentProvision;
+				PROVISIONING_PROFILE = "0f405fd4-e17e-46b3-940d-f96e855996a4";
+				PROVISIONING_PROFILE_SPECIFIER = prod_tpz_120318;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
