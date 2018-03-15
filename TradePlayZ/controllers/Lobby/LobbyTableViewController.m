@@ -48,6 +48,13 @@ static NSString* tournamentCellIdentifier = @"tournamentCell";
     }
     
    
+//    // test websockets
+//    NSURL *url = [NSURL URLWithString:@"ws://165.227.236.22:8090"];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+//    
+//    SRWebSocket *rusSocket = [[SRWebSocket alloc] initWithURLRequest:request];
+//    rusSocket.delegate = self;
+//    [rusSocket open];
     
     
     
@@ -61,6 +68,20 @@ static NSString* tournamentCellIdentifier = @"tournamentCell";
     
     self.title = [MCLocalization stringForKey:@"tournaments"];
 }
+
+//- (void)webSocketDidOpen:(SRWebSocket *)webSocket
+//{
+//    NSString *helloMsg = @"{\"event\":\"pusher:subscribe\",\"data\":{\"channel\":\"chat_ru\"}}";
+//    [webSocket send:helloMsg];
+//}
+//
+//- (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message
+//{
+//    message = [[message stringByReplacingOccurrencesOfString:@"///" withString:@""] stringByReplacingOccurrencesOfString:@"\\\\\\" withString:@""];
+////    message = [message gtm_stringByUnescapingFromHTML];
+//    NSLog(@"%@",message);
+//}
+
 
 - (void)registerCell
 {

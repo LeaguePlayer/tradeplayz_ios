@@ -17,6 +17,7 @@ target 'TradePlayZ' do
   pod 'Reachability', '~> 3.2'
   pod 'MBProgressHUD', '~> 1.0.0'
 #  pod 'MWPhotoBrowser'
+   pod 'SocketRocket'
 #  pod 'JYGraphView'
   #pod "NMPopUpViewSwift"
 #  pod "SlackTextViewController"

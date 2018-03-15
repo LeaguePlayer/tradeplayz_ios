@@ -52,6 +52,7 @@ PODS:
     - GTMSessionFetcher/Core (= 1.1.13)
   - MBProgressHUD (1.0.0)
   - Reachability (3.2)
+  - SocketRocket (0.5.1)
   - TwitterCore (3.0.3)
   - TwitterKit (3.2.2):
     - TwitterCore (>= 3.0.3)
@@ -62,6 +63,7 @@ DEPENDENCIES:
   - Google/SignIn
   - MBProgressHUD (~> 1.0.0)
   - Reachability (~> 3.2)
+  - SocketRocket
   - TwitterCore (~> 3.0.3)
   - TwitterKit (~> 3.2.2)
 
@@ -78,9 +80,10 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 5bb1eae636127de695590f50e7d248483eb891e6
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
   TwitterCore: 549c74ed5f3d6134392dc944c6d215e233e50ad8
   TwitterKit: b9feccfc70bef86fe389c06a63a72fed9f020b9c
 
-PODFILE CHECKSUM: 83a8d0a96c8f7310a3ffda72202b9f1dc5752555
+PODFILE CHECKSUM: dc0972b14f60094c8dde6f33a4d55a4d0cdea941
 
 COCOAPODS: 1.2.1

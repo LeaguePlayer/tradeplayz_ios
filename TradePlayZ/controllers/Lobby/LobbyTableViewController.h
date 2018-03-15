@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "LobbyBaseTableViewController.h"
 #import "KLCPopup.h"
+//#import "SRWebSocket.h"
 
 @interface LobbyTableViewController : LobbyBaseTableViewController
 {
