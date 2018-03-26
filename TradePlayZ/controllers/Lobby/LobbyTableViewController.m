@@ -74,6 +74,7 @@ static NSString* tournamentCellIdentifier = @"tournamentCell";
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [super viewDidAppear:animated];
     [self initTableData];
     
@@ -104,6 +105,7 @@ static NSString* tournamentCellIdentifier = @"tournamentCell";
             self.tableData = tmpData;
             NSLog(@"%@",self.tableData);
             [self.tableView reloadData];
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
         });
     } onFailure:^(NSString *error) {
         [self showMessage:error withTitle:[MCLocalization stringForKey:@"error"]];

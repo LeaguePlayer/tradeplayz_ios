@@ -366,11 +366,9 @@ static NSString* allChatIdentifier = @"all";
     if(![private_channel_name isEqualToString:allChatIdentifier]) // pprivate chat
         private_channel_name = _socket_private;
     
-    NSLog(@"%@",message);
+    
     message = [[message stringByReplacingOccurrencesOfString:@"///" withString:@""] stringByReplacingOccurrencesOfString:@"\\\\\\" withString:@""];
-    NSLog(@"%@",message);
     message = [message gtm_stringByUnescapingFromHTML];
-    NSLog(@"%@",message);
     
     
     NSError *jsonError;

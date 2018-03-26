@@ -93,7 +93,7 @@ static NSString* defaultZoom = @"0.85";
         mainPVPController.socket_folder =[obj objectForKey:@"socket_folder"];
         mainPVPController.socket_private =[obj objectForKey:@"socket_private"];
         
-        
+          [pvp setRound:[[obj objectForKey:@"info"] objectForKey:@"round"] withEnemyOne:[[[obj objectForKey:@"info"] objectForKey:@"enemies"] objectAtIndex:0] andWithEnemyTwo:[[[obj objectForKey:@"info"] objectForKey:@"enemies"] objectAtIndex:1]];
         
     } onFailure:^(NSString *error) {
         
@@ -139,7 +139,8 @@ static NSString* defaultZoom = @"0.85";
         PVPChatTableViewController* mainPVPController = (PVPChatTableViewController*)[nv.viewControllers firstObject];
         mainPVPController.socket_folder =[obj objectForKey:@"socket_folder"];
         mainPVPController.socket_private =[obj objectForKey:@"socket_private"];
-      
+        
+
         
         mainPVPController.rusSocket.delegate = mainPVPController;
         [mainPVPController.rusSocket open];
@@ -231,7 +232,20 @@ static NSString* defaultZoom = @"0.85";
     [self.rd addGestureRecognizer:singleFingerTap];
 
     
-    top += CGRectGetHeight(timeBeginLabel.frame) + 25.f;
+    top += CGRectGetHeight(timeBeginLabel.frame) + 18.f;
+    
+    
+    //row
+//    round 2: VasilyPetroff82 vs xxxmegapihar2000xxx
+    
+    pvp = [[PVPLabel alloc] initWithFrame:CGRectMake( padding_left , top, SCREEN_WIDTH - (padding_left*2), 25.f)];
+    pvp.font = [UIFont fontWithName:@"Lato-Regular" size:14.0f];
+    pvp.textColor = [UIColor colorWithRed:0.18 green:0.26 blue:0.36 alpha:1.0];
+    pvp.textAlignment = NSTextAlignmentCenter;
+//    [pvp setText:@"round 2: VasilyPetroff82 vs "];
+    
+    
+     top += CGRectGetHeight(pvp.frame) + 18.f;
     
     
     //row
@@ -372,6 +386,7 @@ static NSString* defaultZoom = @"0.85";
     [self.scrollView addSubview:bet50];
     [self.scrollView addSubview:bet100];
     [self.scrollView addSubview:self.rd];
+    [self.scrollView addSubview:pvp];
 }
 
 

@@ -13,6 +13,7 @@
 #import "RDView.h"
 #import "ExtendedLGSideMenuController.h"
 #import "PVPChatTableViewController.h"
+#import "PVPLabel.h"
 
 @interface TradeViewController : LobbyBaseViewController <UIWebViewDelegate, LGSideMenuDelegate>
 {
@@ -30,6 +31,7 @@
     
     NSTimer *tickTimer;
     
+    PVPLabel* pvp;
     
 //    WKWebView *webView;
 }
