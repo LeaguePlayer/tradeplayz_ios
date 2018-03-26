@@ -10,9 +10,14 @@
 #import "BaseButton.h"
 #import "BetButton.h"
 #import <WebKit/WebKit.h>
+#import "RDView.h"
+#import "ExtendedLGSideMenuController.h"
+#import "PVPChatTableViewController.h"
 
-@interface TradeViewController : LobbyBaseViewController <UIWebViewDelegate>
+@interface TradeViewController : LobbyBaseViewController <UIWebViewDelegate, LGSideMenuDelegate>
 {
+
+    
     NSString* sizing;
     NSString* name;
     NSString* timeBegin;
@@ -25,9 +30,13 @@
     
     NSTimer *tickTimer;
     
-    UIWebView *webView;
+    
 //    WKWebView *webView;
 }
+@property (nonatomic) int messageCount;
 @property (nonatomic) int selected_id_tour;
+@property (nonatomic, retain) UIWebView *webView;
+
+@property (strong, nonatomic) RDView *rd;
 
 @end

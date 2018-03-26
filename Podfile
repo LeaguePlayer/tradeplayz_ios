@@ -8,6 +8,7 @@ target 'TradePlayZ' do
   use_frameworks!
   	pod 'TwitterKit', '~>3.2.2'
 	pod 'TwitterCore', '~> 3.0.3'
+	pod 'LGSideMenuController'
 
   # Pods for TradePlayZ
   pod "CZPicker"
@@ -15,6 +16,7 @@ target 'TradePlayZ' do
   pod 'AFNetworking', '~> 3.0'
 #	pod 'TOWebViewController'
   pod 'Reachability', '~> 3.2'
+  pod "GTMNSStringHTMLAdditions"
   pod 'MBProgressHUD', '~> 1.0.0'
 #  pod 'MWPhotoBrowser'
    pod 'SocketRocket'

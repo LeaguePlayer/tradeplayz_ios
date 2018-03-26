@@ -453,6 +453,7 @@ static NSString* playersCellIdentifier = @"playersCell";
         
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
              [self goToTournamentsList];
+//            [self.navigationController popToRootViewControllerAnimated:YES];
             //do something when click button
         }];
         [alert addAction:okAction];
@@ -483,7 +484,8 @@ static NSString* playersCellIdentifier = @"playersCell";
                                       preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
-            [self goToTournamentsList];
+//            [self goToTournamentsList];
+            [self.navigationController popToRootViewControllerAnimated:YES];
             //do something when click button
         }];
         [alert addAction:okAction];
@@ -501,7 +503,8 @@ static NSString* playersCellIdentifier = @"playersCell";
 
 -(void)goToTournamentsList
 {
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController.navigationController setNavigationBarHidden:NO animated:NO];
+    [self.navigationController.navigationController popToRootViewControllerAnimated:YES];
 }
 
 -(void)showMorePrizes:(id)sender

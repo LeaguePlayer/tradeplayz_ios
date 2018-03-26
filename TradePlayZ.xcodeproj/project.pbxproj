@@ -14,6 +14,11 @@
 		CF5379361FB7592E006990F9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF5379351FB7592E006990F9 /* ViewController.m */; };
 		CF53793B1FB7592E006990F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF53793A1FB7592E006990F9 /* Assets.xcassets */; };
 		CF5379411FB7592E006990F9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CF5379401FB7592E006990F9 /* main.m */; };
+		CF766775205A4A67005B228D /* ExtendedLGSideMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF766774205A4A67005B228D /* ExtendedLGSideMenuController.m */; };
+		CF766779205A4CD3005B228D /* PVPChatTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF766778205A4CD3005B228D /* PVPChatTableViewController.m */; };
+		CF76677C205A5BE0005B228D /* PVPChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CF76677B205A5BE0005B228D /* PVPChatTableViewCell.m */; };
+		CF76677F205A9287005B228D /* RDView.m in Sources */ = {isa = PBXBuildFile; fileRef = CF76677E205A9287005B228D /* RDView.m */; };
+		CF7667822063B56C005B228D /* ChatButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CF7667812063B56B005B228D /* ChatButton.m */; };
 		CFBC55BF1FDFB06600A0A285 /* TournamentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CFBC55BE1FDFB06600A0A285 /* TournamentTableViewCell.m */; };
 		CFBC55C31FDFB72200A0A285 /* KLCPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = CFBC55C21FDFB72200A0A285 /* KLCPopup.m */; };
 		CFBC55C71FDFE5AE00A0A285 /* TournamentModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFBC55C61FDFE5AE00A0A285 /* TournamentModalView.m */; };
@@ -108,6 +113,16 @@
 		CF53793F1FB7592E006990F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CF5379401FB7592E006990F9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CF5379471FB75B8C006990F9 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		CF766773205A4A67005B228D /* ExtendedLGSideMenuController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExtendedLGSideMenuController.h; sourceTree = "<group>"; };
+		CF766774205A4A67005B228D /* ExtendedLGSideMenuController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExtendedLGSideMenuController.m; sourceTree = "<group>"; };
+		CF766777205A4CD3005B228D /* PVPChatTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PVPChatTableViewController.h; sourceTree = "<group>"; };
+		CF766778205A4CD3005B228D /* PVPChatTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PVPChatTableViewController.m; sourceTree = "<group>"; };
+		CF76677A205A5BE0005B228D /* PVPChatTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PVPChatTableViewCell.h; sourceTree = "<group>"; };
+		CF76677B205A5BE0005B228D /* PVPChatTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PVPChatTableViewCell.m; sourceTree = "<group>"; };
+		CF76677D205A9287005B228D /* RDView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RDView.h; sourceTree = "<group>"; };
+		CF76677E205A9287005B228D /* RDView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RDView.m; sourceTree = "<group>"; };
+		CF7667802063B56B005B228D /* ChatButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChatButton.h; sourceTree = "<group>"; };
+		CF7667812063B56B005B228D /* ChatButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChatButton.m; sourceTree = "<group>"; };
 		CFBC55BD1FDFB06600A0A285 /* TournamentTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TournamentTableViewCell.h; sourceTree = "<group>"; };
 		CFBC55BE1FDFB06600A0A285 /* TournamentTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TournamentTableViewCell.m; sourceTree = "<group>"; };
 		CFBC55C11FDFB72200A0A285 /* KLCPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLCPopup.h; sourceTree = "<group>"; };
@@ -312,6 +327,7 @@
 		CF5379301FB7592E006990F9 /* TradePlayZ */ = {
 			isa = PBXGroup;
 			children = (
+				CF766771205A4A11005B228D /* helpers */,
 				CFDB15182056638500BA4379 /* TradePlayZ.entitlements */,
 				CFFDA1B41FCD84C2000F43E2 /* models */,
 				CFFDA1AF1FCD73ED000F43E2 /* fonts */,
@@ -328,6 +344,32 @@
 				CF5379471FB75B8C006990F9 /* PrefixHeader.pch */,
 			);
 			path = TradePlayZ;
+			sourceTree = "<group>";
+		};
+		CF766771205A4A11005B228D /* helpers */ = {
+			isa = PBXGroup;
+			children = (
+				CF766772205A4A1B005B228D /* LGSideMenuController */,
+			);
+			path = helpers;
+			sourceTree = "<group>";
+		};
+		CF766772205A4A1B005B228D /* LGSideMenuController */ = {
+			isa = PBXGroup;
+			children = (
+				CF766773205A4A67005B228D /* ExtendedLGSideMenuController.h */,
+				CF766774205A4A67005B228D /* ExtendedLGSideMenuController.m */,
+			);
+			path = LGSideMenuController;
+			sourceTree = "<group>";
+		};
+		CF766776205A4CB8005B228D /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				CF766777205A4CD3005B228D /* PVPChatTableViewController.h */,
+				CF766778205A4CD3005B228D /* PVPChatTableViewController.m */,
+			);
+			path = Chat;
 			sourceTree = "<group>";
 		};
 		CFBC55C01FDFB72200A0A285 /* KLCPopup */ = {
@@ -350,6 +392,8 @@
 				CFBC55EE1FE544A200A0A285 /* TriangleView.m */,
 				CF44B68A1FECD8E8008639D7 /* HistoryModalView.h */,
 				CF44B68B1FECD8E8008639D7 /* HistoryModalView.m */,
+				CF76677D205A9287005B228D /* RDView.h */,
+				CF76677E205A9287005B228D /* RDView.m */,
 			);
 			path = UIView;
 			sourceTree = "<group>";
@@ -357,6 +401,7 @@
 		CFBC55C81FE3AFE100A0A285 /* Trade */ = {
 			isa = PBXGroup;
 			children = (
+				CF766776205A4CB8005B228D /* Chat */,
 				CFBC55C91FE3AFF300A0A285 /* TradeViewController.h */,
 				CFBC55CA1FE3AFF300A0A285 /* TradeViewController.m */,
 			);
@@ -399,6 +444,8 @@
 				CFEC7D611FD134070045768A /* BaseButton.m */,
 				CFBC55F71FE8082200A0A285 /* BetButton.h */,
 				CFBC55F81FE8082200A0A285 /* BetButton.m */,
+				CF7667802063B56B005B228D /* ChatButton.h */,
+				CF7667812063B56B005B228D /* ChatButton.m */,
 			);
 			path = UIButton;
 			sourceTree = "<group>";
@@ -553,6 +600,8 @@
 				CFBC55F51FE6869B00A0A285 /* PlayersPaddingTableViewCell.m */,
 				CFDB151C20581A9F00BA4379 /* LanguageTableViewCell.h */,
 				CFDB151D20581A9F00BA4379 /* LanguageTableViewCell.m */,
+				CF76677A205A5BE0005B228D /* PVPChatTableViewCell.h */,
+				CF76677B205A5BE0005B228D /* PVPChatTableViewCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -821,11 +870,13 @@
 				CFBC55F91FE8082200A0A285 /* BetButton.m in Sources */,
 				CFBC55C31FDFB72200A0A285 /* KLCPopup.m in Sources */,
 				CFFDA1C21FCE7382000F43E2 /* TournamentViewController.m in Sources */,
+				CF76677C205A5BE0005B228D /* PVPChatTableViewCell.m in Sources */,
 				CFBC55DF1FE3D7B300A0A285 /* SmallBaseTextField.m in Sources */,
 				CFBC55F61FE6869B00A0A285 /* PlayersPaddingTableViewCell.m in Sources */,
 				CFEC7D521FD034990045768A /* PlayersTableViewController.m in Sources */,
 				CFBC55CE1FE3BF8900A0A285 /* FAQTableViewCell.m in Sources */,
 				CFEC7D5A1FD1222A0045768A /* LoginViewController.m in Sources */,
+				CF766775205A4A67005B228D /* ExtendedLGSideMenuController.m in Sources */,
 				CFFDA1BF1FCE6E7D000F43E2 /* TournamentTableViewController.m in Sources */,
 				CFFDA1871FCBFF54000F43E2 /* MCLocalizationOneJSONFilePerLanguageDataSource.m in Sources */,
 				CF44B68C1FECD8E8008639D7 /* HistoryModalView.m in Sources */,
@@ -836,6 +887,7 @@
 				CFFDA1CC1FCEC0C3000F43E2 /* PlayersTableViewCell.m in Sources */,
 				CFBC55BF1FDFB06600A0A285 /* TournamentTableViewCell.m in Sources */,
 				CFFDA1461FCAC6D1000F43E2 /* LobbyBaseNavigationController.m in Sources */,
+				CF7667822063B56C005B228D /* ChatButton.m in Sources */,
 				CFFDA1421FCAC63B000F43E2 /* LobbyTableViewController.m in Sources */,
 				CFFDA18A1FCBFF54000F43E2 /* MCLocalization.m in Sources */,
 				CFFDA1921FCC029F000F43E2 /* MailTableViewCell.m in Sources */,
@@ -849,6 +901,7 @@
 				CFFDA1A51FCD5281000F43E2 /* FAQTableViewController.m in Sources */,
 				CFFDA1A11FCD519F000F43E2 /* LobbyBaseViewController.m in Sources */,
 				CFBC55EF1FE544A200A0A285 /* TriangleView.m in Sources */,
+				CF766779205A4CD3005B228D /* PVPChatTableViewController.m in Sources */,
 				CFF3316B1FD7D79C00DDD93E /* UIDeviceHardware.m in Sources */,
 				CF44B68F1FECEC3C008639D7 /* RecoveryPasswordViewController.m in Sources */,
 				CFBC55F31FE6615000A0A285 /* PageViewController.m in Sources */,
@@ -874,6 +927,7 @@
 				CFDB151B2058111E00BA4379 /* LanguagesTableViewController.m in Sources */,
 				CFFDA1CF1FCECE45000F43E2 /* PrizesTableViewController.m in Sources */,
 				CFFDA1491FCAC743000F43E2 /* LobbyNavigationController.m in Sources */,
+				CF76677F205A9287005B228D /* RDView.m in Sources */,
 				CFFDA1B71FCD84C9000F43E2 /* Functions.m in Sources */,
 				CFFDA19A1FCD4F72000F43E2 /* LiveChatTableViewController.m in Sources */,
 				CFBC55D11FE3C98B00A0A285 /* FAQModalView.m in Sources */,

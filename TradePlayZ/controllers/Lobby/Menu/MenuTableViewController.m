@@ -12,6 +12,7 @@
 #import "MailTableViewCell.h"
 #import "HistoryTradeTableViewController.h"
 #import "LobbyBaseNavigationController.h"
+#import "ExtendedLGSideMenuController.h"
 
 @interface MenuTableViewController ()
 @property (strong, nonatomic) NSArray* tableData;
@@ -335,11 +336,29 @@ static NSString* actionLogout = @"actionLogout";
         }
         else
         {
+            NSString* identifier = [dictionaryCell objectForKey:@"action"];
+            
+            if([identifier isEqualToString:actionTrade])
+            {
+                UINavigationController* gotNV = (UINavigationController*)self.revealViewController.frontViewController;
+                // if trade controller is open - we close it
+                for(id gotCntrl in gotNV.viewControllers)
+                    if([gotCntrl isKindOfClass:[ExtendedLGSideMenuController class]])
+                    {
+                        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+                        [self.revealViewController revealToggleAnimated:YES];
+//                        [self.revealViewController.rightViewController ]
+                         return;
+                    }
+                
+            }
+            
+            
             // переходим на другое представление
             SWRevealViewController *revealController = self.revealViewController;
            
             
-            NSString* identifier = [dictionaryCell objectForKey:@"action"];
+            
             LobbyBaseNavigationController *navController = [sb instantiateViewControllerWithIdentifier: identifier ];
 
             [revealController pushFrontViewController:navController animated:YES];

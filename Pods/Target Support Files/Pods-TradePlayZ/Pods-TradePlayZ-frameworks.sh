@@ -91,9 +91,11 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/AFNetworking/AFNetworking.framework"
   install_framework "$BUILT_PRODUCTS_DIR/CZPicker/CZPicker.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/GTMNSStringHTMLAdditions/GTMNSStringHTMLAdditions.framework"
   install_framework "$BUILT_PRODUCTS_DIR/GTMOAuth2/GTMOAuth2.framework"
   install_framework "$BUILT_PRODUCTS_DIR/GTMSessionFetcher/GTMSessionFetcher.framework"
   install_framework "$BUILT_PRODUCTS_DIR/GoogleToolboxForMac/GoogleToolboxForMac.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/LGSideMenuController/LGSideMenuController.framework"
   install_framework "$BUILT_PRODUCTS_DIR/MBProgressHUD/MBProgressHUD.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Reachability/Reachability.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SocketRocket/SocketRocket.framework"
@@ -101,9 +103,11 @@ fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/AFNetworking/AFNetworking.framework"
   install_framework "$BUILT_PRODUCTS_DIR/CZPicker/CZPicker.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/GTMNSStringHTMLAdditions/GTMNSStringHTMLAdditions.framework"
   install_framework "$BUILT_PRODUCTS_DIR/GTMOAuth2/GTMOAuth2.framework"
   install_framework "$BUILT_PRODUCTS_DIR/GTMSessionFetcher/GTMSessionFetcher.framework"
   install_framework "$BUILT_PRODUCTS_DIR/GoogleToolboxForMac/GoogleToolboxForMac.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/LGSideMenuController/LGSideMenuController.framework"
   install_framework "$BUILT_PRODUCTS_DIR/MBProgressHUD/MBProgressHUD.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Reachability/Reachability.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SocketRocket/SocketRocket.framework"

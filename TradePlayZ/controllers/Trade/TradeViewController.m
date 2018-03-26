@@ -15,13 +15,24 @@
 
 @end
 
+
+static NSString* defaultZoom = @"0.85";
+
 @implementation TradeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.hidesBackButton = YES;
-    [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     
+
+    
+    
+    
+//    [self.view addSubview:aPath];
+//     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+//
+//    self.navigationItem.hidesBackButton = YES;
+//
+//
     UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.titleLabel.numberOfLines = 0;
     [button setTitle:[MCLocalization stringForKey:@"lobby_tournament_2"] forState:UIControlStateNormal];
@@ -32,25 +43,25 @@
               action:@selector(goToLobby:)
     forControlEvents:UIControlEventTouchUpInside];
     [button sizeToFit];
-    
+//
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-    
-   
-    
-//    UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithTitle:@"TOURNAMENT\nLOBBY" style:UIBarButtonItemStylePlain target:self action:@selector(goToLobby:)];
- 
-//    self.navigationItem.rightBarButtonItem = anotherButton;
-    // Do any additional setup after loading the view.
+    self.revealViewController.sideMenuController.delegate = self;
+    self.revealViewController.delegate = self;
+    self.sideMenuController.delegate = self;
+
 
     UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"leftmenu"] style:UIBarButtonItemStylePlain target:self.revealViewController action:@selector(revealToggle:)];
-    
+
     //        self.navigationItem.leftBarButtonItem = revealButtonItem;
     self.navigationItem.leftBarButtonItem = item;
-    
-   
-    
+//
+//
+    _messageCount = 0;
+//
     [self initData];
 }
+
+
 
 -(void)viewDidDisappear:(BOOL)animated
 {
@@ -64,19 +75,55 @@
 
 -(void)tickTimer:(id)sender
 {
+
+    
     NSLog(@"tick");
     [[[APIModel alloc] init] checkStatusTournamentByID:[NSString stringWithFormat:@"%d",_selected_id_tour] andToken:self.authUser.token onSuccess:^(NSDictionary *data) {
         NSDictionary *obj = [[data objectForKey:@"response"] objectForKey:@"user"];
         
         balanceLabel.text  = [NSString stringWithFormat:@"$ %@", [obj objectForKey:@"balance"]];
+//        _socket_folder = [obj objectForKey:@"socket_folder"];
+//        _socket_private = [obj objectForKey:@"socket_private"];
+        
+//        PVPChatTableViewController* nv = (PVPChatTableViewController*)self.sideMenuController.rightViewController;
+       
+        
+        UINavigationController* nv = (UINavigationController*)self.sideMenuController.rightViewController;
+        PVPChatTableViewController* mainPVPController = (PVPChatTableViewController*)[nv.viewControllers firstObject];
+        mainPVPController.socket_folder =[obj objectForKey:@"socket_folder"];
+        mainPVPController.socket_private =[obj objectForKey:@"socket_private"];
+        
+        
+        
     } onFailure:^(NSString *error) {
         
-        
-         [self.navigationController popToRootViewControllerAnimated:YES];
+        [self.navigationController.navigationController setNavigationBarHidden:NO animated:NO];
+         [self.navigationController.navigationController popToRootViewControllerAnimated:YES];
         [self showMessage:error withTitle:[MCLocalization stringForKey:@"results"]];
         
     }];
 }
+
+//Method
+
+//-(void)showMessage:(NSString*)message withTitle:(NSString *)title
+//{
+//    UIAlertController * alert=   [UIAlertController
+//                                  alertControllerWithTitle:title
+//                                  message:message
+//                                  preferredStyle:UIAlertControllerStyleAlert];
+//    
+//    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+//        
+//        //do something when click button
+//        
+//        
+//    }];
+//    [alert addAction:okAction];
+//    UIViewController *vc = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+//    [vc presentViewController:alert animated:YES completion:nil];
+//}
+
 
 -(void)initData
 {
@@ -87,7 +134,19 @@
         name = [obj objectForKey:@"name"];
         timeBegin = [obj objectForKey:@"begin"];
         
+        
+        UINavigationController* nv = (UINavigationController*)self.sideMenuController.rightViewController;
+        PVPChatTableViewController* mainPVPController = (PVPChatTableViewController*)[nv.viewControllers firstObject];
+        mainPVPController.socket_folder =[obj objectForKey:@"socket_folder"];
+        mainPVPController.socket_private =[obj objectForKey:@"socket_private"];
+      
+        
+        mainPVPController.rusSocket.delegate = mainPVPController;
+        [mainPVPController.rusSocket open];
+        
+        
         dispatch_async(dispatch_get_main_queue(), ^{
+//            [mainPVPController getHistoryChat];
             [self buildContent];
         });
     } onFailure:^(NSString *error) {
@@ -133,9 +192,8 @@
     float spacing_horizontal = 12.5f;
     
     float top = padding_top;
-    
     //row
-    float width_label =  (SCREEN_WIDTH - (padding_left*2) - (spacing_horizontal*2))/2;
+    float width_label =  (SCREEN_WIDTH - (padding_left*2) - (spacing_horizontal*3) - 40.5f )/2;
     float height_label =  42.f;
     UILabel* nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(padding_left, top, width_label, height_label)];
     nameLabel.layer.borderColor=[UIColor colorWithRed:0.33 green:0.50 blue:0.69 alpha:1.0].CGColor;
@@ -162,6 +220,16 @@
     attributedString = [[NSMutableAttributedString alloc] initWithString:timeBeginLabel.text];
     [attributedString addAttribute:NSKernAttributeName value:@2.f range:NSMakeRange(0, [timeBeginLabel.text length])];
     [timeBeginLabel setAttributedText:attributedString];
+    
+    //
+    self.rd = [[RDView alloc] initWithFrame:CGRectMake(padding_left+width_label+spacing_horizontal+width_label+spacing_horizontal, top, 41.5f, 51)];
+    
+    //The setup code (in viewDidLoad in your view controller)
+    UITapGestureRecognizer *singleFingerTap =
+    [[UITapGestureRecognizer alloc] initWithTarget:self
+                                            action:@selector(handleSingleTap:)];
+    [self.rd addGestureRecognizer:singleFingerTap];
+
     
     top += CGRectGetHeight(timeBeginLabel.frame) + 25.f;
     
@@ -214,23 +282,24 @@
 //    webView.scrollView.scrollEnabled = NO;
 //    webView.scrollView.bounces = NO;
     
-    webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, top, SCREEN_WIDTH, 350.f)];
+    _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, top, SCREEN_WIDTH, 350.f)];
 //    webView.navigationDelegate = self;
+    _webView.delegate=self;
     
-    webView.scrollView.scrollEnabled = NO;
-    webView.scrollView.bounces = NO;
+    _webView.scrollView.scrollEnabled = NO;
+    _webView.scrollView.bounces = NO;
     
 //    NSString* currentURL = [NSString stringWithFormat:@"http://dev.tradeplayz.com/api/charts/getChart?token=%@",self.authUser.token];
     
     
-    NSURL *nsurl=[NSURL URLWithString: [NSString stringWithFormat:@"http://dev.tradeplayz.com/api/charts/getChart?token=%@&font_size=10",self.authUser.token]];
+    NSURL *nsurl=[NSURL URLWithString: [NSString stringWithFormat:@"http://dev.tradeplayz.com/api/charts/getChart?token=%@&font_size=10&defaultZoom=%@",self.authUser.token,defaultZoom]];
     NSURLRequest *nsrequest=[NSURLRequest requestWithURL:nsurl];
-    [webView loadRequest:nsrequest];
+    [_webView loadRequest:nsrequest];
 //    [self.view addSubview:webView];
     
-    [self.view addSubview:webView];
+//    [self.view addSubview:_webView];
     
-     top += CGRectGetHeight(webView.frame) + 25.f;
+     top += CGRectGetHeight(_webView.frame) + 25.f;
     
     //row
     float betButtonSize = 45.f;
@@ -269,7 +338,7 @@
     top += betButtonSize + 30.f;
     
     //row
-    float width_button = width_label;
+    float width_button =  (SCREEN_WIDTH - (padding_left*2) - (spacing_horizontal*2) )/2;
     float height_button = 55.f;
     BaseButton *upButton = [BaseButton buttonWithType:UIButtonTypeCustom];
     upButton.tag = 1;
@@ -287,7 +356,7 @@
                  action:@selector(betAction:)
        forControlEvents:UIControlEventTouchUpInside];
     [downButton setTitle:@"down" forState:UIControlStateNormal];
-    downButton.frame = CGRectMake(padding_left+width_label+spacing_horizontal , top, width_button, height_button);
+    downButton.frame = CGRectMake(padding_left+width_button+spacing_horizontal , top, width_button, height_button);
    
     top += height_button + 30.f;
     
@@ -298,27 +367,52 @@
      [self.scrollView addSubview:downButton];
     [self.scrollView addSubview:nameLabel];
      [self.scrollView addSubview:timeBeginLabel];
-    [self.scrollView addSubview:webView];
+    [self.scrollView addSubview:_webView];
      [self.scrollView addSubview:bet25];
     [self.scrollView addSubview:bet50];
     [self.scrollView addSubview:bet100];
-}
--(void)webViewDidFinishLoad:(UIWebView *)webView
-{
-    [self zoomToFit];
+    [self.scrollView addSubview:self.rd];
 }
 
-- (void)zoomToFit
+
+
+//The event handling method
+- (void)handleSingleTap:(UITapGestureRecognizer *)recognizer
 {
-    if ([webView respondsToSelector:@selector(scrollView)])
-    {
-        UIScrollView *scrollView = [webView scrollView];
-        
-        float zoom = webView.bounds.size.width / scrollView.contentSize.width;
-        scrollView.minimumZoomScale = zoom;
-        [scrollView setZoomScale:zoom animated:YES];
-    }
+//    CGPoint location = [recognizer locationInView:[recognizer.view superview]];
+    NSLog(@"handleSingleTap");
+//    [self.revealViewController swipe]
+    
+   [self.sideMenuController showRightViewAnimated:YES completionHandler:nil];
+    //Do stuff here...
 }
+
+
+-(void)webViewDidFinishLoad:(UIWebView *)webView
+{
+//    [self zoomToFit];
+//    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+//    NSString *majorVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+//    float fCost = [majorVersion floatValue];
+//
+//    NSLog(@"%f",fCost);
+//    if(fCost >= 1.030000f)
+    
+    
+        [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"document.body.style.zoom = %@;",defaultZoom]];
+}
+
+//- (void)zoomToFit
+//{
+//    if ([webView respondsToSelector:@selector(scrollView)])
+//    {
+//        UIScrollView *scrollView = [webView scrollView];
+//
+//        float zoom = webView.bounds.size.width / scrollView.contentSize.width;
+//        scrollView.minimumZoomScale = zoom;
+//        [scrollView setZoomScale:zoom animated:YES];
+//    }
+//}
 
 -(void)setSizing:(BetButton*)sender
 {
@@ -331,6 +425,14 @@
     
     [sender setActive];
 }
+
+
+
+- (void)willShowRightView:(nonnull UIView *)rightView sideMenuController:(nonnull LGSideMenuController *)sideMenuController{
+    _messageCount = 0;
+    [self.rd setCounter:@"0"];
+}
+
 
 -(void)betAction:(id)sender
 {
@@ -351,7 +453,7 @@
     NSLog(@"go to lobby");
     NSLog(@"%d",_selected_id_tour);
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    
+
     TournamentViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"tournamentView"];
     //    vc.order = model;
     vc.selectedTourId = [NSString stringWithFormat:@"%d",_selected_id_tour];

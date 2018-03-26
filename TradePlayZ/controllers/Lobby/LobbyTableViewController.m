@@ -12,6 +12,7 @@
 #import "TradeViewController.h"
 #import "TournamentModalView.h"
 #import "AppDelegate.h"
+#import "LobbyBaseNavigationController.h"
 
 @interface LobbyTableViewController () 
 @property (strong, nonatomic) NSArray* tableData;
@@ -48,13 +49,7 @@ static NSString* tournamentCellIdentifier = @"tournamentCell";
     }
     
    
-//    // test websockets
-//    NSURL *url = [NSURL URLWithString:@"ws://165.227.236.22:8090"];
-//    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-//    
-//    SRWebSocket *rusSocket = [[SRWebSocket alloc] initWithURLRequest:request];
-//    rusSocket.delegate = self;
-//    [rusSocket open];
+
     
     
     
@@ -69,18 +64,7 @@ static NSString* tournamentCellIdentifier = @"tournamentCell";
     self.title = [MCLocalization stringForKey:@"tournaments"];
 }
 
-//- (void)webSocketDidOpen:(SRWebSocket *)webSocket
-//{
-//    NSString *helloMsg = @"{\"event\":\"pusher:subscribe\",\"data\":{\"channel\":\"chat_ru\"}}";
-//    [webSocket send:helloMsg];
-//}
-//
-//- (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message
-//{
-//    message = [[message stringByReplacingOccurrencesOfString:@"///" withString:@""] stringByReplacingOccurrencesOfString:@"\\\\\\" withString:@""];
-////    message = [message gtm_stringByUnescapingFromHTML];
-//    NSLog(@"%@",message);
-//}
+
 
 
 - (void)registerCell
@@ -177,6 +161,13 @@ static NSString* tournamentCellIdentifier = @"tournamentCell";
     return cellDef;
 }
 
+//-(void)viewWillAppear:(BOOL)animated
+//{
+//    [super viewWillAppear:animated];
+//    [self.navigationController setNavigationBarHidden:NO animated:NO];
+//}
+
+
 -(void)registrationAction:(id)sender{
     NSLog(@"gehlregistrationAction");
     [_popup dismiss:YES];
@@ -239,11 +230,31 @@ static NSString* tournamentCellIdentifier = @"tournamentCell";
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     
     TradeViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"tradeController"];
-    //    vc.order = model;
-//    [_popup dismiss:YES];
+
     vc.selected_id_tour = selected_id_tournament;
-//    vc.selectedTourId = [NSString stringWithFormat:@"%d",selected_id_tournament];
-    [self.navigationController pushViewController:vc animated:YES];
+    
+    
+    
+//    UIViewController *rootViewController = [UIViewController new];
+//    UITableViewController *leftViewController = [UITableViewController new];
+    PVPChatTableViewController *rightViewController = [PVPChatTableViewController new];
+    
+    
+    LobbyBaseNavigationController *navigationController = [[LobbyBaseNavigationController alloc] initWithRootViewController:vc];
+    
+    LobbyBaseNavigationController *navigationControllerForChat = [[LobbyBaseNavigationController alloc] initWithRootViewController:rightViewController];
+    
+    ExtendedLGSideMenuController *sideMenuController = [ExtendedLGSideMenuController sideMenuControllerWithRootViewController:navigationController
+                                                                                           leftViewController:nil
+                                                                                          rightViewController:navigationControllerForChat];
+    
+
+    
+    sideMenuController.rightViewWidth = widthControllerPVPChatSide; //
+//    sideMenuController.leftViewPresentationStyle = LGSideMenuPresentationStyleSlideBelow;
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    [self.navigationController pushViewController:sideMenuController animated:YES];
+//    [self.navigationController presentViewController:sideMenuController animated:YES completion:nil];
 }
 
 -(void)goToLobbyTourAction:(id)sender{

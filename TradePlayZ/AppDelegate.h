@@ -11,6 +11,9 @@
 #import "TPZUser.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, GIDSignInDelegate>
+{
+   double timeGoToBackground;
+}
 
 @property (strong, nonatomic) UIWindow *window;
 @property (retain, nonatomic) TPZUser* tpzUser;

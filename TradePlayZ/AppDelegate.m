@@ -10,6 +10,8 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <TwitterKit/TwitterKit.h>
 #import <GooglePlus/GooglePlus.h>
+#import "ExtendedLGSideMenuController.h"
+#import "TradeViewController.h"
 
 @interface AppDelegate ()
 
@@ -107,12 +109,52 @@ didDisconnectWithUser:(GIDGoogleUser *)user
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    NSLog(@"go to bg");
+    timeGoToBackground = [[NSDate date] timeIntervalSince1970];
+    NSLog(@"%f",timeGoToBackground);
 }
 
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+    
+    
+    
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0; // unset badge number
+    NSLog(@"return to app");
+    double timeNow = [[NSDate date] timeIntervalSince1970];
+    float milliseconds_by_one_min = 60.f;
+    if( (timeGoToBackground + (milliseconds_by_one_min * 3)) <= timeNow )
+    {
+        NSLog(@"RELOAD WEBVIEW");
+        UIWindow *keyWindow = [[[UIApplication sharedApplication] delegate] window];
+        SWRevealViewController * swreal = (SWRevealViewController*)keyWindow.rootViewController;
+        UINavigationController * nv = (UINavigationController*)swreal.frontViewController;
+        if([nv.viewControllers count] >= 1)
+        {
+            for(id gotCntrl in nv.viewControllers)
+                if([gotCntrl isKindOfClass:[ExtendedLGSideMenuController class]])
+                {
+                    ExtendedLGSideMenuController *LGSideMenuC = (ExtendedLGSideMenuController*)gotCntrl;
+                    UINavigationController *nv_2 = (UINavigationController*)LGSideMenuC.rootViewController;
+                    
+                    if([nv_2.viewControllers count] >= 1)
+                    {
+                        for(id tradeViewID in nv_2.viewControllers)
+                            if([tradeViewID isKindOfClass:[TradeViewController class]])
+                            {
+                                TradeViewController *tradeViewC = (TradeViewController*)tradeViewID;
+                                NSLog(@"%@",tradeViewC);
+                                [tradeViewC.webView reload];
+                            }
+                    }
+                }
+        }
+    }
+//    else
+//        NSLog(@"do is nothing");
+    
+    
 }
 
 
