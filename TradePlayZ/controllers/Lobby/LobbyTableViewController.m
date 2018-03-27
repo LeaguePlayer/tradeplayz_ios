@@ -53,8 +53,22 @@ static NSString* tournamentCellIdentifier = @"tournamentCell";
     
     
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 35.f)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 100.f)];
     [headerView setBackgroundColor:[UIColor clearColor]];
+    
+    float height_button = 36.5f;
+    float top_padding = (CGRectGetHeight(headerView.frame) - height_button)/2;
+    float width_button = 147.5f;
+    float padding_left = (SCREEN_WIDTH - width_button)/2;
+    filterButton = [ChatButton buttonWithType:UIButtonTypeCustom];
+    filterButton.tag = 0;
+    [filterButton addTarget:self
+                    action:@selector(setFilter:)
+          forControlEvents:UIControlEventTouchUpInside];
+    [filterButton setTitle:[MCLocalization stringForKey:@"filter"] forState:UIControlStateNormal];
+    filterButton.frame = CGRectMake(padding_left, top_padding, width_button, height_button);
+    [filterButton setInactive];
+    [headerView addSubview:filterButton];
     
     self.tableView.tableHeaderView = headerView;
     
@@ -64,7 +78,26 @@ static NSString* tournamentCellIdentifier = @"tournamentCell";
     self.title = [MCLocalization stringForKey:@"tournaments"];
 }
 
+-(void)setFilter:(id)sender
+{
+    
+    
+    contentView = [[FilterModalView alloc] init];
+    
+//    contentView.titlePlace = cell.titleFAQLabel;
+//    [contentView setDescriptionText:[dictionaryCell objectForKey:@"description"]];
+    
+    contentView.frame = CGRectMake(0.0, 0.0, SCREEN_WIDTH, 300);
+    contentView.contentSize = CGSizeMake(SCREEN_WIDTH, 400);
+    
+    contentView.backgroundColor =[UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_modal"]];
+    
+    
+    
+    self.popup = [KLCPopup popupWithContentView:contentView];
+    [_popup show];
 
+}
 
 
 - (void)registerCell
@@ -289,7 +322,7 @@ static NSString* tournamentCellIdentifier = @"tournamentCell";
                forControlEvents:UIControlEventTouchUpInside];
 //    contentView.deletate = self;
     
-    selected_id_tournament = [[dictionaryCell objectForKey:@"id"] integerValue];
+    selected_id_tournament = [[dictionaryCell objectForKey:@"id"] intValue];
     
     self.popup = [KLCPopup popupWithContentView:contentView];
     [_popup show];

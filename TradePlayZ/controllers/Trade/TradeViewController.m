@@ -405,15 +405,6 @@ static NSString* defaultZoom = @"0.85";
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
-//    [self zoomToFit];
-//    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-//    NSString *majorVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-//    float fCost = [majorVersion floatValue];
-//
-//    NSLog(@"%f",fCost);
-//    if(fCost >= 1.030000f)
-    
-    
         [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"document.body.style.zoom = %@;",defaultZoom]];
 }
 

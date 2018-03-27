@@ -20,6 +20,7 @@
 		CF76677F205A9287005B228D /* RDView.m in Sources */ = {isa = PBXBuildFile; fileRef = CF76677E205A9287005B228D /* RDView.m */; };
 		CF7667822063B56C005B228D /* ChatButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CF7667812063B56B005B228D /* ChatButton.m */; };
 		CF7667892069122C005B228D /* PVPLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = CF7667882069122C005B228D /* PVPLabel.m */; };
+		CF76678D206A8E29005B228D /* FilterModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = CF76678C206A8E29005B228D /* FilterModalView.m */; };
 		CFBC55BF1FDFB06600A0A285 /* TournamentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CFBC55BE1FDFB06600A0A285 /* TournamentTableViewCell.m */; };
 		CFBC55C31FDFB72200A0A285 /* KLCPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = CFBC55C21FDFB72200A0A285 /* KLCPopup.m */; };
 		CFBC55C71FDFE5AE00A0A285 /* TournamentModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFBC55C61FDFE5AE00A0A285 /* TournamentModalView.m */; };
@@ -126,6 +127,8 @@
 		CF7667812063B56B005B228D /* ChatButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChatButton.m; sourceTree = "<group>"; };
 		CF7667872069122C005B228D /* PVPLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PVPLabel.h; sourceTree = "<group>"; };
 		CF7667882069122C005B228D /* PVPLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PVPLabel.m; sourceTree = "<group>"; };
+		CF76678B206A8E29005B228D /* FilterModalView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterModalView.h; sourceTree = "<group>"; };
+		CF76678C206A8E29005B228D /* FilterModalView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterModalView.m; sourceTree = "<group>"; };
 		CFBC55BD1FDFB06600A0A285 /* TournamentTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TournamentTableViewCell.h; sourceTree = "<group>"; };
 		CFBC55BE1FDFB06600A0A285 /* TournamentTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TournamentTableViewCell.m; sourceTree = "<group>"; };
 		CFBC55C11FDFB72200A0A285 /* KLCPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLCPopup.h; sourceTree = "<group>"; };
@@ -406,6 +409,8 @@
 				CF44B68B1FECD8E8008639D7 /* HistoryModalView.m */,
 				CF76677D205A9287005B228D /* RDView.h */,
 				CF76677E205A9287005B228D /* RDView.m */,
+				CF76678B206A8E29005B228D /* FilterModalView.h */,
+				CF76678C206A8E29005B228D /* FilterModalView.m */,
 			);
 			path = UIView;
 			sourceTree = "<group>";
@@ -927,6 +932,7 @@
 				CFFDA1961FCD48D5000F43E2 /* HistoryTradeTableViewController.m in Sources */,
 				CFDB151E20581A9F00BA4379 /* LanguageTableViewCell.m in Sources */,
 				CFFDA19E1FCD5136000F43E2 /* WithdrawViewController.m in Sources */,
+				CF76678D206A8E29005B228D /* FilterModalView.m in Sources */,
 				CF5379411FB7592E006990F9 /* main.m in Sources */,
 				CFFDA1C91FCE939C000F43E2 /* PrizeTableViewCell.m in Sources */,
 				CFBC55DC1FE3D40E00A0A285 /* BaseFieldTableViewController.m in Sources */,
