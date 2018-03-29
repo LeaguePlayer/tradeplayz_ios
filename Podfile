@@ -17,6 +17,7 @@ target 'TradePlayZ' do
 #	pod 'TOWebViewController'
   pod 'Reachability', '~> 3.2'
   pod "GTMNSStringHTMLAdditions"
+# pod "DownPicker"
   pod 'MBProgressHUD', '~> 1.0.0'
 #  pod 'MWPhotoBrowser'
    pod 'SocketRocket'

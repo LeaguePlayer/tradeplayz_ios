@@ -26,6 +26,13 @@
     return self;
 }
 
+-(void)setRedActive
+{
+    self.layer.borderColor=[UIColor colorWithRed:1.00 green:0.28 blue:0.00 alpha:1.0].CGColor;
+    self.layer.borderWidth= 2.0f;
+    [self setTitleColor:[UIColor colorWithRed:1.00 green:0.28 blue:0.00 alpha:1.0] forState:UIControlStateNormal];
+}
+
 -(void)setActive
 {
     self.layer.borderColor=[UIColor colorWithRed:0.33 green:0.50 blue:0.69 alpha:1.0].CGColor;

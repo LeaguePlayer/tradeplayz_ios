@@ -14,6 +14,9 @@
 		CF5379361FB7592E006990F9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF5379351FB7592E006990F9 /* ViewController.m */; };
 		CF53793B1FB7592E006990F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF53793A1FB7592E006990F9 /* Assets.xcassets */; };
 		CF5379411FB7592E006990F9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CF5379401FB7592E006990F9 /* main.m */; };
+		CF741FFD206B858000CCD0D1 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF741FFC206B858000CCD0D1 /* Bolts.framework */; };
+		CF742000206B87D600CCD0D1 /* FilterButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CF741FFF206B87D600CCD0D1 /* FilterButton.m */; };
+		CF742003206B932100CCD0D1 /* FilterTournamentFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = CF742002206B932100CCD0D1 /* FilterTournamentFilter.m */; };
 		CF766775205A4A67005B228D /* ExtendedLGSideMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF766774205A4A67005B228D /* ExtendedLGSideMenuController.m */; };
 		CF766779205A4CD3005B228D /* PVPChatTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF766778205A4CD3005B228D /* PVPChatTableViewController.m */; };
 		CF76677C205A5BE0005B228D /* PVPChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CF76677B205A5BE0005B228D /* PVPChatTableViewCell.m */; };
@@ -115,6 +118,11 @@
 		CF53793F1FB7592E006990F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CF5379401FB7592E006990F9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CF5379471FB75B8C006990F9 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		CF741FFC206B858000CCD0D1 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = ../../../Documents/FacebookSDK/Bolts.framework; sourceTree = "<group>"; };
+		CF741FFE206B87D600CCD0D1 /* FilterButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterButton.h; sourceTree = "<group>"; };
+		CF741FFF206B87D600CCD0D1 /* FilterButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterButton.m; sourceTree = "<group>"; };
+		CF742001206B932100CCD0D1 /* FilterTournamentFilter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterTournamentFilter.h; sourceTree = "<group>"; };
+		CF742002206B932100CCD0D1 /* FilterTournamentFilter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterTournamentFilter.m; sourceTree = "<group>"; };
 		CF766773205A4A67005B228D /* ExtendedLGSideMenuController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExtendedLGSideMenuController.h; sourceTree = "<group>"; };
 		CF766774205A4A67005B228D /* ExtendedLGSideMenuController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExtendedLGSideMenuController.m; sourceTree = "<group>"; };
 		CF766777205A4CD3005B228D /* PVPChatTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PVPChatTableViewController.h; sourceTree = "<group>"; };
@@ -281,6 +289,7 @@
 				CFF3313F1FD6A04400DDD93E /* FBSDKCoreKit.framework in Frameworks */,
 				CFF331401FD6A04400DDD93E /* FBSDKLoginKit.framework in Frameworks */,
 				C4070E42266DBC65D989BC56 /* Pods_TradePlayZ.framework in Frameworks */,
+				CF741FFD206B858000CCD0D1 /* Bolts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +308,7 @@
 		6A6B65EED8E0DC261912DBBF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CF741FFC206B858000CCD0D1 /* Bolts.framework */,
 				CFF3315F1FD6B6CE00DDD93E /* UIKit.framework */,
 				CFF3315D1FD6B6C600DDD93E /* SystemConfiguration.framework */,
 				CFF331431FD6ABE100DDD93E /* SafariServices.framework */,
@@ -463,6 +473,8 @@
 				CFBC55F81FE8082200A0A285 /* BetButton.m */,
 				CF7667802063B56B005B228D /* ChatButton.h */,
 				CF7667812063B56B005B228D /* ChatButton.m */,
+				CF741FFE206B87D600CCD0D1 /* FilterButton.h */,
+				CF741FFF206B87D600CCD0D1 /* FilterButton.m */,
 			);
 			path = UIButton;
 			sourceTree = "<group>";
@@ -735,6 +747,8 @@
 				CFF331731FD7E65800DDD93E /* NSString+MD5.m */,
 				CFF331781FD80B6000DDD93E /* TPZUserProvider.h */,
 				CFF331791FD80B6000DDD93E /* TPZUserProvider.m */,
+				CF742001206B932100CCD0D1 /* FilterTournamentFilter.h */,
+				CF742002206B932100CCD0D1 /* FilterTournamentFilter.m */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -798,6 +812,41 @@
 			knownRegions = (
 				ru,
 				en,
+				Base,
+				ar,
+				ca,
+				cs,
+				da,
+				de,
+				el,
+				en_AU,
+				en_GB,
+				es,
+				es_MX,
+				fi,
+				fr,
+				hr,
+				hu,
+				id,
+				it,
+				iw,
+				ja,
+				ko,
+				ms,
+				nb,
+				nl,
+				pl,
+				pt,
+				pt_PT,
+				ro,
+				sk,
+				sv,
+				th,
+				tr,
+				uk,
+				vi,
+				zh_CN,
+				zh_TW,
 			);
 			mainGroup = CF5379251FB7592E006990F9;
 			productRefGroup = CF53792F1FB7592E006990F9 /* Products */;
@@ -836,13 +885,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TradePlayZ-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CDBFAADA5C0FF29C328404A7 /* [CP] Copy Pods Resources */ = {
@@ -851,9 +903,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-TradePlayZ/Pods-TradePlayZ-resources.sh",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
+				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterShareExtensionUIResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TwitterKitResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TwitterShareExtensionUIResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -866,9 +925,30 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-TradePlayZ/Pods-TradePlayZ-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/CZPicker/CZPicker.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMNSStringHTMLAdditions/GTMNSStringHTMLAdditions.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/LGSideMenuController/LGSideMenuController.framework",
+				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/Reachability/Reachability.framework",
+				"${BUILT_PRODUCTS_DIR}/SocketRocket/SocketRocket.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CZPicker.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMNSStringHTMLAdditions.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LGSideMenuController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketRocket.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -934,6 +1014,8 @@
 				CFFDA19E1FCD5136000F43E2 /* WithdrawViewController.m in Sources */,
 				CF76678D206A8E29005B228D /* FilterModalView.m in Sources */,
 				CF5379411FB7592E006990F9 /* main.m in Sources */,
+				CF742003206B932100CCD0D1 /* FilterTournamentFilter.m in Sources */,
+				CF742000206B87D600CCD0D1 /* FilterButton.m in Sources */,
 				CFFDA1C91FCE939C000F43E2 /* PrizeTableViewCell.m in Sources */,
 				CFBC55DC1FE3D40E00A0A285 /* BaseFieldTableViewController.m in Sources */,
 				CFF3317A1FD80B6100DDD93E /* TPZUserProvider.m in Sources */,

@@ -236,6 +236,7 @@
         [self.navigationController popToRootViewControllerAnimated:YES];
     } onFailure:^(NSString *error) {
         NSLog(@"bad");
+        [self showMessage:error withTitle:[MCLocalization stringForKey:@"error"]];
          [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
     

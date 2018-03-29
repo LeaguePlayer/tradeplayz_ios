@@ -38,8 +38,9 @@
 
 // tours
 - (void)getTournamentsWithToken:(NSString*)token
-        onSuccess:(void(^)(NSDictionary *data))success
-        onFailure:(void(^)(NSString *error))failure;
+                      andFilter:(NSDictionary*)filters
+                      onSuccess:(void(^)(NSDictionary *data))success
+                      onFailure:(void(^)(NSString *error))failure;
 
 - (void)getTournamentInfoWithToken:(NSString*)token
                          andTourId:(NSString *)tourId

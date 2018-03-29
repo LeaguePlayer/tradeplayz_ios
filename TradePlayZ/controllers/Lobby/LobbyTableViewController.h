@@ -13,6 +13,8 @@
 #import "ExtendedLGSideMenuController.h"
 #import "ChatButton.h"
 #import "FilterModalView.h"
+#import "FilterTournamentFilter.h"
+
 //
 
 @interface LobbyTableViewController : LobbyBaseTableViewController
@@ -22,4 +24,5 @@
     FilterModalView* contentView;
 }
 @property(nonatomic,retain) KLCPopup* popup;
+@property (nonatomic, retain) FilterTournamentFilter* filterTournament;
 @end

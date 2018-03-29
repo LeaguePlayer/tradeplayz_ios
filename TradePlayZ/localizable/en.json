@@ -94,5 +94,21 @@
     
     "round":"Round",
     "filter":"Filter",
+    "no_chosen_filter":"Unspecified",
+    "please_select":"Please select",
+    "filter_cost":"Entry Fee",
+    
+    "filter_cost_value_0":"No fee",
+    "filter_cost_value_1":"Low entry (<10 ZED)",
+    "filter_cost_value_2":"Medium entry (10< <50 ZED)",
+    "filter_cost_value_3":"High entry (100< ZED)",
+    
+    "filter_type_tour":"Tournament type",
+    "filter_type_tour_value_1":"Crypto",
+    
+    "filter_type_game":"Game Type",
+    "filter_type_game_value_1":"Tournament",
+    
+    "resetFilter":"Reset parameters",
 }
 

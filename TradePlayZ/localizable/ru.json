@@ -93,6 +93,22 @@
     
     "round":"Раунд",
     "filter":"Фильтр",
+    "no_chosen_filter":"Не выбрано",
+    "please_select":"Пожалуйста выберите",
+    "filter_cost":"Стоимость",
+    
+    "filter_cost_value_0":"Бесплатные",
+    "filter_cost_value_1":"С низкой стоимостью (<10 ZED)",
+    "filter_cost_value_2":"Со средней стоимостью (10< <50 ZED)",
+    "filter_cost_value_3":"С высокой стоимостью (100< ZED)",
+    
+    "filter_type_tour":"Тип турнира",
+    "filter_type_tour_value_1":"Криптовалютный",
+    
+    "filter_type_game":"Тип игры",
+    "filter_type_game_value_1":"Турнир",
+    
+    "resetFilter":"Сбросить фильтр",
 }
 
 

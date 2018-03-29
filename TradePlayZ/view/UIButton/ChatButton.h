@@ -12,5 +12,6 @@
 
 -(void)setActive;
 -(void)setInactive;
+-(void)setRedActive;
 
 @end

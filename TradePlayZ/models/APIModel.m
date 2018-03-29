@@ -379,6 +379,7 @@ andWithUserDevice:(NSDictionary *)userDevice
 }
 
 - (void)getTournamentsWithToken:(NSString*)token
+                      andFilter:(NSDictionary*)filters
                       onSuccess:(void(^)(NSDictionary *data))success
                       onFailure:(void(^)(NSString *error))failure
 {
@@ -386,10 +387,11 @@ andWithUserDevice:(NSDictionary *)userDevice
     NSString* urlAPI = [NSString stringWithFormat:@"%@%@", DOMAIN_API, apiName];
     
     
-    NSDictionary *parameters = @{@"token": token, @"language":[MCLocalization sharedInstance].language};
+    NSDictionary *parameters = @{@"token": token, @"filters":filters, @"debug":@1, @"language":[MCLocalization sharedInstance].language};
     
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    NSLog(@"%@",urlAPI);
     NSLog(@"%@",token);
     [manager GET:urlAPI parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
         NSLog(@"JSON: %@", responseObject);

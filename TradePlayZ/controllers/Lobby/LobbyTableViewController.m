@@ -48,9 +48,11 @@ static NSString* tournamentCellIdentifier = @"tournamentCell";
         
     }
     
+    self.tableData = [[NSArray alloc] init];
    
-
-    
+    contentView = [[FilterModalView alloc] init];
+    _filterTournament = [FilterTournamentFilter new];
+    [_filterTournament loadFilter];
     
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 100.f)];
@@ -67,7 +69,12 @@ static NSString* tournamentCellIdentifier = @"tournamentCell";
           forControlEvents:UIControlEventTouchUpInside];
     [filterButton setTitle:[MCLocalization stringForKey:@"filter"] forState:UIControlStateNormal];
     filterButton.frame = CGRectMake(padding_left, top_padding, width_button, height_button);
-    [filterButton setInactive];
+    
+    if( [_filterTournament filterIsActive] )
+        [filterButton setRedActive];
+    else
+        [filterButton setInactive];
+    
     [headerView addSubview:filterButton];
     
     self.tableView.tableHeaderView = headerView;
@@ -80,9 +87,9 @@ static NSString* tournamentCellIdentifier = @"tournamentCell";
 
 -(void)setFilter:(id)sender
 {
+    [_filterTournament loadFilter];
     
     
-    contentView = [[FilterModalView alloc] init];
     
 //    contentView.titlePlace = cell.titleFAQLabel;
 //    [contentView setDescriptionText:[dictionaryCell objectForKey:@"description"]];
@@ -91,13 +98,28 @@ static NSString* tournamentCellIdentifier = @"tournamentCell";
     contentView.contentSize = CGSizeMake(SCREEN_WIDTH, 400);
     
     contentView.backgroundColor =[UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_modal"]];
+    contentView.filterTournament = _filterTournament;
     
+     [contentView configurateView];
     
     
     self.popup = [KLCPopup popupWithContentView:contentView];
+    [_popup setDidFinishDismissingCompletion:^{
+        [_filterTournament loadFilter];
+        if( [_filterTournament filterIsActive] )
+            [filterButton setRedActive];
+        else
+            [filterButton setInactive];
+        
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [self initTableData];
+    }];
+
     [_popup show];
 
 }
+
+
 
 
 - (void)registerCell
@@ -116,12 +138,12 @@ static NSString* tournamentCellIdentifier = @"tournamentCell";
 - (void)initTableData
 {
     NSMutableArray* tmpData = [[NSMutableArray alloc] init];
-    self.tableData = [[NSArray alloc] init];
-    [[[APIModel alloc] init] getTournamentsWithToken:self.authUser.token onSuccess:^(NSDictionary *data) {
+    
+    [[[APIModel alloc] init] getTournamentsWithToken:self.authUser.token andFilter:[_filterTournament getFilterIDValues] onSuccess:^(NSDictionary *data) {
         NSLog(@"%@",data);
         if( [[[data objectForKey:@"response"] objectForKey:@"redirect"] boolValue] )
         {
-            selected_id_tournament = [[[data objectForKey:@"response"] objectForKey:@"id_tour"] integerValue];
+            selected_id_tournament = [[[data objectForKey:@"response"] objectForKey:@"id_tour"] intValue];
             [self goToTradeController];
             return;
         }
@@ -135,6 +157,7 @@ static NSString* tournamentCellIdentifier = @"tournamentCell";
                                  @"registred_participants":[obj objectForKey:@"registred_players"]}];
         }
         dispatch_async(dispatch_get_main_queue(), ^{
+            self.tableData = [[NSArray alloc] init];
             self.tableData = tmpData;
             NSLog(@"%@",self.tableData);
             [self.tableView reloadData];
@@ -142,6 +165,7 @@ static NSString* tournamentCellIdentifier = @"tournamentCell";
         });
     } onFailure:^(NSString *error) {
         [self showMessage:error withTitle:[MCLocalization stringForKey:@"error"]];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
 }
 
